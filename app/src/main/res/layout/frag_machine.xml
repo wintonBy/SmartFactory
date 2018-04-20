@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <FrameLayout
+            android:background="#F6F9FE"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+                <include
+                    layout="@layout/item_machine_process_list"/>
+        </FrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="40dp"
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+</FrameLayout>

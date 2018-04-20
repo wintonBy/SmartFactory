@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="@dimen/type_pop_width"
+    android:layout_height="@dimen/type_pop_height">
+    <ImageView
+        android:layout_marginLeft="90dp"
+        android:src="@mipmap/ic_pop_up"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp" />
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="-5dp"
+        android:background="@drawable/shape_device_id"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/tv_all"
+            android:text="@string/all"
+            android:textSize="@dimen/body_text_size"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:background="#66ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/tv_normal"
+            android:text="@string/normal"
+            android:textSize="@dimen/body_text_size"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:background="#66ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/tv_error"
+            android:text="@string/error"
+            android:textSize="@dimen/body_text_size"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+        <View
+            android:background="#66ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/tv_offline"
+            android:text="@string/offline"
+            android:textSize="@dimen/body_text_size"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+
+</LinearLayout>

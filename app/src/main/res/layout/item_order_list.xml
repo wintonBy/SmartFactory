@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:padding="5dp"
+    android:layout_height="160dp">
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="4dp"
+        app:contentPaddingLeft="5dp"
+        app:contentPaddingTop="5dp"
+        app:contentPaddingBottom="5dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardElevation="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textSize="@dimen/subhead_text_size"
+            android:textColor="@color/black90"
+            android:text="订单编号：0910201220291"
+            android:id="@+id/tv_order_no"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="20dp">
+            <TextView
+                android:textSize="@dimen/body_text_size"
+                android:textColor="@color/black70"
+                android:text="订单名称：0910201220291"
+                android:id="@+id/tv_order_name"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:textSize="@dimen/body_text_size"
+                android:textColor="@color/black70"
+                android:text="客户名称：浙江前进"
+                android:id="@+id/tv_client_name"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+        <TextView
+            android:gravity="bottom"
+            android:layout_marginLeft="21dp"
+            android:layout_gravity="bottom"
+            android:id="@+id/tv_plan_time"
+            android:text="2018-03-20 23:53:54 - 2018-06-28 23:53:57"
+            android:textColor="@color/black70"
+            android:textSize="@dimen/tag_text_size"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+        <TextView
+            android:textColor="@color/black70"
+            android:textSize="@dimen/body_text_size"
+            android:layout_marginTop="50dp"
+            android:text="当前进度：20%"
+            android:id="@+id/tv_process"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp" />
+        <ImageView
+            android:layout_gravity="bottom"
+            android:src="@mipmap/ic_plan_time"
+            android:layout_width="20dp"
+            android:layout_height="16dp" />
+        <TextView
+            android:gravity="center"
+            android:textSize="12dp"
+            android:layout_gravity="top|right"
+            android:background="@drawable/tag_bg_normal"
+            android:id="@+id/tv_status"
+            android:text="进行中"
+            android:textColor="@android:color/white"
+            android:layout_width="40dp"
+            android:layout_height="20dp" />
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

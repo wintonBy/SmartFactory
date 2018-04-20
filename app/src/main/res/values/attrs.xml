@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StateView">
+        <attr name="emptyResource" format="reference" />
+        <attr name="retryResource" format="reference" />
+        <attr name="loadingResource" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="DynamicBackgroundView">
+        <attr name="ball_number" format="integer"/>
+        <attr name="view_bg" format="color"/>
+        <attr name="ball_color" format="color"/>
+        <attr name="ball_r_size" format="dimension"/>
+        <attr name="ball_speed" format="integer"/>
+    </declare-styleable>
+</resources>

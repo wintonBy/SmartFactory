@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">智能工厂</string>
+    <string name="app_slogan">专注，成就品质</string>
+    <string name="text_empty">还没有数据呢！</string>
+    <string name="text_retry">获取数据失败，点击重试！</string>
+    <string name="login">登　　录</string>
+    <string name="username">用户名</string>
+    <string name="username_hint">用户名</string>
+    <string name="password">密码</string>
+    <string name="password_hint">密码</string>
+    <string name="version_p">版本：%s</string>
+    <string name="loading">加载中...</string>
+    <string name="normal">正常</string>
+    <string name="error">异常</string>
+    <string name="offline">离线</string>
+    <string name="all">全部</string>
+    <string name="type_f">机床型号：%s</string>
+    <string name="device_no_f">设备号：%s</string>
+    <string name="device_rate_f">主轴倍率：% 4d快速倍率：% 4d进给倍率：% 4d</string>
+    <string name="machine_no">设备编号</string>
+    <string name="stuff_name">员工姓名</string>
+    <string name="production">产品</string>
+    <string name="number">数量</string>
+    <string name="order_no_f">订单编号：%s</string>
+    <string name="order_name_f">订单名称：%s</string>
+    <string name="client_name_f">客户名称：%s</string>
+    <string name="stuff_no_f">员工编号：%s</string>
+    <string name="phone_f">电话：%s</string>
+    <string name="plan_time_f">%s - %s</string>
+    <string name="device_status_desc_f">设备当前处在%s状态,已持续%s</string>
+
+    <string name="home">主页</string>
+    <string name="machine_info">加工信息</string>
+    <string name="stuff_info">员工信息</string>
+    <string name="order_manager">订单管理</string>
+    <string name="me">我</string>
+    <string name="about">关于</string>
+</resources>

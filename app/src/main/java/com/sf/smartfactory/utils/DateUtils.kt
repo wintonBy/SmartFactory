@@ -1,0 +1,35 @@
+package com.sf.smartfactory.utils
+
+import com.wasu.iutils.TimeUtils
+import java.text.SimpleDateFormat
+import java.util.*
+
+/**
+ * @author: winton
+ * @time: 2018/4/9 18:33
+ * @package: com.sf.smartfactory.utils
+ * @project: SmartFactory
+ * @mail:
+ * @describe: 一句话描述
+ */
+public object DateUtils{
+
+    /**
+     * 获取今天的起始long
+     */
+    fun getTodayStart() :Long{
+        var result :Long = 0;
+        var strFormat = SimpleDateFormat("yyyy-MM-dd");
+        var todayStart:String = strFormat.format(Date());
+        result = TimeUtils.getMillis(todayStart,0,0);
+        return result;
+    }
+
+    fun getTodayEnd() :Long{
+        var result:Long
+        result = TimeUtils.getMillis(getTodayStart(),24 * 60 * 60,1000);
+        return result;
+    }
+
+
+}
