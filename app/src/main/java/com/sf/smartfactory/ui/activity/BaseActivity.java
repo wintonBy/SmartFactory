@@ -18,7 +18,7 @@ import java.lang.ref.WeakReference;
  */
 
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IView {
-
+    final String TAG = this.getClass().getSimpleName();
     protected P mPresenter;
     protected WeakReference<Activity> mActivity;
 

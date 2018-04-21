@@ -16,7 +16,8 @@
     <string name="all">全部</string>
     <string name="type_f">机床型号：%s</string>
     <string name="device_no_f">设备号：%s</string>
-    <string name="device_rate_f">主轴倍率：% 4d快速倍率：% 4d进给倍率：% 4d</string>
+    <string name="device_rate_d">主轴倍率:--- 快速倍率:--- 进给倍率:--- </string>
+    <string name="device_rate_f">主轴倍率:% 5d 快速倍率:% 5d 进给倍率:% 5d </string>
     <string name="machine_no">设备编号</string>
     <string name="stuff_name">员工姓名</string>
     <string name="production">产品</string>

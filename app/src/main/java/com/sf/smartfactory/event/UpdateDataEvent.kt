@@ -6,7 +6,7 @@ package com.sf.smartfactory.event
  * @package: com.sf.smartfactory.event
  * @project: SmartFactory
  * @mail:
- * @describe: 一句话描述
+ * @describe: 全局的界面刷新消息
  */
 
 public class UpdateDataEvent constructor(){

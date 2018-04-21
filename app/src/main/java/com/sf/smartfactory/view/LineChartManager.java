@@ -66,6 +66,9 @@ public class LineChartManager  {
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setDrawInside(false);
+        //设置图描述
+        Description description = lineChart.getDescription();
+        description.setText("");
         //XY轴的设置
         //X轴设置显示位置在底部
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -151,6 +154,7 @@ public class LineChartManager  {
         if(ObjectUtils.isEmpty(dataSets)){
             return;
         }
+
         LineData lineData = new LineData(dataSets);
         lineChart.setData(lineData);
         lineChart.invalidate();

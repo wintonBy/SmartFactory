@@ -64,7 +64,7 @@ import butterknife.OnClick;
  * @package: com.sf.smartfactory.ui.activity
  * @project: SmartFactory
  * @mail:
- * @describe: 一句话描述
+ * @describe: 设备详情页
  */
 public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> implements DeviceDetailContract.View {
 
@@ -285,6 +285,10 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
                 j++;
             }
         }
+        if(j ==0){
+            LogUtils.dTag(TAG,"设备倍率数据为空");
+            return;
+        }
         LineDataSet line1 = new LineDataSet(mAxisRate,ratesName.get(0));
         LineDataSet line2 = new LineDataSet(mFastRate,ratesName.get(1));
         LineDataSet line3 = new LineDataSet(mFeedRate,ratesName.get(2));
@@ -293,7 +297,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
         line3.setColor(lineColors.get(2));
         line1.setCircleRadius(1f);
         line2.setCircleRadius(1f);
-        line3.setCircleRadius(2f);
+        line3.setCircleRadius(1f);
         List<ILineDataSet> dataSets = new ArrayList<>(3);
         dataSets.add(line1);
         dataSets.add(line2);

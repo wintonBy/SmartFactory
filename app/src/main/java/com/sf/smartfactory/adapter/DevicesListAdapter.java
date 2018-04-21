@@ -1,17 +1,9 @@
 package com.sf.smartfactory.adapter;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +17,6 @@ import com.sf.smartfactory.network.bean.ParamsBean;
 import com.sf.smartfactory.utils.DeviceUtils;
 import com.sf.smartfactory.utils.DrawableUtils;
 import com.wasu.iutils.ObjectUtils;
-import com.wasu.iutils.SpanUtils;
-import com.wasu.iutils.StringUtils;
 
 import java.util.List;
 
@@ -84,7 +74,6 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
         public DevicesViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
-            mTVDeviceRate.setVisibility(View.INVISIBLE);
         }
 
         /**
@@ -92,23 +81,25 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
          * @param item
          */
         public void bindDeviceData(DeviceStatus item){
+            clearRate();
             if(ObjectUtils.isEmpty(item)){
                 return;
             }
             mTVDeviceStatus.setText(DeviceUtils.INSTANCE.getStatusArrName(item.getStatus()));
+            mTVDeviceStatus.setBackground(getTagBgByType(item.getStatus()));
+
             if(!ObjectUtils.isEmpty(item.getDevice())){
                 //获取设备参数
                 mTVDeviceType.setText(String.format(mContext.getResources().getString(R.string.type_f),item.getDevice().getType().toUpperCase()));
                 String orgStr = String.format(mContext.getResources().getString(R.string.device_no_f),item.getDevice().getId());
                 mTVDeviceNum.setText(orgStr);
                 String imgUrl = DeviceUtils.INSTANCE.getImageByType(item.getDevice().getType());
-                mIVDevice.setBackgroundDrawable(getBgByType(item.getStatus()));
+                mIVDevice.setBackgroundDrawable(getDeviceBgByType(item.getStatus()));
                 Glide.with(mContext).asDrawable().load(imgUrl).into(mIVDevice);
             }
             if(!ObjectUtils.isEmpty(item.getExtend())){
                 //获取扩展参数
                 if(!ObjectUtils.isEmpty(item.getExtend().getParams())){
-                    mTVDeviceRate.setVisibility(View.VISIBLE);
                     ParamsBean paramsBean = item.getExtend().getParams();
                     mTVDeviceRate.setText(String.format(mContext.getResources().getString(R.string.device_rate_f),
                                         paramsBean.getAxis_rate(),
@@ -119,8 +110,23 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
             }
 
         }
+
+        /**
+         * 设置倍率的默认值
+         */
+        private void clearRate(){
+            mTVDeviceRate.setText(mContext.getResources().getString(R.string.device_rate_d));
+        }
     }
-    private Drawable getBgByType(String status){
+
+
+
+    /**
+     * 根据类型设置设备背景颜色
+     * @param status
+     * @return
+     */
+    private Drawable getDeviceBgByType(String status){
         int colorId = R.color.normal_color;
         if(DeviceStatus.OFFLINE.equals(status)){
             colorId = R.color.offline_color;
@@ -138,6 +144,31 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
             colorId = R.color.idle_color;
         }
         return DrawableUtils.INSTANCE.changeDrawableColor(mContext,R.drawable.device_img_bg,colorId);
+    }
+
+    /**
+     * 根据状态类型设置Tag背景颜色
+     * @param status
+     * @return
+     */
+    private Drawable getTagBgByType(String status){
+        int colorId = R.color.normal_color;
+        if(DeviceStatus.OFFLINE.equals(status)){
+            colorId = R.color.offline_color;
+        }
+        if(DeviceStatus.PAUSE.equals(status)){
+            colorId = R.color.pause_color;
+        }
+        if(DeviceStatus.EDITING.equals(status)){
+            colorId = R.color.editing_color;
+        }
+        if(DeviceStatus.WORKING.equals(status)){
+            colorId = R.color.working_color;
+        }
+        if(DeviceStatus.IDLE.equals(status)){
+            colorId = R.color.idle_color;
+        }
+        return DrawableUtils.INSTANCE.changeDrawableColor(mContext,R.drawable.tag_bg,colorId);
     }
 
 
