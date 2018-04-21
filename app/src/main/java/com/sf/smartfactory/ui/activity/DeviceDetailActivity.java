@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.icu.util.TimeUnit;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,13 +31,18 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.renderer.HorizontalBarChartRenderer;
 import com.sf.smartfactory.R;
+import com.sf.smartfactory.adapter.ChartsAdapter;
 import com.sf.smartfactory.contract.DeviceDetailContract;
+import com.sf.smartfactory.event.DeviceTimeEvent;
 import com.sf.smartfactory.event.UpdateDataEvent;
 import com.sf.smartfactory.network.bean.DeviceStatus;
 import com.sf.smartfactory.network.bean.LastStatus;
 import com.sf.smartfactory.network.bean.OEE;
 import com.sf.smartfactory.network.response.TimeResponse;
 import com.sf.smartfactory.presenter.DeviceDetailPresenter;
+import com.sf.smartfactory.ui.fragment.DeviceOeeFragment;
+import com.sf.smartfactory.ui.fragment.DeviceRateFragment;
+import com.sf.smartfactory.ui.fragment.DeviceRunTimeFragment;
 import com.sf.smartfactory.utils.DateUtils;
 import com.sf.smartfactory.utils.DeviceUtils;
 import com.sf.smartfactory.view.LineChartManager;
@@ -76,20 +83,10 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     TextView mTVStatus;
     @BindView(R.id.iv_device)
     ImageView mIVDevice;
-    @BindView(R.id.oee)
-    ArcProgress mAPOEE;
-    @BindView(R.id.ae)
-    ArcProgress mAPAE;
-    @BindView(R.id.pe)
-    ArcProgress mAPPE;
-    @BindView(R.id.qe)
-    ArcProgress mAPQE;
     @BindView(R.id.tv_title)
     TextView mTVTitle;
-    @BindView(R.id.pie)
-    PieChart mPCSummary;
-    @BindView(R.id.line_chart)
-    LineChart mLineChart;
+    @BindView(R.id.vp_charts)
+    ViewPager mVPCharts;
 
     private String deviceId;
     private long start;
@@ -103,6 +100,8 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     private List<Integer> lineColors;
     private LineChartManager lineChartManager;
     private List<String> mTimes;
+    private ChartsAdapter mAdapter;
+    private List<Fragment> mChartsFrag;
 
     /**
      * 进入详情页的方法
@@ -134,58 +133,45 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     @Override
     protected void initData() {
         super.initData();
-        mTVTitle.setText("设备详情");
-        String strStart = TimeUtils.millis2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy-MM-dd"));
-        start = TimeUtils.getMillis(strStart,new SimpleDateFormat("yyyy-MM-dd"),0,0);
-        initPieSummary();
-        initDeviceRate();
         startParams = getIntent().getExtras();
         deviceId = startParams.getString("deviceId");
+        mTVTitle.setText("设备详情");
+        mChartsFrag = new ArrayList<>();
+        initChartsFrag();
+        mAdapter = new ChartsAdapter(getSupportFragmentManager(),mChartsFrag);
+        mVPCharts.setAdapter(mAdapter);
+        String strStart = TimeUtils.millis2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy-MM-dd"));
+        start = TimeUtils.getMillis(strStart,new SimpleDateFormat("yyyy-MM-dd"),0,0);
+//        initDeviceRate();
         loadData();
     }
-    private void initPieSummary(){
-        deviceSummery = new ArrayList<>();
-        mChartColors = new ArrayList<>();
-        mChartColors.add(ContextCompat.getColor(this,R.color.working_color));
-        mChartColors.add(ContextCompat.getColor(this,R.color.editing_color));
-        mChartColors.add(ContextCompat.getColor(this,R.color.idle_color));
-        mChartColors.add(ContextCompat.getColor(this,R.color.pause_color));
-        mChartColors.add(ContextCompat.getColor(this,R.color.collect_error_color));
-        mChartColors.add(ContextCompat.getColor(this,R.color.offline_color));
-        mChartColors.add(ContextCompat.getColor(this,R.color.emergency_color));
-        mChartColors.add(ContextCompat.getColor(this,R.color.overhaul_color));
 
-        pieDataSet = new PieDataSet(deviceSummery,"");
-        pieDataSet.setColors(mChartColors);
-        PieData pieData = new PieData(pieDataSet);
-        pieData.setValueTextColor(Color.WHITE);
-        pieData.setValueTextSize(14);
-        mPCSummary.setData(pieData);
-        Legend legend = mPCSummary.getLegend();
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        Description description = new Description();
-        description.setText("");
-        mPCSummary.setDescription(description);
-        mPCSummary.setDrawCenterText(false);
-        mPCSummary.setUsePercentValues(true);
-        mPCSummary.setDrawEntryLabels(false);
+    /**
+     * 初始化图表的碎片
+     */
+    private void initChartsFrag(){
+        Bundle commonParams = new Bundle();
+        commonParams.putString("deviceId",deviceId);
+        mChartsFrag.add(DeviceRunTimeFragment.newInstance(commonParams));
+        mChartsFrag.add(DeviceRateFragment.newInstance(commonParams));
+//        mChartsFrag.add(DeviceOeeFragment.newInstance(commonParams));
     }
 
+
     private void initDeviceRate(){
-        ratesName = new ArrayList<>();
-        ratesName.add("主轴倍率");
-        ratesName.add("快速倍率");
-        ratesName.add("供给倍率");
-        lineColors = new ArrayList<>();
-        mTimes = new ArrayList<>();
-        lineColors.add(Color.parseColor("#C23531"));
-        lineColors.add(Color.parseColor("#2F4554"));
-        lineColors.add(Color.parseColor("#61A0A8"));
-        mAxisRate = new ArrayList<>();
-        mFastRate = new ArrayList<>();
-        mFeedRate = new ArrayList<>();
-        lineChartManager = new LineChartManager(mLineChart);
+//        ratesName = new ArrayList<>();
+//        ratesName.add("主轴倍率");
+//        ratesName.add("快速倍率");
+//        ratesName.add("供给倍率");
+//        lineColors = new ArrayList<>();
+//        mTimes = new ArrayList<>();
+//        lineColors.add(Color.parseColor("#C23531"));
+//        lineColors.add(Color.parseColor("#2F4554"));
+//        lineColors.add(Color.parseColor("#61A0A8"));
+//        mAxisRate = new ArrayList<>();
+//        mFastRate = new ArrayList<>();
+//        mFeedRate = new ArrayList<>();
+//        lineChartManager = new LineChartManager(mLineChart);
     }
 
     @Override
@@ -228,83 +214,52 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     }
 
     @Override
-    public void setOEEInfo(OEE oeeInfo) {
-        if(ObjectUtils.isEmpty(oeeInfo)){
-            return;
-        }
-        mAPOEE.setProgress(oeeInfo.getOee());
-        mAPAE.setProgress(oeeInfo.getAe());
-        mAPPE.setProgress(oeeInfo.getPe());
-        mAPQE.setProgress(oeeInfo.getQe());
-    }
-
-    @Override
     public void showError(String msg) {
         if(StringUtils.isTrimEmpty(msg)){
             return;
         }
         SnackbarUtils.with(getWindow().getDecorView()).setMessage(msg).showError();
     }
-
-    @Override
-    public void setRunSummary(TimeResponse.Summary summary) {
-        deviceSummery.clear();
-        if(ObjectUtils.isEmpty(summary)){
-            return;
-        }
-        deviceSummery.add(new PieEntry(summary.getWorking(),"运行"));
-        deviceSummery.add(new PieEntry(summary.getEditing(),"设置"));
-        deviceSummery.add(new PieEntry(summary.getIdle(),"空闲"));
-        deviceSummery.add(new PieEntry(summary.getPause(),"暂停"));
-        deviceSummery.add(new PieEntry(summary.getCollect_err(),"采集异常"));
-        deviceSummery.add(new PieEntry(summary.getOffline(),"离线"));
-        deviceSummery.add(new PieEntry(summary.getEmergency(),"急停"));
-        deviceSummery.add(new PieEntry(summary.getOverhaul(),"检修"));
-        mPCSummary.notifyDataSetChanged();
-        mPCSummary.invalidate();
-    }
-
-    @Override
     public void setDeviceRate(List<TimeResponse.Device> devices) {
-        mAxisRate.clear();
-        mFeedRate.clear();
-        mFastRate.clear();
-        mTimes.clear();
-        int j = 0;
-        for(int i =0;i<devices.size();i+=20){
-            TimeResponse.Device device = devices.get(i);
-            if(device != null && device.getData() != null && device.getData().getParams() != null){
-                int axis = device.getData().getParams().getAxis_rate();
-                int fast = device.getData().getParams().getFast_rate();
-                int feed = device.getData().getParams().getFeed_rate();
-                LogUtils.dTag("LineChart","时间转换："+device.getCreateDt());
-                mTimes.add(device.getCreateDt());
-                mAxisRate.add(new Entry(j,axis));
-                mFastRate.add(new Entry(j,fast));
-                mFeedRate.add(new Entry(j,feed));
-                j++;
-            }
-        }
-        if(j ==0){
-            LogUtils.dTag(TAG,"设备倍率数据为空");
-            return;
-        }
-        LineDataSet line1 = new LineDataSet(mAxisRate,ratesName.get(0));
-        LineDataSet line2 = new LineDataSet(mFastRate,ratesName.get(1));
-        LineDataSet line3 = new LineDataSet(mFeedRate,ratesName.get(2));
-        line1.setColor(lineColors.get(0));
-        line2.setColor(lineColors.get(1));
-        line3.setColor(lineColors.get(2));
-        line1.setCircleRadius(1f);
-        line2.setCircleRadius(1f);
-        line3.setCircleRadius(1f);
-        List<ILineDataSet> dataSets = new ArrayList<>(3);
-        dataSets.add(line1);
-        dataSets.add(line2);
-        dataSets.add(line3);
-        lineChartManager.setTimes(mTimes);
-        lineChartManager.setXAxis(mTimes.size()-1,0,6);
-        lineChartManager.showLineChart(dataSets);
+//        mAxisRate.clear();
+//        mFeedRate.clear();
+//        mFastRate.clear();
+//        mTimes.clear();
+//        int j = 0;
+//        for(int i =0;i<devices.size();i+=20){
+//            TimeResponse.Device device = devices.get(i);
+//            if(device != null && device.getData() != null && device.getData().getParams() != null){
+//                int axis = device.getData().getParams().getAxis_rate();
+//                int fast = device.getData().getParams().getFast_rate();
+//                int feed = device.getData().getParams().getFeed_rate();
+//                LogUtils.dTag("LineChart","时间转换："+device.getCreateDt());
+//                mTimes.add(device.getCreateDt());
+//                mAxisRate.add(new Entry(j,axis));
+//                mFastRate.add(new Entry(j,fast));
+//                mFeedRate.add(new Entry(j,feed));
+//                j++;
+//            }
+//        }
+//        if(j ==0){
+//            LogUtils.dTag(TAG,"设备倍率数据为空");
+//            return;
+//        }
+//        LineDataSet line1 = new LineDataSet(mAxisRate,ratesName.get(0));
+//        LineDataSet line2 = new LineDataSet(mFastRate,ratesName.get(1));
+//        LineDataSet line3 = new LineDataSet(mFeedRate,ratesName.get(2));
+//        line1.setColor(lineColors.get(0));
+//        line2.setColor(lineColors.get(1));
+//        line3.setColor(lineColors.get(2));
+//        line1.setCircleRadius(1f);
+//        line2.setCircleRadius(1f);
+//        line3.setCircleRadius(1f);
+//        List<ILineDataSet> dataSets = new ArrayList<>(3);
+//        dataSets.add(line1);
+//        dataSets.add(line2);
+//        dataSets.add(line3);
+//        lineChartManager.setTimes(mTimes);
+//        lineChartManager.setXAxis(mTimes.size()-1,0,6);
+//        lineChartManager.showLineChart(dataSets);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

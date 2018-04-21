@@ -16,6 +16,13 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.sf.smartfactory.R;
+import com.sf.smartfactory.event.DeviceTimeEvent;
+import com.sf.smartfactory.network.response.TimeResponse;
+import com.wasu.iutils.ObjectUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +41,10 @@ import butterknife.ButterKnife;
 public class DeviceRunTimeFragment extends BaseFragment {
 
     @BindView(R.id.pie_device_run)
-    PieChart mPCSummary;
+    PieChart mPCRun;
 
     private Bundle startParams;
+    private String deviceId;
 
     private List<PieEntry> deviceSummery;
     private List<Integer> mChartColors;
@@ -49,9 +57,10 @@ public class DeviceRunTimeFragment extends BaseFragment {
      */
     public static DeviceRunTimeFragment newInstance(Bundle params){
         DeviceRunTimeFragment instance = new DeviceRunTimeFragment();
-        if(params != null){
-            instance.setArguments(params);
+        if(params == null){
+            throw new IllegalArgumentException("params must be not null");
         }
+        instance.setArguments(params);
         return instance;
     }
 
@@ -66,8 +75,20 @@ public class DeviceRunTimeFragment extends BaseFragment {
 
     private void initData(){
         startParams = getArguments();
-
+        deviceId = startParams.getString("deviceId");
         initPieSummary();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -90,15 +111,49 @@ public class DeviceRunTimeFragment extends BaseFragment {
         PieData pieData = new PieData(pieDataSet);
         pieData.setValueTextColor(Color.WHITE);
         pieData.setValueTextSize(14);
-        mPCSummary.setData(pieData);
-        Legend legend = mPCSummary.getLegend();
+        mPCRun.setData(pieData);
+        Legend legend = mPCRun.getLegend();
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         Description description = new Description();
         description.setText("");
-        mPCSummary.setDescription(description);
-        mPCSummary.setDrawCenterText(false);
-        mPCSummary.setUsePercentValues(true);
-        mPCSummary.setDrawEntryLabels(false);
+        mPCRun.setDescription(description);
+        mPCRun.setDrawCenterText(false);
+        mPCRun.setUsePercentValues(true);
+        mPCRun.setDrawEntryLabels(false);
+        mPCRun.setRotationEnabled(false);
+        mPCRun.setHoleRadius(0f);
+        mPCRun.setNoDataText("暂无数据");
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onSummaryData(DeviceTimeEvent event){
+        if(deviceId != event.getDeviceId()){
+            return;
+        }
+        if(event.isError()){
+            showError();
+        }
+       setRunSummary(event.getRunTimeSummary());
+    }
+    public void setRunSummary(TimeResponse.Summary summary) {
+        deviceSummery.clear();
+        if(ObjectUtils.isEmpty(summary)){
+            return;
+        }
+        deviceSummery.add(new PieEntry(summary.getWorking(),"运行"));
+        deviceSummery.add(new PieEntry(summary.getEditing(),"设置"));
+        deviceSummery.add(new PieEntry(summary.getIdle(),"空闲"));
+        deviceSummery.add(new PieEntry(summary.getPause(),"暂停"));
+        deviceSummery.add(new PieEntry(summary.getCollect_err(),"采集异常"));
+        deviceSummery.add(new PieEntry(summary.getOffline(),"离线"));
+        deviceSummery.add(new PieEntry(summary.getEmergency(),"急停"));
+        deviceSummery.add(new PieEntry(summary.getOverhaul(),"检修"));
+        mPCRun.notifyDataSetChanged();
+        mPCRun.invalidate();
+    }
+
+    private void showError(){
+
     }
 }

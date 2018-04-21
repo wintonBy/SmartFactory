@@ -1,6 +1,8 @@
 package com.sf.smartfactory.presenter;
 
 import com.sf.smartfactory.contract.DeviceDetailContract;
+import com.sf.smartfactory.event.DeviceOeeEvent;
+import com.sf.smartfactory.event.DeviceTimeEvent;
 import com.sf.smartfactory.network.BaseSubscriber;
 import com.sf.smartfactory.network.RetrofitClient;
 import com.sf.smartfactory.network.response.LastStatusResponse;
@@ -11,13 +13,15 @@ import com.wasu.iutils.ObjectUtils;
 import com.wasu.iutils.StringUtils;
 import com.wasu.iutils.ToastUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 /**
  * @author: winton
  * @time: 2018/4/7 23:27
  * @package: com.sf.smartfactory.presenter
  * @project: SmartFactory
  * @mail:
- * @describe: 一句话描述
+ * @describe: 设备详情Presenter
  */
 public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> implements DeviceDetailContract.Presenter {
 
@@ -46,14 +50,14 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
     }
 
     @Override
-    public void loadTimes(String deviceId, long start, long end) {
+    public void loadTimes(final String deviceId, long start, long end) {
         RetrofitClient.getInstance().time(deviceId,start,end,new BaseSubscriber<TimeResponse>(){
             @Override
             public void onNext(TimeResponse timeResponse) {
                 super.onNext(timeResponse);
                 if(timeResponse.isSuccess() && timeResponse.getData() != null){
-                    getView().setRunSummary(timeResponse.getData().getSummary());
-                    getView().setDeviceRate(timeResponse.getData().getDeviceValues());
+                    DeviceTimeEvent event = new DeviceTimeEvent(deviceId,true,timeResponse.getData().getSummary());
+                    EventBus.getDefault().post(event);
                     return;
                 }
                 getView().showError("数据异常");
@@ -62,18 +66,21 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
+                DeviceTimeEvent event = new DeviceTimeEvent(deviceId,false,null);
+                EventBus.getDefault().post(event);
             }
         });
     }
 
     @Override
-    public void loadOEE(String deviceId, long start, long end) {
+    public void loadOEE(final String deviceId, long start, long end) {
         RetrofitClient.getInstance().oee(deviceId,start,end,new BaseSubscriber<OEEResponse>(){
             @Override
             public void onNext(OEEResponse oeeResponse) {
                 super.onNext(oeeResponse);
                 if(oeeResponse.isSuccess() && !ObjectUtils.isEmpty(oeeResponse.getData())){
-                    getView().setOEEInfo(oeeResponse.getData().getOee());
+//                    DeviceOeeEvent event = new DeviceOeeEvent(deviceId,true,oeeResponse.getData().getOee());
+//                    EventBus.getDefault().post(event);
                     return;
                 }
                 getView().showError("数据异常");
@@ -82,6 +89,8 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
+                DeviceOeeEvent event = new DeviceOeeEvent(deviceId,false,null);
+                EventBus.getDefault().post(event);
             }
         });
     }

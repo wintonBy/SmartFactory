@@ -25,28 +25,11 @@ public interface DeviceDetailContract {
         void setDeviceInfo(LastStatus status);
 
         /**
-         * 设置oee信息
-         * @param oeeInfo
-         */
-        void setOEEInfo(OEE oeeInfo);
-
-        /**
          * 显示错误
          * @param msg
          */
         void showError(String msg);
 
-        /**
-         * 展示设备运行状况概要
-         * @param summary
-         */
-        void setRunSummary(TimeResponse.Summary summary);
-
-        /**
-         * 显示设备轴吕
-         * @param devices
-         */
-        void setDeviceRate(List<TimeResponse.Device> devices);
 
     }
     interface Presenter{

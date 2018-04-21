@@ -7,6 +7,6 @@ import android.support.v4.app.Fragment;
  * Fragment 基类
  */
 public class BaseFragment extends Fragment{
-
+    final String TAG = this.getClass().getSimpleName();
 }
 

@@ -8,6 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.event.DeviceOeeEvent;
 import com.sf.smartfactory.network.bean.OEE;
@@ -16,6 +22,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -28,10 +38,13 @@ import butterknife.ButterKnife;
  */
 public class DeviceOeeFragment extends BaseFragment {
 
+    @BindView(R.id.bc_oee)
+    BarChart mBCOEE;
+
+
     private Bundle startParams;
     private String deviceId;
-    private BarChart mBCOEE;
-
+    private List<BarEntry> barEntries;
 
     /**
      * 获取该类的实例
@@ -62,13 +75,41 @@ public class DeviceOeeFragment extends BaseFragment {
         initOEEChart();
     }
     private void initOEEChart(){
-
+        barEntries = new ArrayList<>(4);
+        BarDataSet barDataSet = new BarDataSet(barEntries,"");
+        BarData barData = new BarData(barDataSet);
+        mBCOEE.setData(barData);
+        XAxis xAxis = mBCOEE.getXAxis();
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                if(value <1){
+                    return "OEE";
+                }
+                if(value <2){
+                    return "QE";
+                }
+                if(value <3){
+                    return "PE";
+                }
+                if(value <4){
+                    return "AE";
+                }
+                return "未知";
+            }
+        });
     }
 
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -84,7 +125,13 @@ public class DeviceOeeFragment extends BaseFragment {
     }
 
     private void showOEE(OEE oee){
-
+        barEntries.clear();
+        barEntries.add(new BarEntry(0,oee.getOee()));
+        barEntries.add(new BarEntry(1,oee.getQe()));
+        barEntries.add(new BarEntry(2,oee.getPe()));
+        barEntries.add(new BarEntry(3,oee.getAe()));
+        mBCOEE.notifyDataSetChanged();
+        mBCOEE.invalidate();
     }
     private void showError(){
 
