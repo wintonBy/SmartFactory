@@ -2,11 +2,14 @@ package com.sf.smartfactory.presenter;
 
 import com.sf.smartfactory.contract.DeviceDetailContract;
 import com.sf.smartfactory.event.DeviceOeeEvent;
+import com.sf.smartfactory.event.DeviceRateEvent;
 import com.sf.smartfactory.event.DeviceTimeEvent;
 import com.sf.smartfactory.network.BaseSubscriber;
 import com.sf.smartfactory.network.RetrofitClient;
+import com.sf.smartfactory.network.bean.RunTimeSummary;
 import com.sf.smartfactory.network.response.LastStatusResponse;
 import com.sf.smartfactory.network.response.OEEResponse;
+import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
 import com.sf.smartfactory.network.response.TimeResponse;
 import com.sf.smartfactory.ui.activity.DeviceDetailActivity;
 import com.wasu.iutils.ObjectUtils;
@@ -56,8 +59,8 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
             public void onNext(TimeResponse timeResponse) {
                 super.onNext(timeResponse);
                 if(timeResponse.isSuccess() && timeResponse.getData() != null){
-                    DeviceTimeEvent event = new DeviceTimeEvent(deviceId,true,timeResponse.getData().getSummary());
-                    EventBus.getDefault().post(event);
+                    DeviceRateEvent rateEvent = new DeviceRateEvent(deviceId,false,timeResponse.getData().getDeviceValues());
+                    EventBus.getDefault().post(rateEvent);
                     return;
                 }
                 getView().showError("数据异常");
@@ -66,7 +69,7 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                DeviceTimeEvent event = new DeviceTimeEvent(deviceId,false,null);
+                DeviceTimeEvent event = new DeviceTimeEvent(deviceId,true,null);
                 EventBus.getDefault().post(event);
             }
         });
@@ -79,8 +82,8 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
             public void onNext(OEEResponse oeeResponse) {
                 super.onNext(oeeResponse);
                 if(oeeResponse.isSuccess() && !ObjectUtils.isEmpty(oeeResponse.getData())){
-//                    DeviceOeeEvent event = new DeviceOeeEvent(deviceId,true,oeeResponse.getData().getOee());
-//                    EventBus.getDefault().post(event);
+                    DeviceOeeEvent event = new DeviceOeeEvent(deviceId,false,oeeResponse.getData().getOee());
+                    EventBus.getDefault().post(event);
                     return;
                 }
                 getView().showError("数据异常");
@@ -89,8 +92,31 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                DeviceOeeEvent event = new DeviceOeeEvent(deviceId,false,null);
+                DeviceOeeEvent event = new DeviceOeeEvent(deviceId,true,null);
                 EventBus.getDefault().post(event);
+            }
+        });
+    }
+
+    @Override
+    public void loadTimeSummary(final String deviceId) {
+        long start = 0;
+        long end = System.currentTimeMillis();
+        RetrofitClient.getInstance().timeSummary(deviceId,start,end,new BaseSubscriber<RunTimeSummaryResponse>(){
+            @Override
+            public void onNext(RunTimeSummaryResponse runTimeSummaryResponse) {
+                super.onNext(runTimeSummaryResponse);
+                if(!runTimeSummaryResponse.isSuccess()){
+                    getView().showError(runTimeSummaryResponse.getMessage());
+                }
+                RunTimeSummary summary = runTimeSummaryResponse.getData().getSummary();
+                DeviceTimeEvent event = new DeviceTimeEvent(deviceId,false,summary);
+                EventBus.getDefault().post(summary);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
             }
         });
     }

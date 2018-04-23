@@ -10,7 +10,7 @@ import com.sf.smartfactory.network.bean.OEE
  * @mail:
  * @describe: 设备OEE事件
  */
-class DeviceOeeEvent constructor(deviceId:String,isError:Boolean,oee:OEE){
+class DeviceOeeEvent constructor(deviceId:String,isError:Boolean,oee:OEE?){
     var deviceId =deviceId;
     var isError = isError;
     var oee = oee;

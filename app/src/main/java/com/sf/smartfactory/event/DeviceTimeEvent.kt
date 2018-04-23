@@ -1,6 +1,6 @@
 package com.sf.smartfactory.event
 
-import com.sf.smartfactory.network.response.TimeResponse
+import com.sf.smartfactory.network.bean.RunTimeSummary
 
 /**
  * @author: winton
@@ -10,7 +10,7 @@ import com.sf.smartfactory.network.response.TimeResponse
  * @mail:
  * @describe: 设备运行时间消息
  */
-class DeviceTimeEvent constructor(deviceId:String,isError:Boolean,runTimeSummary: TimeResponse.Summary){
+class DeviceTimeEvent constructor(deviceId:String,isError:Boolean,runTimeSummary: RunTimeSummary?){
     var deviceId = deviceId;
     var isError = isError;
     var runTimeSummary = runTimeSummary;

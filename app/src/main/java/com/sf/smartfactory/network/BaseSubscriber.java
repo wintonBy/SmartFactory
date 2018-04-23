@@ -32,6 +32,10 @@ public class BaseSubscriber<T extends BaseResponse> extends Subscriber<T> {
 
     @Override
     public void onNext(T t) {
+        if(t == null){
+            onError(new IllegalStateException("null response"));
+            return;
+        }
         if(!t.isSuccess() ){
             if(Constant.TOKEN_ERROR.equals(t.getMessage()) || Constant.LOGIN_EXPIRATION.equals(t.getMessage())){
                 MyApplication.INSTANCE.toLogin();

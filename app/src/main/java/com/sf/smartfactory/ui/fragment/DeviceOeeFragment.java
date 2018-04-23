@@ -1,15 +1,20 @@
 package com.sf.smartfactory.ui.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -45,6 +50,8 @@ public class DeviceOeeFragment extends BaseFragment {
     private Bundle startParams;
     private String deviceId;
     private List<BarEntry> barEntries;
+    private BarDataSet barDataSet;
+    private BarData barData;
 
     /**
      * 获取该类的实例
@@ -75,27 +82,66 @@ public class DeviceOeeFragment extends BaseFragment {
         initOEEChart();
     }
     private void initOEEChart(){
-        barEntries = new ArrayList<>(4);
-        BarDataSet barDataSet = new BarDataSet(barEntries,"");
-        BarData barData = new BarData(barDataSet);
-        mBCOEE.setData(barData);
+        barEntries = new ArrayList<>();
+        mBCOEE.setFitBars(true);
+        mBCOEE.setTouchEnabled(false);
+        initDescription();
+        initXAxis();
+        initYAxis();
+        initLegend();
+        mBCOEE.setNoDataText("暂无数据");
+    }
+    private void initDescription(){
+        Description description = mBCOEE.getDescription();
+        description.setText("");
+    }
+
+    private void initLegend(){
+        Legend legend = mBCOEE.getLegend();
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+    }
+
+    /**
+     * 初始化Y轴
+     */
+    private void initYAxis(){
+        YAxis leftAxis = mBCOEE.getAxisLeft();
+        YAxis rightAxis = mBCOEE.getAxisRight();
+
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.setAxisMaximum(100f);
+        leftAxis.setGranularity(5f);
+
+        rightAxis.setAxisMinimum(0f);
+        rightAxis.setAxisMaximum(100f);
+        rightAxis.setGranularity(5f);
+    }
+
+    /**
+     * 初始化x轴
+     */
+    private void initXAxis(){
         XAxis xAxis = mBCOEE.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f);
+        xAxis.setAxisMinimum(0f);
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
-                if(value <1){
+                if(value == 1f){
                     return "OEE";
                 }
-                if(value <2){
+                if(value == 2f){
                     return "QE";
                 }
-                if(value <3){
+                if(value == 3f){
                     return "PE";
                 }
-                if(value <4){
+                if(value == 4f){
                     return "AE";
                 }
-                return "未知";
+                return "";
             }
         });
     }
@@ -126,11 +172,20 @@ public class DeviceOeeFragment extends BaseFragment {
 
     private void showOEE(OEE oee){
         barEntries.clear();
-        barEntries.add(new BarEntry(0,oee.getOee()));
-        barEntries.add(new BarEntry(1,oee.getQe()));
-        barEntries.add(new BarEntry(2,oee.getPe()));
-        barEntries.add(new BarEntry(3,oee.getAe()));
-        mBCOEE.notifyDataSetChanged();
+        if(oee != null){
+            barEntries.add(new BarEntry(1,oee.getOee()));
+            barEntries.add(new BarEntry(2,oee.getQe()));
+            barEntries.add(new BarEntry(3,oee.getPe()));
+            barEntries.add(new BarEntry(4,oee.getAe()));
+        }
+        barDataSet = new BarDataSet(barEntries,"");
+        barDataSet.setColors(ContextCompat.getColor(getActivity(),R.color.oee_color));
+        barDataSet.setColors(ContextCompat.getColor(getActivity(),R.color.qe_color));
+        barDataSet.setColors(ContextCompat.getColor(getActivity(),R.color.pe_color));
+        barDataSet.setColors(ContextCompat.getColor(getActivity(),R.color.ae_color));
+        barData = new BarData(barDataSet);
+        barData.setBarWidth(0.5f);
+        mBCOEE.setData(barData);
         mBCOEE.invalidate();
     }
     private void showError(){

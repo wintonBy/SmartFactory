@@ -22,7 +22,7 @@ public final class Constant {
     public static final String LOGIN_EXPIRATION = "登录失效";
 
     /*刷新间隔*/
-    public static final int REFRESH_SPACE = 3 * 1000;
+    public static final int REFRESH_SPACE = 5 * 1000;
 
 
 }

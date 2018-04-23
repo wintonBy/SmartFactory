@@ -17,7 +17,9 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.event.DeviceTimeEvent;
+import com.sf.smartfactory.network.bean.RunTimeSummary;
 import com.sf.smartfactory.network.response.TimeResponse;
+import com.wasu.iutils.LogUtils;
 import com.wasu.iutils.ObjectUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -86,10 +88,11 @@ public class DeviceRunTimeFragment extends BaseFragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onStop() {
+        super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
 
     /**
      * 对饼图进行初始化
@@ -136,7 +139,7 @@ public class DeviceRunTimeFragment extends BaseFragment {
         }
        setRunSummary(event.getRunTimeSummary());
     }
-    public void setRunSummary(TimeResponse.Summary summary) {
+    public void setRunSummary(RunTimeSummary summary) {
         deviceSummery.clear();
         if(ObjectUtils.isEmpty(summary)){
             return;

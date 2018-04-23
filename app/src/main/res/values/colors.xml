@@ -19,6 +19,7 @@
     <color name="black90">#212121</color>
     <color name="black80">#424242</color>
     <color name="black70">#616161</color>
+    <color name="black30">#AAAAAA</color>
 
     <color name="LightSlateBlue">#8470FF</color>
 
@@ -31,5 +32,10 @@
     <color name="collect_error_color">#FF7256</color>
     <color name="emergency_color">#FF5500</color>
     <color name="overhaul_color">#FFFF00</color>
+
+    <color name="oee_color">#4285F4</color>
+    <color name="ae_color">#EA4335</color>
+    <color name="qe_color">#FBCC05</color>
+    <color name="pe_color">#34A853</color>
 
 </resources>

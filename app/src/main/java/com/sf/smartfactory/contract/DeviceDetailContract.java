@@ -48,6 +48,12 @@ public interface DeviceDetailContract {
         void loadTimes(String deviceId,long start,long end);
 
         /**
+         * 获取运行时间汇总分析
+         * @param deviceId
+         */
+        void loadTimeSummary(String deviceId);
+
+        /**
          * 获取设备OEE分析
          * @param deviceId
          * @param start

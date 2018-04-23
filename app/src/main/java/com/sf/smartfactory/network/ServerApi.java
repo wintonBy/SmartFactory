@@ -7,6 +7,7 @@ import com.sf.smartfactory.network.response.LoginResponse;
 import com.sf.smartfactory.network.response.MachineProcessListResponse;
 import com.sf.smartfactory.network.response.OEEResponse;
 import com.sf.smartfactory.network.response.OrderListResponse;
+import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
 import com.sf.smartfactory.network.response.StuffListResponse;
 import com.sf.smartfactory.network.response.TimeResponse;
 
@@ -115,6 +116,20 @@ public interface ServerApi {
      */
     @POST("rest/analysis/device/time")
     Observable<TimeResponse> time(@Query("deviceId")String deviceId,@Query("start")long start,@Query("end")long end ,@Query("needDeviceValues") boolean needDeviceValues);
+
+
+    /**
+     * time接口
+     * @param deviceId
+     * @param start
+     * @param end
+     * @return
+     */
+    @POST("rest/analysis/device/time")
+    Observable<RunTimeSummaryResponse> timeSummary(@Query("deviceId")String deviceId, @Query("start")long start, @Query("end")long end);
+
+
+
 
     /**
      * 获取设备状态

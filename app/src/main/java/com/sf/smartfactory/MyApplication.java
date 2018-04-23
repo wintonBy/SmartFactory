@@ -88,7 +88,7 @@ public class MyApplication extends Application {
             mActivitys.remove(topActivity);
         }
         exit();
-        Context context = topActivity == null? topActivity : this;
+        Context context = topActivity == null? this : topActivity;
         LoginActivity.start(context,null);
         if(context instanceof Activity){
             ((Activity) context).finish();

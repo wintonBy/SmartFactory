@@ -64,6 +64,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.relex.circleindicator.CircleIndicator;
 
 /**
  * @author: winton
@@ -87,19 +88,13 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     TextView mTVTitle;
     @BindView(R.id.vp_charts)
     ViewPager mVPCharts;
+    @BindView(R.id.indicator)
+    CircleIndicator mIndicator;
 
     private String deviceId;
     private long start;
     private long end;
     private Bundle startParams;
-    private List<PieEntry> deviceSummery;
-    private List<Integer> mChartColors;
-    private PieDataSet pieDataSet;
-    private List<Entry> mAxisRate,mFastRate,mFeedRate;
-    private List<String> ratesName;
-    private List<Integer> lineColors;
-    private LineChartManager lineChartManager;
-    private List<String> mTimes;
     private ChartsAdapter mAdapter;
     private List<Fragment> mChartsFrag;
 
@@ -140,9 +135,9 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
         initChartsFrag();
         mAdapter = new ChartsAdapter(getSupportFragmentManager(),mChartsFrag);
         mVPCharts.setAdapter(mAdapter);
+        mIndicator.setViewPager(mVPCharts);
         String strStart = TimeUtils.millis2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy-MM-dd"));
         start = TimeUtils.getMillis(strStart,new SimpleDateFormat("yyyy-MM-dd"),0,0);
-//        initDeviceRate();
         loadData();
     }
 
@@ -154,25 +149,9 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
         commonParams.putString("deviceId",deviceId);
         mChartsFrag.add(DeviceRunTimeFragment.newInstance(commonParams));
         mChartsFrag.add(DeviceRateFragment.newInstance(commonParams));
-//        mChartsFrag.add(DeviceOeeFragment.newInstance(commonParams));
+        mChartsFrag.add(DeviceOeeFragment.newInstance(commonParams));
     }
 
-
-    private void initDeviceRate(){
-//        ratesName = new ArrayList<>();
-//        ratesName.add("主轴倍率");
-//        ratesName.add("快速倍率");
-//        ratesName.add("供给倍率");
-//        lineColors = new ArrayList<>();
-//        mTimes = new ArrayList<>();
-//        lineColors.add(Color.parseColor("#C23531"));
-//        lineColors.add(Color.parseColor("#2F4554"));
-//        lineColors.add(Color.parseColor("#61A0A8"));
-//        mAxisRate = new ArrayList<>();
-//        mFastRate = new ArrayList<>();
-//        mFeedRate = new ArrayList<>();
-//        lineChartManager = new LineChartManager(mLineChart);
-    }
 
     @Override
     protected void onStart() {
@@ -220,48 +199,6 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
         }
         SnackbarUtils.with(getWindow().getDecorView()).setMessage(msg).showError();
     }
-    public void setDeviceRate(List<TimeResponse.Device> devices) {
-//        mAxisRate.clear();
-//        mFeedRate.clear();
-//        mFastRate.clear();
-//        mTimes.clear();
-//        int j = 0;
-//        for(int i =0;i<devices.size();i+=20){
-//            TimeResponse.Device device = devices.get(i);
-//            if(device != null && device.getData() != null && device.getData().getParams() != null){
-//                int axis = device.getData().getParams().getAxis_rate();
-//                int fast = device.getData().getParams().getFast_rate();
-//                int feed = device.getData().getParams().getFeed_rate();
-//                LogUtils.dTag("LineChart","时间转换："+device.getCreateDt());
-//                mTimes.add(device.getCreateDt());
-//                mAxisRate.add(new Entry(j,axis));
-//                mFastRate.add(new Entry(j,fast));
-//                mFeedRate.add(new Entry(j,feed));
-//                j++;
-//            }
-//        }
-//        if(j ==0){
-//            LogUtils.dTag(TAG,"设备倍率数据为空");
-//            return;
-//        }
-//        LineDataSet line1 = new LineDataSet(mAxisRate,ratesName.get(0));
-//        LineDataSet line2 = new LineDataSet(mFastRate,ratesName.get(1));
-//        LineDataSet line3 = new LineDataSet(mFeedRate,ratesName.get(2));
-//        line1.setColor(lineColors.get(0));
-//        line2.setColor(lineColors.get(1));
-//        line3.setColor(lineColors.get(2));
-//        line1.setCircleRadius(1f);
-//        line2.setCircleRadius(1f);
-//        line3.setCircleRadius(1f);
-//        List<ILineDataSet> dataSets = new ArrayList<>(3);
-//        dataSets.add(line1);
-//        dataSets.add(line2);
-//        dataSets.add(line3);
-//        lineChartManager.setTimes(mTimes);
-//        lineChartManager.setXAxis(mTimes.size()-1,0,6);
-//        lineChartManager.showLineChart(dataSets);
-    }
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUpdate(UpdateDataEvent event){
         loadData();
