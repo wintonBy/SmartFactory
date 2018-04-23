@@ -12,8 +12,10 @@ import com.sf.smartfactory.network.response.OEEResponse;
 import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
 import com.sf.smartfactory.network.response.TimeResponse;
 import com.sf.smartfactory.ui.activity.DeviceDetailActivity;
+import com.sf.smartfactory.utils.DateUtils;
 import com.wasu.iutils.ObjectUtils;
 import com.wasu.iutils.StringUtils;
+import com.wasu.iutils.TimeUtils;
 import com.wasu.iutils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -76,7 +78,9 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
     }
 
     @Override
-    public void loadOEE(final String deviceId, long start, long end) {
+    public void loadOEE(final String deviceId) {
+        long end = System.currentTimeMillis();
+        long start = TimeUtils.getMillis(end,3 * 24 * 60 * 60,1000);
         RetrofitClient.getInstance().oee(deviceId,start,end,new BaseSubscriber<OEEResponse>(){
             @Override
             public void onNext(OEEResponse oeeResponse) {
@@ -100,7 +104,7 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
 
     @Override
     public void loadTimeSummary(final String deviceId) {
-        long start = 0;
+        long start = DateUtils.INSTANCE.getTodayStart();
         long end = System.currentTimeMillis();
         RetrofitClient.getInstance().timeSummary(deviceId,start,end,new BaseSubscriber<RunTimeSummaryResponse>(){
             @Override
@@ -111,7 +115,7 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
                 }
                 RunTimeSummary summary = runTimeSummaryResponse.getData().getSummary();
                 DeviceTimeEvent event = new DeviceTimeEvent(deviceId,false,summary);
-                EventBus.getDefault().post(summary);
+                EventBus.getDefault().post(event);
             }
 
             @Override

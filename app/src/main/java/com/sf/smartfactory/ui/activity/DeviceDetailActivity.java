@@ -168,8 +168,9 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     private void loadData(){
         end = System.currentTimeMillis();
         mPresenter.loadLastStatus(deviceId);
-        mPresenter.loadOEE(deviceId,start,end);
+        mPresenter.loadOEE(deviceId);
         mPresenter.loadTimes(deviceId,start,end);
+        mPresenter.loadTimeSummary(deviceId);
     }
 
     @Override

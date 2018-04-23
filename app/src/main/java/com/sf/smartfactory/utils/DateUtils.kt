@@ -21,7 +21,7 @@ public object DateUtils{
         var result :Long = 0;
         var strFormat = SimpleDateFormat("yyyy-MM-dd");
         var todayStart:String = strFormat.format(Date());
-        result = TimeUtils.getMillis(todayStart,0,0);
+        result = TimeUtils.getMillis(todayStart,strFormat,0,0);
         return result;
     }
 

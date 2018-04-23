@@ -59,7 +59,7 @@ public interface DeviceDetailContract {
          * @param start
          * @param end
          */
-        void loadOEE(String deviceId,long start,long end);
+        void loadOEE(String deviceId);
     }
 
 }
