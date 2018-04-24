@@ -13,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <com.github.mikephil.charting.charts.LineChart
-        android:background="@android:color/white"
         android:layout_marginTop="10dp"
         android:id="@+id/lc_rate"
         android:layout_width="match_parent"

@@ -13,6 +13,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -98,8 +99,14 @@ public class DeviceOeeFragment extends BaseFragment {
 
     private void initLegend(){
         Legend legend = mBCOEE.getLegend();
+        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setDrawInside(false);
+        LegendEntry legendEntry = new LegendEntry();
+        legendEntry.label = "得分";
+        legendEntry.formColor = ContextCompat.getColor(getActivity(),R.color.oee_color);
+        legend.setCustom(new LegendEntry[]{legendEntry});
     }
 
     /**
@@ -113,9 +120,7 @@ public class DeviceOeeFragment extends BaseFragment {
         leftAxis.setAxisMaximum(100f);
         leftAxis.setGranularity(5f);
 
-        rightAxis.setAxisMinimum(0f);
-        rightAxis.setAxisMaximum(100f);
-        rightAxis.setGranularity(5f);
+        rightAxis.setEnabled(false);
     }
 
     /**
@@ -180,9 +185,6 @@ public class DeviceOeeFragment extends BaseFragment {
         }
         barDataSet = new BarDataSet(barEntries,"");
         barDataSet.setColors(ContextCompat.getColor(getActivity(),R.color.oee_color));
-        barDataSet.setColors(ContextCompat.getColor(getActivity(),R.color.qe_color));
-        barDataSet.setColors(ContextCompat.getColor(getActivity(),R.color.pe_color));
-        barDataSet.setColors(ContextCompat.getColor(getActivity(),R.color.ae_color));
         barData = new BarData(barDataSet);
         barData.setBarWidth(0.5f);
         mBCOEE.setData(barData);

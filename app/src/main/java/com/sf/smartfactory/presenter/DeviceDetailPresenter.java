@@ -6,7 +6,9 @@ import com.sf.smartfactory.event.DeviceRateEvent;
 import com.sf.smartfactory.event.DeviceTimeEvent;
 import com.sf.smartfactory.network.BaseSubscriber;
 import com.sf.smartfactory.network.RetrofitClient;
+import com.sf.smartfactory.network.bean.OEE;
 import com.sf.smartfactory.network.bean.RunTimeSummary;
+import com.sf.smartfactory.network.response.DeviceRateResponse;
 import com.sf.smartfactory.network.response.LastStatusResponse;
 import com.sf.smartfactory.network.response.OEEResponse;
 import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
@@ -16,7 +18,6 @@ import com.sf.smartfactory.utils.DateUtils;
 import com.wasu.iutils.ObjectUtils;
 import com.wasu.iutils.StringUtils;
 import com.wasu.iutils.TimeUtils;
-import com.wasu.iutils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -55,13 +56,15 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
     }
 
     @Override
-    public void loadTimes(final String deviceId, long start, long end) {
-        RetrofitClient.getInstance().time(deviceId,start,end,new BaseSubscriber<TimeResponse>(){
+    public void loadRates(final String deviceId) {
+        long start = DateUtils.INSTANCE.getTodayStart();
+        long end = System.currentTimeMillis();
+        RetrofitClient.getInstance().rate(deviceId,start,end,new BaseSubscriber<DeviceRateResponse>(){
             @Override
-            public void onNext(TimeResponse timeResponse) {
-                super.onNext(timeResponse);
-                if(timeResponse.isSuccess() && timeResponse.getData() != null){
-                    DeviceRateEvent rateEvent = new DeviceRateEvent(deviceId,false,timeResponse.getData().getDeviceValues());
+            public void onNext(DeviceRateResponse rateResponse) {
+                super.onNext(rateResponse);
+                if(rateResponse.isSuccess() && rateResponse.getData() != null){
+                    DeviceRateEvent rateEvent = new DeviceRateEvent(deviceId,false,rateResponse.getData().getDeviceValues());
                     EventBus.getDefault().post(rateEvent);
                     return;
                 }
@@ -71,7 +74,7 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
-                DeviceTimeEvent event = new DeviceTimeEvent(deviceId,true,null);
+                DeviceRateEvent event = new DeviceRateEvent(deviceId,true,null);
                 EventBus.getDefault().post(event);
             }
         });
@@ -80,13 +83,17 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
     @Override
     public void loadOEE(final String deviceId) {
         long end = System.currentTimeMillis();
-        long start = TimeUtils.getMillis(end,3 * 24 * 60 * 60,1000);
+        long start = TimeUtils.getMillis(end,-3 * 24 * 60 * 60,1000);
         RetrofitClient.getInstance().oee(deviceId,start,end,new BaseSubscriber<OEEResponse>(){
             @Override
             public void onNext(OEEResponse oeeResponse) {
                 super.onNext(oeeResponse);
                 if(oeeResponse.isSuccess() && !ObjectUtils.isEmpty(oeeResponse.getData())){
-                    DeviceOeeEvent event = new DeviceOeeEvent(deviceId,false,oeeResponse.getData().getOee());
+                    OEE oee = oeeResponse.getData().getOee();
+                    if(oee == null){
+                        oee = new OEE();
+                    }
+                    DeviceOeeEvent event = new DeviceOeeEvent(deviceId,false,oee);
                     EventBus.getDefault().post(event);
                     return;
                 }

@@ -4,7 +4,7 @@ import com.sf.smartfactory.network.bean.RunTimeSummary
 
 /**
  * @author: winton
- * @time: 2018/4/21 11:40
+ * @rate: 2018/4/21 11:40
  * @package: com.sf.smartfactory.event
  * @project: SmartFactory
  * @mail:

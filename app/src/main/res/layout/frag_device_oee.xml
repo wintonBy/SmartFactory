@@ -14,7 +14,6 @@
         android:layout_height="wrap_content" />
     <com.github.mikephil.charting.charts.BarChart
         android:layout_marginTop="10dp"
-        android:background="@android:color/white"
         android:id="@+id/bc_oee"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

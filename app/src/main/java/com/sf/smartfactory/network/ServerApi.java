@@ -1,6 +1,7 @@
 package com.sf.smartfactory.network;
 
 import com.sf.smartfactory.network.response.DeviceListResponse;
+import com.sf.smartfactory.network.response.DeviceRateResponse;
 import com.sf.smartfactory.network.response.DeviceSummaryResponse;
 import com.sf.smartfactory.network.response.LastStatusResponse;
 import com.sf.smartfactory.network.response.LoginResponse;
@@ -115,7 +116,7 @@ public interface ServerApi {
      * @return
      */
     @POST("rest/analysis/device/time")
-    Observable<TimeResponse> time(@Query("deviceId")String deviceId,@Query("start")long start,@Query("end")long end ,@Query("needDeviceValues") boolean needDeviceValues);
+    Observable<DeviceRateResponse> rate(@Query("deviceId")String deviceId, @Query("start")long start, @Query("end")long end , @Query("needDeviceValues") boolean needDeviceValues);
 
 
     /**

@@ -38,4 +38,8 @@
     <color name="qe_color">#FBCC05</color>
     <color name="pe_color">#34A853</color>
 
+    <color name="axis_color">#005AFF</color>
+    <color name="fast_color">#EA4335</color>
+    <color name="feed_color">#FBCC05</color>
+
 </resources>

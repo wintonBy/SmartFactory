@@ -8,8 +8,8 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.sf.smartfactory.BuildConfig;
 import com.sf.smartfactory.MyApplication;
-import com.sf.smartfactory.network.bean.RunTimeSummary;
 import com.sf.smartfactory.network.response.DeviceListResponse;
+import com.sf.smartfactory.network.response.DeviceRateResponse;
 import com.sf.smartfactory.network.response.DeviceSummaryResponse;
 import com.sf.smartfactory.network.response.LastStatusResponse;
 import com.sf.smartfactory.network.response.LoginResponse;
@@ -18,7 +18,6 @@ import com.sf.smartfactory.network.response.OEEResponse;
 import com.sf.smartfactory.network.response.OrderListResponse;
 import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
 import com.sf.smartfactory.network.response.StuffListResponse;
-import com.sf.smartfactory.network.response.TimeResponse;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -159,8 +158,8 @@ public class RetrofitClient {
                 .subscribe(subscriber);
     }
 
-    public void time(String deviceId, long start, long end, Subscriber<TimeResponse> subscriber){
-        mServer.time(deviceId,start,end,true)
+    public void rate(String deviceId, long start, long end, Subscriber<DeviceRateResponse> subscriber){
+        mServer.rate(deviceId,start,end,true)
                 .compose(schedulersTransForm())
                 .subscribe(subscriber);
     }

@@ -2,52 +2,24 @@ package com.sf.smartfactory.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.icu.util.TimeUnit;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.github.lzyzsd.circleprogress.ArcProgress;
-import com.github.mikephil.charting.charts.HorizontalBarChart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.renderer.HorizontalBarChartRenderer;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.adapter.ChartsAdapter;
 import com.sf.smartfactory.contract.DeviceDetailContract;
-import com.sf.smartfactory.event.DeviceTimeEvent;
 import com.sf.smartfactory.event.UpdateDataEvent;
-import com.sf.smartfactory.network.bean.DeviceStatus;
 import com.sf.smartfactory.network.bean.LastStatus;
-import com.sf.smartfactory.network.bean.OEE;
-import com.sf.smartfactory.network.response.TimeResponse;
 import com.sf.smartfactory.presenter.DeviceDetailPresenter;
 import com.sf.smartfactory.ui.fragment.DeviceOeeFragment;
 import com.sf.smartfactory.ui.fragment.DeviceRateFragment;
 import com.sf.smartfactory.ui.fragment.DeviceRunTimeFragment;
-import com.sf.smartfactory.utils.DateUtils;
 import com.sf.smartfactory.utils.DeviceUtils;
-import com.sf.smartfactory.view.LineChartManager;
-import com.wasu.iutils.LogUtils;
-import com.wasu.iutils.ObjectUtils;
 import com.wasu.iutils.SnackbarUtils;
 import com.wasu.iutils.StringUtils;
 import com.wasu.iutils.TimeUtils;
@@ -58,7 +30,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -92,8 +63,6 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     CircleIndicator mIndicator;
 
     private String deviceId;
-    private long start;
-    private long end;
     private Bundle startParams;
     private ChartsAdapter mAdapter;
     private List<Fragment> mChartsFrag;
@@ -135,9 +104,8 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
         initChartsFrag();
         mAdapter = new ChartsAdapter(getSupportFragmentManager(),mChartsFrag);
         mVPCharts.setAdapter(mAdapter);
+        mVPCharts.setOffscreenPageLimit(3);
         mIndicator.setViewPager(mVPCharts);
-        String strStart = TimeUtils.millis2String(System.currentTimeMillis(),new SimpleDateFormat("yyyy-MM-dd"));
-        start = TimeUtils.getMillis(strStart,new SimpleDateFormat("yyyy-MM-dd"),0,0);
         loadData();
     }
 
@@ -166,10 +134,9 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     }
 
     private void loadData(){
-        end = System.currentTimeMillis();
         mPresenter.loadLastStatus(deviceId);
         mPresenter.loadOEE(deviceId);
-        mPresenter.loadTimes(deviceId,start,end);
+        mPresenter.loadRates(deviceId);
         mPresenter.loadTimeSummary(deviceId);
     }
 

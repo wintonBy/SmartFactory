@@ -11,10 +11,10 @@ import java.io.Serializable;
  * @describe: 一句话描述
  */
 public class OEE implements Serializable {
-    private int qe ;
-    private int oee;
-    private int ae;
-    private int pe;
+    private int qe = 0;
+    private int oee = 0;
+    private int ae = 0;
+    private int pe = 0;
 
     public int getQe() {
         return qe;

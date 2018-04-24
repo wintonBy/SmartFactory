@@ -45,7 +45,7 @@ public interface DeviceDetailContract {
          * @param start
          * @param end
          */
-        void loadTimes(String deviceId,long start,long end);
+        void loadRates(String deviceId);
 
         /**
          * 获取运行时间汇总分析

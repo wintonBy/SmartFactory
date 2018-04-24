@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -112,21 +113,30 @@ public class DeviceRunTimeFragment extends BaseFragment {
         pieDataSet = new PieDataSet(deviceSummery,"");
         pieDataSet.setColors(mChartColors);
         PieData pieData = new PieData(pieDataSet);
-        pieData.setValueTextColor(Color.WHITE);
-        pieData.setValueTextSize(14);
+        pieData.setDrawValues(false);
         mPCRun.setData(pieData);
-        Legend legend = mPCRun.getLegend();
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
-        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
-        Description description = new Description();
-        description.setText("");
-        mPCRun.setDescription(description);
+        initLegend();
+        initDescription();
+
         mPCRun.setDrawCenterText(false);
         mPCRun.setUsePercentValues(true);
         mPCRun.setDrawEntryLabels(false);
         mPCRun.setRotationEnabled(false);
-        mPCRun.setHoleRadius(0f);
+        mPCRun.setTransparentCircleRadius(0);
+        mPCRun.setHoleRadius(45f);
         mPCRun.setNoDataText("暂无数据");
+    }
+
+    private void initLegend(){
+        Legend legend = mPCRun.getLegend();
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        legend.setWordWrapEnabled(true);
+    }
+
+    private void initDescription(){
+        Description description = mPCRun.getDescription();
+        description.setText("");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -144,16 +154,66 @@ public class DeviceRunTimeFragment extends BaseFragment {
         if(ObjectUtils.isEmpty(summary)){
             return;
         }
-        deviceSummery.add(new PieEntry(summary.getWorking(),"运行"));
-        deviceSummery.add(new PieEntry(summary.getEditing(),"设置"));
-        deviceSummery.add(new PieEntry(summary.getIdle(),"空闲"));
-        deviceSummery.add(new PieEntry(summary.getPause(),"暂停"));
-        deviceSummery.add(new PieEntry(summary.getCollect_err(),"采集异常"));
-        deviceSummery.add(new PieEntry(summary.getOffline(),"离线"));
-        deviceSummery.add(new PieEntry(summary.getEmergency(),"急停"));
-        deviceSummery.add(new PieEntry(summary.getOverhaul(),"检修"));
+        deviceSummery.add(new PieEntry(summary.getWorking(),"运行:% 2d%"));
+        deviceSummery.add(new PieEntry(summary.getEditing(),"设置:% 2d%"));
+        deviceSummery.add(new PieEntry(summary.getIdle(),"空闲:% 2d%"));
+        deviceSummery.add(new PieEntry(summary.getPause(),"暂停:% 2d%"));
+        deviceSummery.add(new PieEntry(summary.getCollect_err(),"采集异常:% 2d%"));
+        deviceSummery.add(new PieEntry(summary.getOffline(),"离线:% 2d%"));
+        deviceSummery.add(new PieEntry(summary.getEmergency(),"急停:% 2d%"));
+        deviceSummery.add(new PieEntry(summary.getOverhaul(),"检修:% 2d%"));
         mPCRun.notifyDataSetChanged();
+        fitLegend(computerPercent(summary));
         mPCRun.invalidate();
+    }
+    private void fitLegend(List<Double> values){
+        Legend legend = mPCRun.getLegend();
+        LegendEntry[] entries = legend.getEntries();
+        entries[0].label = String.format("运行:% 3.1f%%",values.get(0));
+        entries[1].label = String.format("设置:% 3.1f%%",values.get(1));
+        entries[2].label = String.format("空闲:% 3.1f%%",values.get(2));
+        entries[3].label = String.format("暂停:% 3.1f%%",values.get(3));
+        entries[4].label = String.format("采集异常:% 3.1f%%",values.get(4));
+        entries[5].label = String.format("离线:% 3.1f%%",values.get(5));
+        entries[6].label = String.format("急停:% 3.1f%%",values.get(6));
+        entries[7].label = String.format("检修:% 3.1f%%",values.get(7));
+        legend.resetCustom();
+    }
+
+    /**
+     * 计算出入值的百分比
+     * @param summary
+     * @return
+     */
+    private List<Double> computerPercent(RunTimeSummary summary){
+        double working = summary.getWorking();
+        double editing = summary.getEditing();
+        double idle = summary.getIdle();
+        double pause = summary.getPause();
+        double error = summary.getCollect_err();
+        double offline = summary.getOffline();
+        double emergency = summary.getEmergency();
+        double overHaul = summary.getOverhaul();
+
+        double  sum = working + editing + idle + pause + error + offline + emergency + overHaul;
+        List<Double> values = new ArrayList<>(8);
+        double workingP = sum == 0 ? 0 : (working/sum * 100);
+        values.add(workingP);
+        double editingP = sum == 0 ? 0 : (editing/sum * 100 );
+        values.add(editingP);
+        double idleP  = sum == 0 ? 0 : (idle/sum * 100 );
+        values.add(idleP);
+        double pauseP = sum == 0 ? 0 : (pause/sum * 100);
+        values.add(pauseP);
+        double errorP = sum == 0 ? 0 : (error/sum * 100);
+        values.add(errorP);
+        double offlineP = sum == 0 ? 0 : (offline/sum * 100);
+        values.add(offlineP);
+        double emergencyP = sum == 0 ? 0 : (emergency/sum * 100);
+        values.add(emergencyP);
+        double overHaulP = sum == 0 ? 0 : (int)(overHaul/sum * 100);
+        values.add(overHaulP);
+        return values;
     }
 
     private void showError(){

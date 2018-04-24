@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,9 +86,9 @@ public class DeviceRateFragment extends BaseFragment {
         ratesName.add("供给倍率");
         lineColors = new ArrayList<>();
         mTimes = new ArrayList<>();
-        lineColors.add(Color.parseColor("#C23531"));
-        lineColors.add(Color.parseColor("#2F4554"));
-        lineColors.add(Color.parseColor("#61A0A8"));
+        lineColors.add(ContextCompat.getColor(getActivity(),R.color.axis_color));
+        lineColors.add(ContextCompat.getColor(getActivity(),R.color.fast_color));
+        lineColors.add(ContextCompat.getColor(getActivity(),R.color.feed_color));
         mAxisRate = new ArrayList<>();
         mFastRate = new ArrayList<>();
         mFeedRate = new ArrayList<>();
@@ -128,13 +129,12 @@ public class DeviceRateFragment extends BaseFragment {
         mFastRate.clear();
         mTimes.clear();
         int j = 0;
-        for(int i =0;i<devices.size();i+=20){
+        for(int i =0;i<devices.size();i+=5){
             TimeResponse.Device device = devices.get(i);
             if(device != null && device.getData() != null && device.getData().getParams() != null){
                 int axis = device.getData().getParams().getAxis_rate();
                 int fast = device.getData().getParams().getFast_rate();
                 int feed = device.getData().getParams().getFeed_rate();
-                LogUtils.dTag("LineChart","时间转换："+device.getCreateDt());
                 mTimes.add(device.getCreateDt());
                 mAxisRate.add(new Entry(j,axis));
                 mFastRate.add(new Entry(j,fast));
@@ -146,22 +146,40 @@ public class DeviceRateFragment extends BaseFragment {
             LogUtils.dTag(TAG,"设备倍率数据为空");
             return;
         }
+        lineChartManager.setTimes(mTimes);
+        lineChartManager.setXAxis(mTimes.size()-1,0,6);
+        lineChartManager.showLineChart(formatLines());
+    }
+
+    /**
+     * 初始化每条线
+     * @return
+     */
+    private List<ILineDataSet>  formatLines(){
         LineDataSet line1 = new LineDataSet(mAxisRate,ratesName.get(0));
         LineDataSet line2 = new LineDataSet(mFastRate,ratesName.get(1));
         LineDataSet line3 = new LineDataSet(mFeedRate,ratesName.get(2));
+        /*axisRate 样式*/
         line1.setColor(lineColors.get(0));
+        line1.setDrawValues(false);
+        line1.setDrawCircles(false);
+        line1.setLineWidth(2f);
+        /*fastRate 样式*/
         line2.setColor(lineColors.get(1));
+        line2.setDrawCircles(false);
+        line2.setDrawValues(false);
+        line2.setLineWidth(2f);
+        /*feedRate 样式*/
         line3.setColor(lineColors.get(2));
-        line1.setCircleRadius(1f);
-        line2.setCircleRadius(1f);
-        line3.setCircleRadius(1f);
+        line3.setDrawCircles(false);
+        line3.setDrawValues(false);
+        line3.setLineWidth(2f);
+
         List<ILineDataSet> dataSets = new ArrayList<>(3);
         dataSets.add(line1);
         dataSets.add(line2);
         dataSets.add(line3);
-        lineChartManager.setTimes(mTimes);
-        lineChartManager.setXAxis(mTimes.size()-1,0,6);
-        lineChartManager.showLineChart(dataSets);
+        return dataSets;
     }
 
     private void showError(){

@@ -5,7 +5,7 @@ import com.sf.smartfactory.R
 
 /**
  * @author: winton
- * @time: 2018/4/2 15:30
+ * @rate: 2018/4/2 15:30
  * @package: com.sf.smartfactory.utils
  * @project: SmartFactory
  * @mail:
