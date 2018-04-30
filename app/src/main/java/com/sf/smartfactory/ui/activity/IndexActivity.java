@@ -3,10 +3,12 @@ package com.sf.smartfactory.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
 import com.sf.smartfactory.R;
+import com.sf.smartfactory.network.bean.UpdateInfo;
 import com.sf.smartfactory.service.UpdateDataService;
 import com.sf.smartfactory.adapter.IndexViewPagerAdapter;
 import com.sf.smartfactory.contract.IndexContract;
@@ -14,6 +16,7 @@ import com.sf.smartfactory.presenter.IndexPresenter;
 import com.sf.smartfactory.ui.fragment.FactoryFragment;
 import com.sf.smartfactory.ui.fragment.HomeFragment;
 import com.sf.smartfactory.ui.fragment.OrderFragment;
+import com.sf.smartfactory.ui.fragment.UpdateFragment;
 import com.sf.smartfactory.ui.fragment.UserFragment;
 import com.sf.smartfactory.view.DiyScrollViewPager;
 
@@ -43,6 +46,9 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
     TextView mTVTitle;
     private List<Fragment> mFragments;
     private IndexViewPagerAdapter mAdapter;
+
+    private UpdateFragment updateFragment;
+
 
     /**
      * 启动首页的方法
@@ -140,7 +146,7 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
         mAdapter = new IndexViewPagerAdapter(getSupportFragmentManager(),mFragments);
         mVP.setAdapter(mAdapter);
         mNTB.setViewPager(mVP);
-
+        mPresenter.checkVersion();
 
     }
     private void initFragments(){
@@ -159,14 +165,31 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
 
     @Override
     protected void onDestroy() {
-        releaseHandle();
+        releaseResource();
         super.onDestroy();
+    }
+
+    @Override
+    public void showNewVersion(UpdateInfo info) {
+        if(updateFragment == null){
+            String title = "新版本";
+            String url = info.getUrl();
+            String sInfo = info.getInfo();
+            int force = info.getForce();
+            Bundle param = new Bundle();
+            param.putString("title",title);
+            param.putString("downloadUrl",url);
+            param.putString("info",sInfo);
+            param.putInt("force",force);
+            updateFragment = UpdateFragment.createInstance(param);
+        }
+        updateFragment.show(getSupportFragmentManager(),"update");
     }
 
     /**
      * 释放资源
      */
-    private void releaseHandle(){
+    private void releaseResource(){
         Intent intent = new Intent(this, UpdateDataService.class);
         stopService(intent);
     }

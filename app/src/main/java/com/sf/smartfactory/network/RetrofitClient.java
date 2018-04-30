@@ -17,7 +17,11 @@ import com.sf.smartfactory.network.response.MachineProcessListResponse;
 import com.sf.smartfactory.network.response.OEEResponse;
 import com.sf.smartfactory.network.response.OrderListResponse;
 import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
+import com.sf.smartfactory.network.response.StatusListResponse;
 import com.sf.smartfactory.network.response.StuffListResponse;
+import com.sf.smartfactory.network.response.UpdateInfoResponse;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -169,6 +173,12 @@ public class RetrofitClient {
                 .compose(schedulersTransForm())
                 .subscribe(subscriber);
     }
+    public void statusList(String deviceId,long start, long end, Subscriber<StatusListResponse> subscriber ){
+        mServer.timeStatus(deviceId,start,end)
+                .compose(schedulersTransForm())
+                .subscribe(subscriber);
+    }
+
     public void lastStatusOne(String deviceId, Subscriber<LastStatusResponse> subscriber){
         mServer.lastStatusOne(deviceId)
                 .compose(schedulersTransForm())
@@ -176,6 +186,12 @@ public class RetrofitClient {
     }
     public void oee(String deviceId, long start, long end, Subscriber<OEEResponse> subscriber){
         mServer.oee(deviceId,start,end)
+                .compose(schedulersTransForm())
+                .subscribe(subscriber);
+    }
+
+    public void updateInfo(Subscriber<UpdateInfoResponse> subscriber){
+        mServer.updateInfo()
                 .compose(schedulersTransForm())
                 .subscribe(subscriber);
     }

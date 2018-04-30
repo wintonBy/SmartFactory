@@ -7,7 +7,7 @@ import com.sf.smartfactory.network.bean.DeviceStatus;
 import com.sf.smartfactory.network.response.DeviceListResponse;
 import com.sf.smartfactory.ui.activity.DeviceListActivity;
 import com.sf.smartfactory.utils.DeviceUtils;
-import com.wasu.iutils.ObjectUtils;
+import com.blankj.utilcode.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.ui.activity.AboutActivity;
-import com.wasu.iutils.SPUtils;
+import com.blankj.utilcode.util.SPUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

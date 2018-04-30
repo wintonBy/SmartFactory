@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.network.bean.Stuff;
-import com.wasu.iutils.StringUtils;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package com.sf.smartfactory.ui.activity;
 
+import com.sf.smartfactory.MyApplication;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.contract.SplashContract;
 import com.sf.smartfactory.presenter.SplashPresenter;
@@ -17,6 +18,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     @Override
     protected void initView() {
         setContentView(R.layout.act_splash);
+        MyApplication.permissionInstance.request();
     }
 
     @Override
@@ -46,4 +48,6 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
         LoginActivity.start(this,null);
         finish();
     }
+
+
 }

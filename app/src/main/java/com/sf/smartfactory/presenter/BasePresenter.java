@@ -11,6 +11,7 @@ import java.lang.ref.WeakReference;
 
 public class BasePresenter<V extends IView> implements IPresenter {
 
+    final String TAG = this.getClass().getSimpleName();
 
     private WeakReference actReference;  //activity 弱引言
 

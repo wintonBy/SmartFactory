@@ -1,5 +1,6 @@
 package com.sf.smartfactory.network;
 
+import com.sf.smartfactory.network.response.BaseResponse;
 import com.sf.smartfactory.network.response.DeviceListResponse;
 import com.sf.smartfactory.network.response.DeviceRateResponse;
 import com.sf.smartfactory.network.response.DeviceSummaryResponse;
@@ -9,8 +10,10 @@ import com.sf.smartfactory.network.response.MachineProcessListResponse;
 import com.sf.smartfactory.network.response.OEEResponse;
 import com.sf.smartfactory.network.response.OrderListResponse;
 import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
+import com.sf.smartfactory.network.response.StatusListResponse;
 import com.sf.smartfactory.network.response.StuffListResponse;
 import com.sf.smartfactory.network.response.TimeResponse;
+import com.sf.smartfactory.network.response.UpdateInfoResponse;
 
 import java.util.Map;
 
@@ -129,6 +132,16 @@ public interface ServerApi {
     @POST("rest/analysis/device/time")
     Observable<RunTimeSummaryResponse> timeSummary(@Query("deviceId")String deviceId, @Query("start")long start, @Query("end")long end);
 
+    /**
+     * time接口
+     * @param deviceId
+     * @param start
+     * @param end
+     * @return
+     */
+    @POST("rest/analysis/device/time")
+    Observable<StatusListResponse> timeStatus(@Query("deviceId")String deviceId, @Query("start")long start, @Query("end")long end );
+
 
 
 
@@ -150,6 +163,11 @@ public interface ServerApi {
     @POST("rest/analysis/device/oee")
     Observable<OEEResponse> oee(@Query("deviceId")String deviceId,@Query("start")long start,@Query("end")long end);
 
-
+    /**
+     * 版本信息
+     * @return
+     */
+    @POST("rest/common/app/version")
+    Observable<UpdateInfoResponse> updateInfo();
 
 }

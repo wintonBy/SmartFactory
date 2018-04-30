@@ -1,9 +1,9 @@
 package com.sf.smartfactory.network.subscriber;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.network.BaseSubscriber;
 import com.sf.smartfactory.network.response.LoginResponse;
-import com.wasu.iutils.SPUtils;
 
 /**
  * @author: winton

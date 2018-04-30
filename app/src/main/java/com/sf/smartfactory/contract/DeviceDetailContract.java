@@ -42,8 +42,6 @@ public interface DeviceDetailContract {
         /**
          * 获取设备运行记录
          * @param deviceId
-         * @param start
-         * @param end
          */
         void loadRates(String deviceId);
 
@@ -56,10 +54,14 @@ public interface DeviceDetailContract {
         /**
          * 获取设备OEE分析
          * @param deviceId
-         * @param start
-         * @param end
          */
         void loadOEE(String deviceId);
+
+        /**
+         * 获取设备运行图
+         * @param deviceId
+         */
+        void loadTimeStatus(String deviceId);
     }
 
 }

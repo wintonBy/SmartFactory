@@ -1,9 +1,9 @@
 package com.sf.smartfactory.network;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.sf.smartfactory.MyApplication;
 import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.network.response.BaseResponse;
-import com.wasu.iutils.LogUtils;
 
 import rx.Subscriber;
 

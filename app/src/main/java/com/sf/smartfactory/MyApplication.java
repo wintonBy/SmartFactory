@@ -1,5 +1,6 @@
 package com.sf.smartfactory;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
@@ -7,11 +8,12 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.CrashUtils;
+import com.blankj.utilcode.util.PermissionUtils;
+import com.blankj.utilcode.util.Utils;
 import com.sf.smartfactory.aspectj.annotation.DebugTrace;
 import com.sf.smartfactory.ui.activity.LoginActivity;
-import com.wasu.iutils.ActivityUtils;
-import com.wasu.iutils.CrashUtils;
-import com.wasu.iutils.Utils;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -29,13 +31,15 @@ public class MyApplication extends Application {
 
     private List<WeakReference<Activity>> mActivitys;
 
+    public static PermissionUtils permissionInstance;
+
     @DebugTrace
     @Override
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
         initUtils();
-
+        initPermission();
     }
 
     /**
@@ -47,9 +51,6 @@ public class MyApplication extends Application {
         Utils.init(this);
         /*全局异常捕获*/
         CrashUtils.init();
-
-
-
     }
 
     public void addActivity(@NonNull WeakReference<Activity> activity){
@@ -93,6 +94,13 @@ public class MyApplication extends Application {
         if(context instanceof Activity){
             ((Activity) context).finish();
         }
+    }
+
+    /**
+     * 初始化程序需要的权限
+     */
+    private void initPermission(){
+        permissionInstance = PermissionUtils.permission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
 }

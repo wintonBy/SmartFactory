@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.SnackbarUtils;
+import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.adapter.ChartsAdapter;
@@ -19,10 +22,8 @@ import com.sf.smartfactory.presenter.DeviceDetailPresenter;
 import com.sf.smartfactory.ui.fragment.DeviceOeeFragment;
 import com.sf.smartfactory.ui.fragment.DeviceRateFragment;
 import com.sf.smartfactory.ui.fragment.DeviceRunTimeFragment;
+import com.sf.smartfactory.ui.fragment.DeviceStatusTimeFragment;
 import com.sf.smartfactory.utils.DeviceUtils;
-import com.wasu.iutils.SnackbarUtils;
-import com.wasu.iutils.StringUtils;
-import com.wasu.iutils.TimeUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -104,7 +105,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
         initChartsFrag();
         mAdapter = new ChartsAdapter(getSupportFragmentManager(),mChartsFrag);
         mVPCharts.setAdapter(mAdapter);
-        mVPCharts.setOffscreenPageLimit(3);
+        mVPCharts.setOffscreenPageLimit(4);
         mIndicator.setViewPager(mVPCharts);
         loadData();
     }
@@ -115,6 +116,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     private void initChartsFrag(){
         Bundle commonParams = new Bundle();
         commonParams.putString("deviceId",deviceId);
+        mChartsFrag.add(DeviceStatusTimeFragment.newInstance(commonParams));
         mChartsFrag.add(DeviceRunTimeFragment.newInstance(commonParams));
         mChartsFrag.add(DeviceRateFragment.newInstance(commonParams));
         mChartsFrag.add(DeviceOeeFragment.newInstance(commonParams));
@@ -138,6 +140,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
         mPresenter.loadOEE(deviceId);
         mPresenter.loadRates(deviceId);
         mPresenter.loadTimeSummary(deviceId);
+        mPresenter.loadTimeStatus(deviceId);
     }
 
     @Override

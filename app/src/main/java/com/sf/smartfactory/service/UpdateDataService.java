@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.event.UpdateDataEvent;
-import com.wasu.iutils.LogUtils;
+import com.blankj.utilcode.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 

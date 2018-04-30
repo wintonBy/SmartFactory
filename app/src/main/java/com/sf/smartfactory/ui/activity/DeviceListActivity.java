@@ -32,8 +32,8 @@ import com.sf.smartfactory.network.bean.DeviceStatus;
 import com.sf.smartfactory.presenter.DeviceListPresenter;
 import com.sf.smartfactory.view.TypePopWindow;
 import com.sf.smartfactory.view.stateview.StateView;
-import com.wasu.iutils.SnackbarUtils;
-import com.wasu.iutils.StringUtils;
+import com.blankj.utilcode.util.SnackbarUtils;
+import com.blankj.utilcode.util.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

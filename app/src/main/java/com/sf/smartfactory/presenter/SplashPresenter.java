@@ -8,7 +8,7 @@ import com.sf.smartfactory.contract.SplashContract;
  * @package: com.sf.smartfactory.presenter
  * @project: SmartFactory
  * @mail:
- * @describe: 一句话描述
+ * @describe: 启动页
  */
 public class SplashPresenter extends BasePresenter implements SplashContract.Presenter {
 

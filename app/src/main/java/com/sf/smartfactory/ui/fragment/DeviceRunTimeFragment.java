@@ -20,8 +20,8 @@ import com.sf.smartfactory.R;
 import com.sf.smartfactory.event.DeviceTimeEvent;
 import com.sf.smartfactory.network.bean.RunTimeSummary;
 import com.sf.smartfactory.network.response.TimeResponse;
-import com.wasu.iutils.LogUtils;
-import com.wasu.iutils.ObjectUtils;
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ObjectUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

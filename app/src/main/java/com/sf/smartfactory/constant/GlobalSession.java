@@ -1,6 +1,7 @@
 package com.sf.smartfactory.constant;
 
-import com.wasu.iutils.SPUtils;
+
+import com.blankj.utilcode.util.SPUtils;
 
 /**
  * @author: winton
