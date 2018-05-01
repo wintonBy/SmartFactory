@@ -11,12 +11,16 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.sf.smartfactory.R;
+import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.network.bean.DeviceStatus;
 import com.sf.smartfactory.network.bean.Status;
 import com.blankj.utilcode.util.LogUtils;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,6 +57,7 @@ public class DeviceTimeStateView extends View {
     private int paddingLeft,paddingRight,paddingTop,paddingBottom;
     private long allCount;
     private float lastX;
+    private List<String> mTimeScales;
 
 
     private final int DEFAULT_SIZE = 100;
@@ -79,6 +84,7 @@ public class DeviceTimeStateView extends View {
         paddingRight = getPaddingRight();
         paddingBottom = getPaddingBottom();
         lastX = paddingLeft;
+        mTimeScales = new ArrayList<>();
     }
 
     public void setData(List<Status> data){
@@ -92,12 +98,12 @@ public class DeviceTimeStateView extends View {
         if(mData != null){
             lastX = paddingLeft;
             computeAllCount();
+            computerText();
             for(int i=0;i<mData.size();i++){
                 drawStatus(canvas,mData.get(i));
             }
             drawTimeLine(canvas);
             drawScale(canvas);
-            drawText(canvas);
         }
     }
 
@@ -157,19 +163,28 @@ public class DeviceTimeStateView extends View {
             }
             rect.set(left,top,right,bottom);
             canvas.drawRect(rect,mPaint);
-            canvas.drawText("16:00",left-30,bottom+20,mPaint);
+            canvas.drawText(mTimeScales.get(i),left-30,bottom+20,mPaint);
         }
-
     }
 
     /**
-     * 绘制下方字体
-     * @param canvas
+     * 获取应该绘制的文字
      */
-    private void drawText(Canvas canvas){
-        String start = mData.get(0).getDt();
-//        canvas.drawText(start,);
-
+    private void computerText(){
+        if(mData == null || mData.size()<=0){
+            return;
+        }
+        mTimeScales.clear();
+        String strStart = mData.get(0).getDt();
+        String lastDt = mData.get(mData.size()-1).getDt();
+        long lastDur = mData.get(mData.size()-1).getDuration();
+        long start = TimeUtils.getMillis(strStart, Constant.SERVER_SDF,0,0);
+        long end = TimeUtils.getMillis(lastDt,Constant.SERVER_SDF,lastDur,1);
+        long step = (end -start) / scaleNum;
+        for(int i=0;i<=scaleNum;i++){
+          String time = TimeUtils.getString(start+step*i ,Constant.XAXIS_SDF,0,0);
+          mTimeScales.add(time);
+        }
     }
 
     /**

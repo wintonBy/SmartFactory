@@ -10,12 +10,12 @@
         android:gravity="center"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/subhead_text_size"
-        android:text="运行分析-今日"
+        android:text="状态轨迹-今日"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <com.sf.smartfactory.view.DeviceTimeStateView
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         android:layout_marginTop="30dp"
         android:id="@+id/dtv_device_time"
         android:layout_width="match_parent"
@@ -28,6 +28,16 @@
         android:layout_height="wrap_content"
         app:rsb_lineColorSelected="@color/colorPrimary"
         app:rsb_thumbSize="20dp"
+        app:rsb_thumbPrimaryColor="@color/colorPrimary"
+        app:rsb_thumbSecondaryColor="@color/colorPrimary"
+        app:rsb_progressHintMode="alwaysHide"
         app:rsb_seekBarMode="range"/>
+    <TextView
+        android:textColor="@color/black70"
+        android:textSize="@dimen/super_small_size"
+        android:layout_marginTop="10dp"
+        android:text="@string/tip_time_pick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -25,6 +25,13 @@ public object DateUtils{
         return result;
     }
 
+    fun getWorkStart():Long{
+        var result :Long = 0;
+        var todayStart = getTodayStart();
+        result = TimeUtils.getMillis(todayStart,7 * 60 * 60,1000);
+        return result;
+    }
+
     fun getTodayEnd() :Long{
         var result:Long
         result = TimeUtils.getMillis(getTodayStart(),24 * 60 * 60,1000);

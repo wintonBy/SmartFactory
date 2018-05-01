@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @mail:
  * @describe: 设备状态
  */
-public class Status implements Serializable {
+public class Status implements Serializable ,Cloneable{
     private String dt;
     private long duration;
     private String status;
@@ -37,5 +37,20 @@ public class Status implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    public Status copy(Status status){
+        try {
+            Status result = (Status) status.clone();
+            return result;
+        }catch (CloneNotSupportedException e){
+            e.printStackTrace();
+        }
+        return new Status();
     }
 }

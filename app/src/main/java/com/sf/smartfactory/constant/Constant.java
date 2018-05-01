@@ -1,5 +1,7 @@
 package com.sf.smartfactory.constant;
 
+import java.text.SimpleDateFormat;
+
 /**
  * @author: winton
  * @time: 2018/3/30 17:21
@@ -28,5 +30,6 @@ public final class Constant {
 
     public static final String APK_DOWNLOAD_NAME = "release.apk";
 
-
+    public static final SimpleDateFormat XAXIS_SDF = new SimpleDateFormat("HH:mm");
+    public static final SimpleDateFormat SERVER_SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 }

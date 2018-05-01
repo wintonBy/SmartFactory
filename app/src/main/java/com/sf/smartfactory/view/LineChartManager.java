@@ -16,6 +16,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.sf.smartfactory.constant.Constant;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,8 +36,6 @@ public class LineChartManager  {
     private YAxis rightAxis;  //右边Y轴
     private XAxis xAxis;      //X轴
     private List<String> mTimes;
-    private SimpleDateFormat mXSDF = new SimpleDateFormat("HH:mm");
-    private SimpleDateFormat sXSDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
     public LineChartManager(LineChart lineChart) {
         this.lineChart = lineChart;
@@ -79,8 +78,8 @@ public class LineChartManager  {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
                 int id = (int) value;
-                long time =  TimeUtils.getMillis(mTimes.get(id),sXSDF,0,0);
-                String strTime = TimeUtils.getString(time,mXSDF,0,0);
+                long time =  TimeUtils.getMillis(mTimes.get(id), Constant.SERVER_SDF,0,0);
+                String strTime = TimeUtils.getString(time,Constant.XAXIS_SDF,0,0);
                 return strTime;
             }
         });

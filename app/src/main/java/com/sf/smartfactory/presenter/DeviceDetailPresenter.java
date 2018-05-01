@@ -62,7 +62,7 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
 
     @Override
     public void loadRates(final String deviceId) {
-        long start = DateUtils.INSTANCE.getTodayStart();
+        long start = DateUtils.INSTANCE.getWorkStart();
         long end = System.currentTimeMillis();
         RetrofitClient.getInstance().rate(deviceId,start,end,new BaseSubscriber<DeviceRateResponse>(){
             @Override
@@ -117,7 +117,7 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
     @Override
     public void loadTimeSummary(final String deviceId) {
 
-        long start = DateUtils.INSTANCE.getTodayStart();
+        long start = DateUtils.INSTANCE.getWorkStart();
         long end = System.currentTimeMillis();
         RetrofitClient.getInstance().timeSummary(deviceId,start,end,new BaseSubscriber<RunTimeSummaryResponse>(){
             @Override
@@ -140,7 +140,7 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
 
     @Override
     public void loadTimeStatus(final String deviceId) {
-        long start = DateUtils.INSTANCE.getTodayStart();
+        long start = DateUtils.INSTANCE.getWorkStart();
         long end = System.currentTimeMillis();
         RetrofitClient.getInstance().statusList(deviceId,start,end,new BaseSubscriber<StatusListResponse>(){
             @Override
