@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:paddingTop="30dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textColor="@color/black70"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/title_text_size"
+        android:text="@string/develop_company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@color/black70"
+        android:layout_marginTop="60dp"
+        android:textSize="@dimen/body_text_size"
+        android:text="@string/developer_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="@color/black70"
+        android:layout_marginTop="5dp"
+        android:textSize="@dimen/body_text_size"
+        android:text="@string/developer_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="@color/black70"
+        android:layout_marginTop="5dp"
+        android:textSize="@dimen/body_text_size"
+        android:text="@string/developer_nick_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="@color/black70"
+        android:layout_marginTop="5dp"
+        android:textSize="@dimen/body_text_size"
+        android:text="@string/developer_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:textColor="@color/black70"
+        android:layout_marginTop="5dp"
+        android:textSize="@dimen/body_text_size"
+        android:text="@string/developer_site_f"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

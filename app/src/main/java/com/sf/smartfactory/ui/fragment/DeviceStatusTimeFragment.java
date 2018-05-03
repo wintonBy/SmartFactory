@@ -46,7 +46,7 @@ public class DeviceStatusTimeFragment extends BaseFragment {
     private List<Status> showData;
     private Bundle startParams;
     private String deviceId;
-    long start = DateUtils.INSTANCE.getTodayStart();
+    long start = DateUtils.INSTANCE.getWorkStart();
     long end = System.currentTimeMillis();
 
     float fs = 0;

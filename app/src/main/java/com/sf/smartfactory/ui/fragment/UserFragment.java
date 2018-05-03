@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.constant.Constant;
-import com.sf.smartfactory.ui.activity.AboutActivity;
 import com.blankj.utilcode.util.SPUtils;
+import com.sf.smartfactory.ui.activity.CommonActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,6 +61,11 @@ public class UserFragment extends BaseFragment{
 
     @OnClick(R.id.tv_about)
     public void clickAbout(View view){
-        AboutActivity.start(getActivity(),null);
+        CommonActivity.start(getActivity(),"版本信息",CommonActivity.FT_VERSION_INFO);
+    }
+
+    @OnClick(R.id.tv_service)
+    public void clickService(View view){
+        CommonActivity.start(getActivity(),"服务信息",CommonActivity.FT_DEVELOP_INFO);
     }
 }

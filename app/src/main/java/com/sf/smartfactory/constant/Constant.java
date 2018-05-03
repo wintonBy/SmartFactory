@@ -26,7 +26,8 @@ public final class Constant {
     /*刷新间隔*/
     public static final int REFRESH_SPACE = 5 * 1000;
 
-    public static final int VERSION_CODE =1;
+    /*统一的版本号*/
+    public static final int VERSION_CODE =20180502;
 
     public static final String APK_DOWNLOAD_NAME = "release.apk";
 

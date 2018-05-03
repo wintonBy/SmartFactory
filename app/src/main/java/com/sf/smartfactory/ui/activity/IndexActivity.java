@@ -3,29 +3,28 @@ package com.sf.smartfactory.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
 import com.sf.smartfactory.R;
-import com.sf.smartfactory.network.bean.UpdateInfo;
-import com.sf.smartfactory.service.UpdateDataService;
 import com.sf.smartfactory.adapter.IndexViewPagerAdapter;
 import com.sf.smartfactory.contract.IndexContract;
+import com.sf.smartfactory.network.bean.UpdateInfo;
 import com.sf.smartfactory.presenter.IndexPresenter;
+import com.sf.smartfactory.service.UpdateDataService;
 import com.sf.smartfactory.ui.fragment.FactoryFragment;
 import com.sf.smartfactory.ui.fragment.HomeFragment;
 import com.sf.smartfactory.ui.fragment.OrderFragment;
 import com.sf.smartfactory.ui.fragment.UpdateFragment;
 import com.sf.smartfactory.ui.fragment.UserFragment;
 import com.sf.smartfactory.view.DiyScrollViewPager;
+import com.sf.smartfactory.view.bottomnavigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import devlight.io.library.ntb.NavigationTabBar;
 
 /**
  * @author: winton
@@ -37,9 +36,9 @@ import devlight.io.library.ntb.NavigationTabBar;
  */
 public class IndexActivity extends BaseActivity<IndexPresenter> implements IndexContract.View {
 
+    @BindView(R.id.nv_bottom)
+    NavigationView mNV;
 
-    @BindView(R.id.ntb)
-    NavigationTabBar mNTB;
     @BindView(R.id.vp_content)
     DiyScrollViewPager mVP;
     @BindView(R.id.tv_title)
@@ -77,64 +76,37 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
         startUpdateService();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
     /**
      * 初始化底部导航栏
      */
     private void initBottomNavigation() {
-        final List<NavigationTabBar.Model> tabs = new ArrayList<>();
-        tabs.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.mipmap.ic_home),
-                        R.color.colorAccent)
-                        .title(getResources().getString(R.string.home))
-                        .build());
-        tabs.add(
-                new NavigationTabBar.Model.Builder(
-                        getResources().getDrawable(R.mipmap.ic_factory),
-                        R.color.colorAccent)
-                        .title(getResources().getString(R.string.machine_info))
-                        .build());
 
-//        tabs.add(
-//                new NavigationTabBar.Model.Builder(
-//                        getResources().getDrawable(R.mipmap.ic_stuff),
-//                        R.color.colorAccent)
-//                        .title(getResources().getString(R.string.stuff_info))
-//                        .build());
+        List<NavigationView.Model> nvItems = new ArrayList<>();
+        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_home,R.mipmap.ic_home).title(getResources().getString(R.string.home)).build());
+        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_factory,R.mipmap.ic_factory).title(getResources().getString(R.string.machine_info)).build());
+        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_order,R.mipmap.ic_order).title(getResources().getString(R.string.order_manager)).build());
+        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_me,R.mipmap.ic_me).title(getResources().getString(R.string.me)).build());
 
-        tabs.add(new NavigationTabBar.Model.Builder(
-                getResources().getDrawable(R.mipmap.ic_order),
-                R.color.colorAccent)
-                .title(getResources().getString(R.string.order_manager))
-                .build());
-
-        tabs.add(new NavigationTabBar.Model.Builder(
-                getResources().getDrawable(R.mipmap.ic_me),
-                R.color.colorAccent)
-                .title(getResources().getString(R.string.me))
-                .build());
-        mNTB.setModels(tabs);
+        mNV.setItems(nvItems);
+        mNV.build();
+        mNV.check(0);
     }
 
     @Override
     protected void initListener() {
         super.initListener();
         mTVTitle.setText(R.string.home);
-        mNTB.setOnTabBarSelectedIndexListener(new NavigationTabBar.OnTabBarSelectedIndexListener() {
+        mNV.setOnTabSelectedListener(new NavigationView.OnTabSelectedListener() {
             @Override
-            public void onStartTabSelected(NavigationTabBar.Model model, int index) {
-
+            public void selected(int index, NavigationView.Model model) {
+                String title = model.getTitle();
+                mTVTitle.setText(title);
+                mVP.setCurrentItem(index,false);
             }
 
             @Override
-            public void onEndTabSelected(NavigationTabBar.Model model, int index) {
-                String title = model.getTitle();
-                mTVTitle.setText(title);
+            public void unselected(int index, NavigationView.Model model) {
+
             }
         });
     }
@@ -145,7 +117,6 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
         initFragments();
         mAdapter = new IndexViewPagerAdapter(getSupportFragmentManager(),mFragments);
         mVP.setAdapter(mAdapter);
-        mNTB.setViewPager(mVP);
         mPresenter.checkVersion();
 
     }

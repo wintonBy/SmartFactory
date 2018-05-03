@@ -43,17 +43,31 @@
     </RelativeLayout>
     <View
         android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        style="@style/Setting_Item_Divider"/>
+    <TextView
+        android:id="@+id/tv_factory"
+        style="@style/Setting_Item"
+        android:text="@string/factory_info" />
+    <View
+        style="@style/Setting_Item_Divider"/>
+    <TextView
+        android:id="@+id/tv_service"
+        style="@style/Setting_Item"
+        android:text="@string/service_info" />
+    <View
+        style="@style/Setting_Item_Divider"/>
+    <TextView
+        android:id="@+id/tv_system"
+        style="@style/Setting_Item"
+        android:text="@string/system_setting" />
+    <View
+        style="@style/Setting_Item_Divider"/>
     <TextView
         android:id="@+id/tv_about"
         style="@style/Setting_Item"
-        android:text="@string/about" />
+        android:text="@string/version_info" />
     <View
-        android:background="@android:color/darker_gray"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        style="@style/Setting_Item_Divider"/>
 
 
 </LinearLayout>

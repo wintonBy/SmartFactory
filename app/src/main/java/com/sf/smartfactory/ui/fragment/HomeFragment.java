@@ -2,8 +2,10 @@ package com.sf.smartfactory.ui.fragment;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +32,7 @@ import com.sf.smartfactory.network.response.DeviceListResponse;
 import com.sf.smartfactory.network.response.DeviceSummaryResponse;
 import com.sf.smartfactory.ui.activity.DeviceDetailActivity;
 import com.sf.smartfactory.ui.activity.DeviceListActivity;
+import com.sf.smartfactory.utils.DrawableUtils;
 import com.sf.smartfactory.view.DevicePieValueFormatter;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SnackbarUtils;
@@ -68,13 +71,22 @@ public class HomeFragment extends BaseFragment{
     TextView mTVAll;
     @BindView(R.id.rv_device_list)
     RecyclerView mRVDeviceList;
+    @BindView(R.id.tv_fac_pic)
+    TextView mTVPic;
+    @BindView(R.id.tv_device_list)
+    TextView mTVDeviceList;
+    @BindView(R.id.lay_fac_pic)
+    View mFacPic;
+
+    private View checkView = mTVPic;
+    Drawable leftTabCheck = null;
+    Drawable rightTabCheck = null;
+
 
 
     private View rootView;
     private DevicesListAdapter mAdapter;
     private List<DeviceStatus> mDevices;
-
-
 
     /**
      * 获取该类的实例
@@ -100,6 +112,9 @@ public class HomeFragment extends BaseFragment{
 
     private void initData(){
         mDevices = new ArrayList<>();
+        leftTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.shape_tab_left,R.color.colorPrimary);
+        rightTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.shape_tab_right,R.color.colorPrimary);
+        checkFacPic();
         mRVDeviceList.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         mAdapter = new DevicesListAdapter(getActivity(),mDevices);
         mAdapter.setListener(new DevicesListAdapter.ItemClickListener() {
@@ -126,8 +141,6 @@ public class HomeFragment extends BaseFragment{
         mDevices.addAll(list);
         mAdapter.notifyDataSetChanged();
     }
-
-
 
     /**
      * 获取页面上设备简况
@@ -254,6 +267,41 @@ public class HomeFragment extends BaseFragment{
     public void onUpdateData(UpdateDataEvent event){
         loadDeviceSummary();
         loadDeviceList();
+    }
+
+    @OnClick(R.id.tv_fac_pic)
+    public void clickFactPic(View view){
+        if(view == checkView){
+            return;
+        }
+        checkFacPic();
+
+    }
+    @OnClick(R.id.tv_device_list)
+    public void clickDeviceList(View view){
+        if(view == checkView){
+            return;
+        }
+        checkDeviceList();
+    }
+
+    private void checkFacPic(){
+        checkView = mTVPic;
+        mTVPic.setBackground(leftTabCheck);
+        mTVPic.setTextColor(Color.WHITE);
+        mTVDeviceList.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_right));
+        mTVDeviceList.setTextColor(Color.BLACK);
+        mFacPic.setVisibility(View.VISIBLE);
+        mRVDeviceList.setVisibility(View.GONE);
+    }
+    private void checkDeviceList(){
+        checkView = mTVDeviceList;
+        mTVPic.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_left));
+        mTVDeviceList.setBackground(rightTabCheck);
+        mTVDeviceList.setTextColor(Color.WHITE);
+        mTVPic.setTextColor(Color.BLACK);
+        mFacPic.setVisibility(View.GONE);
+        mRVDeviceList.setVisibility(View.VISIBLE);
     }
 
 }
