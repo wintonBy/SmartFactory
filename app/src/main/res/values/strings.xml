@@ -54,4 +54,5 @@
     <string name="call_service">呼叫0571-56071258</string>
     <string name="call_num">0571-56071258</string>
     <string name="check_update">检查更新</string>
+    <string name="logout">注销登录</string>
 </resources>
