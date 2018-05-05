@@ -62,10 +62,13 @@
         android:text="@string/system_setting" />
     <View
         style="@style/Setting_Item_Divider"/>
+    <View
+        android:layout_marginTop="10dp"
+        style="@style/Setting_Item_Divider"/>
     <TextView
         android:id="@+id/tv_about"
         style="@style/Setting_Item"
-        android:text="@string/version_info" />
+        android:text="@string/about" />
     <View
         style="@style/Setting_Item_Divider"/>
 

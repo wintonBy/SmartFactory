@@ -10,16 +10,20 @@
     <com.sf.smartfactory.view.DiyScrollViewPager
         android:id="@+id/vp_content"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="49dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </com.sf.smartfactory.view.DiyScrollViewPager>
-
-    <com.sf.smartfactory.view.bottomnavigation.NavigationView
+    <com.winton.bottomnavigationview.NavigationView
         android:id="@+id/nv_bottom"
+        android:background="@android:color/white"
         android:layout_gravity="bottom"
         app:activeTextColor ="@color/colorPrimary"
+        app:iconSize="20dp"
+        app:icon_margin_top="10dp"
+        app:textSize="10dp"
+        app:text_margin_bottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 

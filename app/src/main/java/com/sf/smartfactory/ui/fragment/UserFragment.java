@@ -61,7 +61,7 @@ public class UserFragment extends BaseFragment{
 
     @OnClick(R.id.tv_about)
     public void clickAbout(View view){
-        CommonActivity.start(getActivity(),"版本信息",CommonActivity.FT_VERSION_INFO);
+        CommonActivity.start(getActivity(),"关于",CommonActivity.FT_VERSION_INFO);
     }
 
     @OnClick(R.id.tv_service)

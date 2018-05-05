@@ -9,9 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.sf.smartfactory.BuildConfig;
 import com.sf.smartfactory.R;
+import com.sf.smartfactory.constant.Constant;
+import com.sf.smartfactory.network.BaseSubscriber;
+import com.sf.smartfactory.network.bean.UpdateInfo;
+import com.sf.smartfactory.network.response.UpdateInfoResponse;
 import com.sf.smartfactory.view.DialogEx;
 
 import butterknife.BindView;
@@ -30,8 +37,8 @@ public class VersionFragment extends BaseFragment {
 
     @BindView(R.id.tv_app_version)
     TextView tvVersion;
-
     private DialogEx mDialog = null;
+    private UpdateFragment updateFragment;
 
     /**
      * 获取该类的实例
@@ -73,6 +80,64 @@ public class VersionFragment extends BaseFragment {
                 cancel();
             }
         };
-
     }
+
+    @OnClick(R.id.check_update)
+    public void clickCheckUpdate(View view){
+        UpdateInfoResponse.loadUpdateInfo(new BaseSubscriber<UpdateInfoResponse>(){
+            @Override
+            public void onNext(UpdateInfoResponse updateInfoResponse) {
+                super.onNext(updateInfoResponse);
+                if(!updateInfoResponse.isSuccess()){
+                    LogUtils.eTag(TAG,updateInfoResponse.getMessage());
+                    return;
+                }
+                if(hasNewVersion(updateInfoResponse.getData())){
+                    showNewVersion(updateInfoResponse.getData());
+                }else {
+                    ToastUtils.showLong("当前已是最新版本");
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+            }
+        });
+    }
+
+
+    public void showNewVersion(UpdateInfo info) {
+        if(updateFragment == null){
+            String title = "新版本";
+            String url = info.getUrl();
+            String sInfo = info.getInfo();
+            int force = info.getForce();
+            Bundle param = new Bundle();
+            param.putString("title",title);
+            param.putString("downloadUrl",url);
+            param.putString("info",sInfo);
+            param.putInt("force",force);
+            updateFragment = UpdateFragment.createInstance(param);
+        }
+        updateFragment.show(getActivity().getSupportFragmentManager(),"update");
+    }
+
+    /**
+     * 判断是否有新版本
+     * @param info
+     * @return
+     */
+    private boolean hasNewVersion(UpdateInfo info){
+        boolean result = false;
+        if(info == null){
+            return result;
+        }
+        int newVersion = info.getId();
+        if(newVersion > Constant.VERSION_CODE){
+            result = true;
+        }
+        return result;
+    }
+
 }

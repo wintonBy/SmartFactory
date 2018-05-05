@@ -18,7 +18,7 @@ import com.sf.smartfactory.ui.fragment.OrderFragment;
 import com.sf.smartfactory.ui.fragment.UpdateFragment;
 import com.sf.smartfactory.ui.fragment.UserFragment;
 import com.sf.smartfactory.view.DiyScrollViewPager;
-import com.sf.smartfactory.view.bottomnavigation.NavigationView;
+import com.winton.bottomnavigationview.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;

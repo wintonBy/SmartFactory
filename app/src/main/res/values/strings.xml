@@ -40,7 +40,7 @@
     <string name="about">关于</string>
     <string name="factory_info">企业信息</string>
     <string name="service_info">服务信息</string>
-    <string name="system_setting">系统设置</string>
+    <string name="system_setting">设置</string>
     <string name="version_info">版本信息</string>
     <string name="tip_time_pick">温馨提示：滑动两端选取时间范围</string>
     <string name="other_company">豫鹏机器厂智能工厂手机端</string>
@@ -53,4 +53,5 @@
     <string name="developer_site_f">公司网址：www.lingkexinxi.com</string>
     <string name="call_service">呼叫0571-56071258</string>
     <string name="call_num">0571-56071258</string>
+    <string name="check_update">检查更新</string>
 </resources>

@@ -72,6 +72,8 @@ dependencies {
 
     implementation 'me.relex:circleindicator:1.2.2@aar'
 
+    implementation 'com.github.wintonBy:BottomNavigationView:1.0'
+
     compile 'com.github.Jay-Goo:RangeSeekBar:v1.2.2'
 
 }

@@ -32,9 +32,17 @@
     <TextView
         android:id="@+id/tv_call"
         style="@style/Setting_Item"
-        android:drawablePadding="16dp"
+        android:drawablePadding="5dp"
         android:drawableLeft="@mipmap/icon_about_tel"
         android:text="@string/developer_call" />
+    <View
+        style="@style/Setting_Item_Divider"/>
+    <TextView
+        android:drawableLeft="@mipmap/icon_check_update"
+        android:id="@+id/check_update"
+        style="@style/Setting_Item"
+        android:drawablePadding="5dp"
+        android:text="@string/check_update" />
     <View
         style="@style/Setting_Item_Divider"/>
 
