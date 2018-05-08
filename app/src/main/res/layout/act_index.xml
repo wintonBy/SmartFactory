@@ -15,16 +15,25 @@
         android:layout_height="match_parent">
 
     </com.sf.smartfactory.view.DiyScrollViewPager>
-    <com.winton.bottomnavigationview.NavigationView
-        android:id="@+id/nv_bottom"
-        android:background="@android:color/white"
+    <LinearLayout
         android:layout_gravity="bottom"
-        app:activeTextColor ="@color/colorPrimary"
-        app:iconSize="20dp"
-        app:icon_margin_top="10dp"
-        app:textSize="10dp"
-        app:text_margin_bottom="5dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="50dp"/>
+        android:layout_height="50dp">
+        <View
+            android:background="@android:color/darker_gray"
+            android:layout_width="match_parent"
+            android:layout_height="0.5px"/>
+        <com.winton.bottomnavigationview.NavigationView
+            android:id="@+id/nv_bottom"
+            android:background="@android:color/white"
+            app:activeTextColor ="@color/colorPrimary"
+            app:iconSize="20dp"
+            app:icon_margin_top="10dp"
+            app:textSize="10dp"
+            app:text_margin_bottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

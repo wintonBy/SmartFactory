@@ -6,6 +6,23 @@
     <View
         android:layout_marginTop="10dp"
         style="@style/Setting_Item_Divider"/>
+    <RelativeLayout
+        android:id="@+id/rl_update_frequency"
+       style="@style/Setting_Item_RL">
+        <TextView
+            style="@style/Setting_Item_RL_Title"
+            android:text="@string/update_frequency" />
+        <ImageView
+            style="@style/Setting_Item_RL_Icon"
+         />
+        <TextView
+            style="@style/Setting_Item_RL_Value" />
+    </RelativeLayout>
+    <View
+        style="@style/Setting_Item_Divider"/>
+    <View
+        android:layout_marginTop="200dp"
+        style="@style/Setting_Item_Divider"/>
     <TextView
         android:id="@+id/tv_logout"
         style="@style/Setting_Item"

@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -38,7 +37,7 @@ public class VersionFragment extends BaseFragment {
     @BindView(R.id.tv_app_version)
     TextView tvVersion;
     private DialogEx mDialog = null;
-    private UpdateFragment updateFragment;
+    private UpdateApkDialog updateFragment;
 
     /**
      * 获取该类的实例
@@ -118,7 +117,7 @@ public class VersionFragment extends BaseFragment {
             param.putString("downloadUrl",url);
             param.putString("info",sInfo);
             param.putInt("force",force);
-            updateFragment = UpdateFragment.createInstance(param);
+            updateFragment = UpdateApkDialog.createInstance(param);
         }
         updateFragment.show(getActivity().getSupportFragmentManager(),"update");
     }

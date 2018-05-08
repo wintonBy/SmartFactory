@@ -87,9 +87,7 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
 
     @Override
     public void loadOEE(final String deviceId) {
-        long end = System.currentTimeMillis();
-        long start = TimeUtils.getMillis(end,-3 * 24 * 60 * 60,1000);
-        RetrofitClient.getInstance().oee(deviceId,start,end,new BaseSubscriber<OEEResponse>(){
+        RetrofitClient.getInstance().oee(deviceId,new BaseSubscriber<OEEResponse>(){
             @Override
             public void onNext(OEEResponse oeeResponse) {
                 super.onNext(oeeResponse);

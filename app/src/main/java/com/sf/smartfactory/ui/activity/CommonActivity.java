@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.presenter.BasePresenter;
+import com.sf.smartfactory.ui.fragment.CompanyInfoFragment;
 import com.sf.smartfactory.ui.fragment.DeveloperInfoFragment;
 import com.sf.smartfactory.ui.fragment.SettingFragment;
 import com.sf.smartfactory.ui.fragment.VersionFragment;
@@ -31,6 +32,7 @@ public class CommonActivity extends BaseActivity {
     public final static int FT_DEVELOP_INFO = 0x01;
     public final static int FT_VERSION_INFO = 0x02;
     public final static int FT_SETTING = 0x03;
+    public final static int FT_COMPANY_INFO = 0x04;
 
     @BindView(R.id.tv_title)
     TextView mTVTitle;
@@ -83,6 +85,8 @@ public class CommonActivity extends BaseActivity {
                 return VersionFragment.newInstance(null);
             case FT_SETTING:
                 return SettingFragment.newInstance(null);
+            case FT_COMPANY_INFO:
+                return CompanyInfoFragment.newInstance(null);
         }
         return null;
     }

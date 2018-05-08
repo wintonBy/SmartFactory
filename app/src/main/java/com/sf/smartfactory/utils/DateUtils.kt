@@ -33,7 +33,7 @@ public object DateUtils{
     }
 
     fun getTodayEnd() :Long{
-        var result:Long
+        var result:Long = 0;
         result = TimeUtils.getMillis(getTodayStart(),24 * 60 * 60,1000);
         return result;
     }

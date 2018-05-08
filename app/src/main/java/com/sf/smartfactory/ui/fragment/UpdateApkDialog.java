@@ -1,9 +1,5 @@
 package com.sf.smartfactory.ui.fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,11 +16,9 @@ import android.widget.TextView;
 import com.sf.smartfactory.MyApplication;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.constant.Constant;
-import com.sf.smartfactory.utils.DeviceUtils;
 import com.sf.smartfactory.utils.DrawableUtils;
 import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.CloseUtils;
-import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ObjectUtils;
@@ -32,20 +26,13 @@ import com.blankj.utilcode.util.ToastUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * @author: winton
@@ -55,7 +42,7 @@ import okhttp3.Response;
  * @mail:
  * @describe: 升级提示
  */
-public class UpdateFragment extends DialogFragment {
+public class UpdateApkDialog extends DialogFragment {
 
     @BindView(R.id.tv_title)
     TextView mTitle;
@@ -76,11 +63,11 @@ public class UpdateFragment extends DialogFragment {
     private String filePath;
 
 
-    public static UpdateFragment createInstance(@NonNull Bundle param){
+    public static UpdateApkDialog createInstance(@NonNull Bundle param){
         if(param == null){
             throw new IllegalArgumentException("param should not be null");
         }
-        UpdateFragment instance = new UpdateFragment();
+        UpdateApkDialog instance = new UpdateApkDialog();
         instance.setArguments(param);
         return instance;
     }
@@ -178,7 +165,7 @@ public class UpdateFragment extends DialogFragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            UpdateFragment.this.dismiss();
+            UpdateApkDialog.this.dismiss();
             AppUtils.installApp(filePath);
         }
         private int computerPercent(float all,float over){
@@ -211,13 +198,13 @@ public class UpdateFragment extends DialogFragment {
                 while ((readLen =is.read(buffer)) > 0){
                     fos.write(buffer,0,readLen);
                     overLen += readLen;
-                    LogUtils.dTag("UpdateFragment","文件写入长度："+overLen);
+                    LogUtils.dTag("UpdateApkDialog","文件写入长度："+overLen);
                     publishProgress(computerPercent(length,overLen));
                 }
                 fos.flush();
 
             }catch (Exception e){
-                LogUtils.dTag("UpdateFragment",e);
+                LogUtils.dTag("UpdateApkDialog",e);
             }finally {
                 CloseUtils.closeIO(is,fos);
             }

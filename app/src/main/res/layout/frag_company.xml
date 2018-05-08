@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <View
+        android:layout_marginTop="10dp"
+        style="@style/Setting_Item_Divider"/>
+    <TextView
+        android:drawablePadding="5dp"
+        android:drawableLeft="@mipmap/ic_company"
+        android:drawableRight="@null"
+        style="@style/Setting_Item"
+        android:text="公司名称:杭州豫鹏机械厂" />
+    <View
+        style="@style/Setting_Item_Divider"/>
+    <TextView
+        android:drawablePadding="5dp"
+        android:drawableLeft="@mipmap/ic_time"
+        android:drawableRight="@null"
+        style="@style/Setting_Item"
+        android:text="成立日期:2010年" />
+    <View
+        style="@style/Setting_Item_Divider"/>
+    <TextView
+        android:drawablePadding="5dp"
+        android:drawableLeft="@mipmap/ic_money"
+        android:drawableRight="@null"
+        style="@style/Setting_Item"
+        android:text="注册资金:300000元" />
+    <View
+        style="@style/Setting_Item_Divider"/>
+    <TextView
+        android:drawablePadding="5dp"
+        android:drawableLeft="@mipmap/ic_company_person"
+        android:drawableRight="@null"
+        style="@style/Setting_Item"
+        android:text="企业法人:吴坤鹏" />
+    <View
+        style="@style/Setting_Item_Divider"/>
+    <TextView
+        android:drawablePadding="5dp"
+        android:drawableLeft="@mipmap/ic_emp"
+        android:drawableRight="@null"
+        style="@style/Setting_Item"
+        android:text="员工数量:50+" />
+    <View
+        style="@style/Setting_Item_Divider"/>
+    <TextView
+        android:textColor="@color/black70"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:text="质量第一，信誉第一"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

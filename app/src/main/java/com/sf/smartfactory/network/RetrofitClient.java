@@ -8,6 +8,7 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.sf.smartfactory.BuildConfig;
 import com.sf.smartfactory.MyApplication;
+import com.sf.smartfactory.network.response.BaseResponse;
 import com.sf.smartfactory.network.response.DeviceListResponse;
 import com.sf.smartfactory.network.response.DeviceRateResponse;
 import com.sf.smartfactory.network.response.DeviceSummaryResponse;
@@ -184,14 +185,20 @@ public class RetrofitClient {
                 .compose(schedulersTransForm())
                 .subscribe(subscriber);
     }
-    public void oee(String deviceId, long start, long end, Subscriber<OEEResponse> subscriber){
-        mServer.oee(deviceId,start,end)
+    public void oee(String deviceId, Subscriber<OEEResponse> subscriber){
+        mServer.oee(deviceId)
                 .compose(schedulersTransForm())
                 .subscribe(subscriber);
     }
 
     public void updateInfo(Subscriber<UpdateInfoResponse> subscriber){
         mServer.updateInfo()
+                .compose(schedulersTransForm())
+                .subscribe(subscriber);
+    }
+
+    public void logout(Subscriber<BaseResponse> subscriber){
+        mServer.logout()
                 .compose(schedulersTransForm())
                 .subscribe(subscriber);
     }

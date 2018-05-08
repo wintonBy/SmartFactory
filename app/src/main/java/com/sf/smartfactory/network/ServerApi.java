@@ -161,7 +161,7 @@ public interface ServerApi {
      * @return
      */
     @POST("rest/analysis/device/oee")
-    Observable<OEEResponse> oee(@Query("deviceId")String deviceId,@Query("start")long start,@Query("end")long end);
+    Observable<OEEResponse> oee(@Query("deviceId")String deviceId);
 
     /**
      * 版本信息
@@ -169,5 +169,12 @@ public interface ServerApi {
      */
     @POST("rest/common/app/version")
     Observable<UpdateInfoResponse> updateInfo();
+
+    /**
+     * 退出登录
+     * @return
+     */
+    @POST("rest/user/logout")
+    Observable<BaseResponse> logout();
 
 }

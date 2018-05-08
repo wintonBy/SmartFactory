@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity android:name=".ui.activity.SplashActivity"
+            android:launchMode="singleTop"
             android:theme="@style/AppTheme.NoActionBar.FullScreen"
             android:screenOrientation="portrait">
             <intent-filter>

@@ -92,10 +92,18 @@ public class DeviceStatusTimeFragment extends BaseFragment {
             return;
         }
         allData = event.getStatusList();
+        if(allData != null && allData.size() >=1){
+            start = TimeUtils.getMillis(allData.get(0).getDt(), Constant.SERVER_SDF,0,0);
+            end = TimeUtils.getMillis(allData.get(allData.size()-1).getDt(), Constant.SERVER_SDF,0,0);
+            end = end + allData.get(allData.size()-1).getDuration();
+        }
+
         filterData();
     }
 
-
+    /**
+     * 设置时间选择
+     */
     private void setTimePickData(){
         timePick.setValue(0.0f,100.0f);
         timePick.setOnRangeChangedListener(new RangeSeekBar.OnRangeChangedListener() {
@@ -130,6 +138,8 @@ public class DeviceStatusTimeFragment extends BaseFragment {
         if(fe >= 100){
             fe = 100;
         }
+
+
         long s =(long) (start + (end - start) * (fs/100f));
         long e =(long) (end - (end - start) * ((100 - fe)/100f));
         for(int i=0;i<allData.size();i++){

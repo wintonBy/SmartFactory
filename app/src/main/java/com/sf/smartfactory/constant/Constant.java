@@ -18,13 +18,15 @@ public final class Constant {
     public static final String SP_USER_USERNAME = "username";
     public static final String SP_USER_IMG = "user_img";
     public static final String SP_PASSWORD = "password";
+    public static final String SP_IS_FIRST_OPEN = "first_open";
+
 
 
     public static final String TOKEN_ERROR = "token error";
     public static final String LOGIN_EXPIRATION = "登录失效";
 
     /*刷新间隔*/
-    public static final int REFRESH_SPACE = 5 * 1000;
+    public static  int REFRESH_SPACE = 5 * 1000;
 
     /*统一的版本号*/
     public static final int VERSION_CODE =20180502;

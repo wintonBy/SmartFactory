@@ -1,7 +1,9 @@
 package com.sf.smartfactory.ui.activity;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.sf.smartfactory.MyApplication;
 import com.sf.smartfactory.R;
+import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.contract.SplashContract;
 import com.sf.smartfactory.presenter.SplashPresenter;
 
@@ -45,9 +47,12 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     public void toNext() {
-        LoginActivity.start(this,null);
+        if(SPUtils.getInstance().getBoolean(Constant.SP_IS_FIRST_OPEN,true)){
+            LoginActivity.start(this,null);
+            SPUtils.getInstance().put(Constant.SP_IS_FIRST_OPEN,false);
+        }else {
+            IndexActivity.start(this,null);
+        }
         finish();
     }
-
-
 }

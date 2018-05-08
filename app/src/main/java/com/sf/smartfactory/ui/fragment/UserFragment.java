@@ -73,4 +73,8 @@ public class UserFragment extends BaseFragment{
     public void clickSetting(View view){
         CommonActivity.start(getActivity(),"设置",CommonActivity.FT_SETTING);
     }
+    @OnClick(R.id.tv_factory)
+    public void clickCompany(View view){
+        CommonActivity.start(getActivity(),"企业信息",CommonActivity.FT_COMPANY_INFO);
+    }
 }

@@ -15,7 +15,7 @@ import com.sf.smartfactory.service.UpdateDataService;
 import com.sf.smartfactory.ui.fragment.FactoryFragment;
 import com.sf.smartfactory.ui.fragment.HomeFragment;
 import com.sf.smartfactory.ui.fragment.OrderFragment;
-import com.sf.smartfactory.ui.fragment.UpdateFragment;
+import com.sf.smartfactory.ui.fragment.UpdateApkDialog;
 import com.sf.smartfactory.ui.fragment.UserFragment;
 import com.sf.smartfactory.view.DiyScrollViewPager;
 import com.winton.bottomnavigationview.NavigationView;
@@ -46,7 +46,7 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
     private List<Fragment> mFragments;
     private IndexViewPagerAdapter mAdapter;
 
-    private UpdateFragment updateFragment;
+    private UpdateApkDialog updateFragment;
 
 
     /**
@@ -82,10 +82,10 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
     private void initBottomNavigation() {
 
         List<NavigationView.Model> nvItems = new ArrayList<>();
-        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_home,R.mipmap.ic_home).title(getResources().getString(R.string.home)).build());
-        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_factory,R.mipmap.ic_factory).title(getResources().getString(R.string.machine_info)).build());
-        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_order,R.mipmap.ic_order).title(getResources().getString(R.string.order_manager)).build());
-        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_me,R.mipmap.ic_me).title(getResources().getString(R.string.me)).build());
+        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_home,R.mipmap.ic_home_uncheck).title(getResources().getString(R.string.home)).build());
+        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_factory,R.mipmap.ic_factory_uncheck).title(getResources().getString(R.string.machine_info)).build());
+        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_order,R.mipmap.ic_order_uncheck).title(getResources().getString(R.string.order_manager)).build());
+        nvItems.add(new NavigationView.Model.Builder(R.mipmap.ic_me,R.mipmap.ic_me_unchek).title(getResources().getString(R.string.me)).build());
 
         mNV.setItems(nvItems);
         mNV.build();
@@ -152,7 +152,7 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
             param.putString("downloadUrl",url);
             param.putString("info",sInfo);
             param.putInt("force",force);
-            updateFragment = UpdateFragment.createInstance(param);
+            updateFragment = UpdateApkDialog.createInstance(param);
         }
         updateFragment.show(getSupportFragmentManager(),"update");
     }

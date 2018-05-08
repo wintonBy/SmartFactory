@@ -45,18 +45,17 @@
         android:layout_marginTop="10dp"
         style="@style/Setting_Item_Divider"/>
     <TextView
+        android:drawablePadding="5dp"
+        android:drawableLeft="@mipmap/ic_company"
         android:id="@+id/tv_factory"
         style="@style/Setting_Item"
         android:text="@string/factory_info" />
     <View
         style="@style/Setting_Item_Divider"/>
+
     <TextView
-        android:id="@+id/tv_service"
-        style="@style/Setting_Item"
-        android:text="@string/service_info" />
-    <View
-        style="@style/Setting_Item_Divider"/>
-    <TextView
+        android:drawablePadding="5dp"
+        android:drawableLeft="@mipmap/ic_setting"
         android:id="@+id/tv_system"
         style="@style/Setting_Item"
         android:text="@string/system_setting" />
@@ -66,6 +65,16 @@
         android:layout_marginTop="10dp"
         style="@style/Setting_Item_Divider"/>
     <TextView
+        android:drawablePadding="5dp"
+        android:drawableLeft="@mipmap/ic_service"
+        android:id="@+id/tv_service"
+        style="@style/Setting_Item"
+        android:text="@string/service_info" />
+    <View
+        style="@style/Setting_Item_Divider"/>
+    <TextView
+        android:drawablePadding="5dp"
+        android:drawableLeft="@mipmap/ic_about"
         android:id="@+id/tv_about"
         style="@style/Setting_Item"
         android:text="@string/about" />

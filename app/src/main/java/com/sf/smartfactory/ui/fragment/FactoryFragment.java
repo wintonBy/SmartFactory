@@ -122,6 +122,11 @@ public class FactoryFragment extends BaseFragment{
             }
         });
     }
+
+    /**
+     * 设置数据的进度
+     * @param list
+     */
     private void setProcessList(List<MachineProcess> list){
         mProcessList.clear();
         if(list == null){

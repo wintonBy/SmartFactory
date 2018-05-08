@@ -1,6 +1,7 @@
 package com.sf.smartfactory.network;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.sf.smartfactory.MyApplication;
 import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.network.response.BaseResponse;
@@ -38,6 +39,7 @@ public class BaseSubscriber<T extends BaseResponse> extends Subscriber<T> {
         }
         if(!t.isSuccess() ){
             if(Constant.TOKEN_ERROR.equals(t.getMessage()) || Constant.LOGIN_EXPIRATION.equals(t.getMessage())){
+                ToastUtils.showLong("登录失效，重新登录");
                 MyApplication.INSTANCE.toLogin();
                 return;
             }
