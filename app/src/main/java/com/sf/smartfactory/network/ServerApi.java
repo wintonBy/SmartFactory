@@ -1,6 +1,7 @@
 package com.sf.smartfactory.network;
 
 import com.sf.smartfactory.network.response.BaseResponse;
+import com.sf.smartfactory.network.response.DeviceClockResponse;
 import com.sf.smartfactory.network.response.DeviceListResponse;
 import com.sf.smartfactory.network.response.DeviceRateResponse;
 import com.sf.smartfactory.network.response.DeviceSummaryResponse;
@@ -156,8 +157,6 @@ public interface ServerApi {
     /**
      * oee分析接口
      * @param deviceId
-     * @param start
-     * @param end
      * @return
      */
     @POST("rest/analysis/device/oee")
@@ -176,5 +175,9 @@ public interface ServerApi {
      */
     @POST("rest/user/logout")
     Observable<BaseResponse> logout();
+
+    @POST("rest/analysis/device/clocks")
+    Observable<DeviceClockResponse> deviceClock();
+
 
 }

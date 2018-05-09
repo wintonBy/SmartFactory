@@ -58,4 +58,6 @@ public class IndexPresenter extends BasePresenter<IndexActivity> implements Inde
         }
         return result;
     }
+
+
 }

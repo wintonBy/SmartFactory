@@ -6,36 +6,45 @@
     android:layout_height="wrap_content">
        <TextView
            android:id="@+id/tv_5"
-           android:textColor="@color/black80"
+           android:textColor="@color/colorPrimary"
            android:gravity="center"
            android:text="5秒"
            android:layout_width="match_parent"
-           android:layout_height="40dp" />
+           android:layout_height="45dp" />
        <View
            style="@style/Setting_Item_Divider"/>
        <TextView
            android:id="@+id/tv_10"
-           android:textColor="@color/black80"
+           android:textColor="@color/colorPrimary"
            android:gravity="center"
            android:text="10秒"
            android:layout_width="match_parent"
-           android:layout_height="40dp" />
+           android:layout_height="45dp" />
        <View
            style="@style/Setting_Item_Divider"/>
        <TextView
            android:id="@+id/tv_30"
-           android:textColor="@color/black80"
+           android:textColor="@color/colorPrimary"
            android:gravity="center"
            android:text="30秒"
            android:layout_width="match_parent"
-           android:layout_height="40dp" />
+           android:layout_height="45dp" />
        <View
            style="@style/Setting_Item_Divider"/>
        <TextView
            android:id="@+id/tv_60"
-           android:textColor="@color/black80"
+           android:textColor="@color/colorPrimary"
            android:gravity="center"
            android:text="60秒"
            android:layout_width="match_parent"
-           android:layout_height="40dp" />
+           android:layout_height="45dp" />
+       <View
+           style="@style/Setting_Item_Divider"/>
+       <TextView
+           android:id="@+id/tv_never"
+           android:textColor="@color/colorPrimary"
+           android:gravity="center"
+           android:text="仅首次刷新"
+           android:layout_width="match_parent"
+           android:layout_height="45dp" />
    </LinearLayout>

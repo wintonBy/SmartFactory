@@ -11,8 +11,10 @@ import android.text.format.DateUtils;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CrashUtils;
 import com.blankj.utilcode.util.PermissionUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.sf.smartfactory.aspectj.annotation.DebugTrace;
+import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.ui.activity.LoginActivity;
 
 import java.lang.ref.WeakReference;
@@ -40,6 +42,7 @@ public class MyApplication extends Application {
         INSTANCE = this;
         initUtils();
         initPermission();
+        Constant.REFRESH_SPACE = SPUtils.getInstance().getInt(Constant.SP_UPDATE_FREQUENCY_VALUE,5 * 1000);
     }
 
     /**

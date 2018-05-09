@@ -16,6 +16,7 @@
             style="@style/Setting_Item_RL_Icon"
          />
         <TextView
+            android:id="@+id/tv_update_frequency"
             style="@style/Setting_Item_RL_Value" />
     </RelativeLayout>
     <View

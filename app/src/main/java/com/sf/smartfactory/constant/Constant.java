@@ -19,6 +19,8 @@ public final class Constant {
     public static final String SP_USER_IMG = "user_img";
     public static final String SP_PASSWORD = "password";
     public static final String SP_IS_FIRST_OPEN = "first_open";
+    public static final String SP_UPDATE_FREQUENCY_VALUE = "update_frequency_value";
+    public static final String SP_UPDATE_FREQUENCY_TITLE = "update_frequency_title";
 
 
 

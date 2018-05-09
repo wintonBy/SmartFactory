@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import com.sf.smartfactory.R;
 
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @author: winton
@@ -27,6 +28,8 @@ import butterknife.ButterKnife;
  * @describe: 更新频率选择框
  */
 public class UpdateFrequencyDialog extends DialogFragment{
+
+    private OnItemChooseListener listener;
 
     public static UpdateFrequencyDialog createInstance(){
         UpdateFrequencyDialog instance = new UpdateFrequencyDialog();
@@ -50,6 +53,41 @@ public class UpdateFrequencyDialog extends DialogFragment{
         return view;
     }
 
+    @OnClick(R.id.tv_5)
+    public void click5(View view){
+        if(listener != null){
+            listener.choose(5,"5秒");
+        }
+    }
+    @OnClick(R.id.tv_10)
+    public void click10(View view){
+        if(listener != null){
+            listener.choose(10,"10秒");
+        }
+    }
+    @OnClick(R.id.tv_30)
+    public void click30(View view){
+        if(listener != null){
+            listener.choose(30,"30秒");
+        }
+    }
+    @OnClick(R.id.tv_60)
+    public void click60(View view){
+        if(listener != null){
+            listener.choose(60,"60秒");
+        }
+    }
+    @OnClick(R.id.tv_never)
+    public void clickNever(View view){
+        if(listener != null){
+            listener.choose(1000000,"仅第一次加载");
+        }
+    }
+
+    public void setListener(OnItemChooseListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -64,9 +102,9 @@ public class UpdateFrequencyDialog extends DialogFragment{
     public interface OnItemChooseListener{
         /**
          *
-         * @param index
+         * @param sec
          * @param title
          */
-        void choose(int index,String title);
+        void choose(int sec,String title);
     }
 }

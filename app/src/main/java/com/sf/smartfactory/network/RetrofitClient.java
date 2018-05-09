@@ -9,6 +9,7 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.sf.smartfactory.BuildConfig;
 import com.sf.smartfactory.MyApplication;
 import com.sf.smartfactory.network.response.BaseResponse;
+import com.sf.smartfactory.network.response.DeviceClockResponse;
 import com.sf.smartfactory.network.response.DeviceListResponse;
 import com.sf.smartfactory.network.response.DeviceRateResponse;
 import com.sf.smartfactory.network.response.DeviceSummaryResponse;
@@ -203,5 +204,10 @@ public class RetrofitClient {
                 .subscribe(subscriber);
     }
 
+    public void deviceClock(Subscriber<DeviceClockResponse> subscriber){
+        mServer.deviceClock()
+                .compose(schedulersTransForm())
+                .subscribe(subscriber);
+    }
 
 }
