@@ -67,7 +67,7 @@ public class MachineProcessAdapter extends IRVBaseAdapter<MachineProcess,Machine
                 return;
             }
             if(!ObjectUtils.isEmpty(item.getDevice())){
-                mTVId.setText(item.getDevice().getId());
+                mTVId.setText(item.getDevice().getName());
             }
             mTVNum.setText(String.valueOf(item.getSum()));
             mTVStuff.setText("无");

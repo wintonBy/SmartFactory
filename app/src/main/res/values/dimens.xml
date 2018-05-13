@@ -10,4 +10,7 @@
     <dimen name="type_pop_width">120dp</dimen>
     <dimen name="type_pop_height">170dp</dimen>
 
+    <dimen name="machine_info_type_pop_width">120dp</dimen>
+    <dimen name="machine_info_type_pop_height">90dp</dimen>
+
 </resources>

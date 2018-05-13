@@ -7,7 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.adapter.OrderListAdapter;
@@ -23,6 +25,7 @@ import com.blankj.utilcode.util.ToastUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +46,10 @@ public class OrderFragment extends BaseFragment {
     @BindView(R.id.rv)
     RecyclerView mRV;
     private StateView mStateView;
+    @BindView(R.id.tv_refresh_time)
+    TextView mTVTime;
+    @BindView(R.id.tv_today)
+    TextView mTVToday;
 
     private List<Order> mOrders;
     private OrderListAdapter mAdapter;
@@ -71,6 +78,7 @@ public class OrderFragment extends BaseFragment {
     }
     private void initData(){
         mOrders = new ArrayList<>();
+        setTvToday();
         mAdapter = new OrderListAdapter(getActivity(),mOrders);
         mRV.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRV.setAdapter(mAdapter);
@@ -95,6 +103,7 @@ public class OrderFragment extends BaseFragment {
                 ToastUtils.showLong("数据异常");
             }
         });
+        setRefreshTime();
     }
 
     private void setOrderList(List<Order> list){
@@ -126,4 +135,22 @@ public class OrderFragment extends BaseFragment {
     public void refreshData(UpdateDataEvent event){
         loadOrders();
     }
+
+    /**
+     * 展示上次刷新的页面时间
+     */
+    private void setRefreshTime(){
+        String time = TimeUtils.getString(System.currentTimeMillis(),0,0);
+        mTVTime.setText(String.format(getString(R.string.last_refresh_f),time));
+    }
+
+    /**
+     *
+     */
+    private void setTvToday(){
+        String week = TimeUtils.getChineseWeek(System.currentTimeMillis());
+        String date = TimeUtils.getNowString(new SimpleDateFormat("MM月dd日"));
+        mTVToday.setText(date+"·"+week);
+    }
+
 }

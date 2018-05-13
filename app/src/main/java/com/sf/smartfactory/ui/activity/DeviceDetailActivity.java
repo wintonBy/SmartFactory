@@ -29,7 +29,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,7 +121,6 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
         mChartsFrag.add(DeviceOeeFragment.newInstance(commonParams));
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -150,16 +148,16 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
 
     @Override
     public void setDeviceInfo(LastStatus status) {
-        String deviceId = status.getRecord().getDevice().getId();
-        mTVDeviceNo.setText(String.format(getResources().getString(R.string.device_no_f),deviceId));
-        String deviceType = status.getRecord().getDevice().getType();
+        String deviceId = status.getRecord().getDevice().getName();
+        mTVDeviceNo.setText(deviceId);
+        String deviceType = status.getRecord().getDevice().getDeviceType().getName();
         mTVDeviceType.setText(String.format(getResources().getString(R.string.type_f),deviceType.toUpperCase()));
         //设置设备状态
         long duration = status.getRecord().getDuration();
         String strDuration = TimeUtils.getFitTimeSpan(duration,0,4);
         String strStatus = DeviceUtils.INSTANCE.getStatusArrName(status.getRecord().getStatus());
         mTVStatus.setText(String.format(getResources().getString(R.string.device_status_desc_f),strStatus,strDuration));
-        String imageUrl = DeviceUtils.INSTANCE.getImageByType(deviceType);
+        String imageUrl = status.getRecord().getDevice().getDeviceType().getImg();
         Glide.with(this).load(imageUrl).into(mIVDevice);
     }
 

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -42,6 +43,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,6 +79,10 @@ public class HomeFragment extends BaseFragment{
     TextView mTVDeviceList;
     @BindView(R.id.lay_fac_pic)
     View mFacPic;
+    @BindView(R.id.tv_refresh_time)
+    TextView mTVTime;
+    @BindView(R.id.tv_today)
+    TextView mTVToday;
 
     private View checkView = mTVPic;
     Drawable leftTabCheck = null;
@@ -112,6 +118,7 @@ public class HomeFragment extends BaseFragment{
 
     private void initData(){
         mDevices = new ArrayList<>();
+        setTvToday();
         leftTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.shape_tab_left,R.color.colorPrimary);
         rightTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.shape_tab_right,R.color.colorPrimary);
         checkFacPic();
@@ -126,8 +133,8 @@ public class HomeFragment extends BaseFragment{
             }
         });
         mRVDeviceList.setAdapter(mAdapter);
-        loadDeviceSummary();
-        loadDeviceList();
+
+        loadData();
     }
 
     private void showDevicesList(List<DeviceStatus> list) {
@@ -265,8 +272,13 @@ public class HomeFragment extends BaseFragment{
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUpdateData(UpdateDataEvent event){
+        loadData();
+    }
+
+    private void loadData(){
         loadDeviceSummary();
         loadDeviceList();
+        setRefreshTime();
     }
 
     @OnClick(R.id.tv_fac_pic)
@@ -284,7 +296,26 @@ public class HomeFragment extends BaseFragment{
         }
         checkDeviceList();
     }
+    /**
+     * 展示上次刷新的页面时间
+     */
+    private void setRefreshTime(){
+        String time = TimeUtils.getString(System.currentTimeMillis(),0,0);
+        mTVTime.setText(String.format(getString(R.string.last_refresh_f),time));
+    }
 
+    /**
+     *显示今天日期
+     */
+    private void setTvToday(){
+        String week = TimeUtils.getChineseWeek(System.currentTimeMillis());
+        String date = TimeUtils.getNowString(new SimpleDateFormat("MM月dd日"));
+        mTVToday.setText(date+"·"+week);
+    }
+
+    /**
+     * 选择工厂视图
+     */
     private void checkFacPic(){
         checkView = mTVPic;
         mTVPic.setBackground(leftTabCheck);
@@ -292,15 +323,19 @@ public class HomeFragment extends BaseFragment{
         mTVDeviceList.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_right));
         mTVDeviceList.setTextColor(Color.BLACK);
         mFacPic.setVisibility(View.VISIBLE);
-        mRVDeviceList.setVisibility(View.GONE);
+        mRVDeviceList.setVisibility(View.INVISIBLE);
     }
+
+    /**
+     * 选择设备列表
+     */
     private void checkDeviceList(){
         checkView = mTVDeviceList;
         mTVPic.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_left));
         mTVDeviceList.setBackground(rightTabCheck);
         mTVDeviceList.setTextColor(Color.WHITE);
         mTVPic.setTextColor(Color.BLACK);
-        mFacPic.setVisibility(View.GONE);
+        mFacPic.setVisibility(View.INVISIBLE);
         mRVDeviceList.setVisibility(View.VISIBLE);
     }
 

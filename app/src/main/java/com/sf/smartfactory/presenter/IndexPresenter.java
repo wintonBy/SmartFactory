@@ -19,7 +19,6 @@ import com.blankj.utilcode.util.LogUtils;
  */
 public class IndexPresenter extends BasePresenter<IndexActivity> implements IndexContract.Presenter {
 
-
     @Override
     public void checkVersion() {
         UpdateInfoResponse.loadUpdateInfo(new BaseSubscriber<UpdateInfoResponse>(){

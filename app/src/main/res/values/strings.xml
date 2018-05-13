@@ -56,4 +56,8 @@
     <string name="check_update">检查更新</string>
     <string name="logout">注销登录</string>
     <string name="update_frequency">更新频率</string>
+    <string name="machine_process_number">加工数量</string>
+    <string name="machine_process_clock">加工节拍</string>
+    <string name="machine_clock_data_f">最长周期：%s\n最短周期：%s\n平均周期：%s</string>
+    <string name="last_refresh_f">上次刷新：%s</string>
 </resources>

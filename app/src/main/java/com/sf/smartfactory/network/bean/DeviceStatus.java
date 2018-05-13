@@ -21,11 +21,10 @@ public class DeviceStatus implements Serializable {
 
     private int id;
     private Device device;
-    private String dt;
     private String status;
     private long duration;
     private ExtendBean extend;
-    private String createDt;
+
 
     public int getId() {
         return id;
@@ -43,13 +42,6 @@ public class DeviceStatus implements Serializable {
         this.device = device;
     }
 
-    public String getDt() {
-        return dt;
-    }
-
-    public void setDt(String dt) {
-        this.dt = dt;
-    }
 
     public String getStatus() {
         return status;
@@ -75,13 +67,6 @@ public class DeviceStatus implements Serializable {
         this.extend = extend;
     }
 
-    public String getCreateDt() {
-        return createDt;
-    }
-
-    public void setCreateDt(String createDt) {
-        this.createDt = createDt;
-    }
 
     public static class ExtendBean {
         /**

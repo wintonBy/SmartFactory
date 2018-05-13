@@ -148,7 +148,7 @@ public interface ServerApi {
 
     /**
      * 获取设备状态
-     * @param devicesId
+     * @param deviceId
      * @return
      */
     @POST("rest/monitor/device/latestStatusOne")

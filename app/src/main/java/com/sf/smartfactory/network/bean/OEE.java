@@ -11,40 +11,40 @@ import java.io.Serializable;
  * @describe: 一句话描述
  */
 public class OEE implements Serializable {
-    private int qe = 0;
-    private int oee = 0;
-    private int ae = 0;
-    private int pe = 0;
+    private double qe = 0;
+    private double oee = 0;
+    private double ae = 0;
+    private double pe = 0;
 
-    public int getQe() {
+    public double getQe() {
         return qe;
     }
 
-    public void setQe(int qe) {
+    public void setQe(double qe) {
         this.qe = qe;
     }
 
-    public int getOee() {
+    public double getOee() {
         return oee;
     }
 
-    public void setOee(int oee) {
+    public void setOee(double oee) {
         this.oee = oee;
     }
 
-    public int getAe() {
+    public double getAe() {
         return ae;
     }
 
-    public void setAe(int ae) {
+    public void setAe(double ae) {
         this.ae = ae;
     }
 
-    public int getPe() {
+    public double getPe() {
         return pe;
     }
 
-    public void setPe(int pe) {
+    public void setPe(double pe) {
         this.pe = pe;
     }
 }

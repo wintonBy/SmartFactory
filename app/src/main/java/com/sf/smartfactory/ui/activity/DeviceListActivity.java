@@ -57,7 +57,6 @@ import butterknife.OnClick;
 public class DeviceListActivity extends BaseActivity<DeviceListPresenter> implements DeviceListContract.View {
 
 
-
     @BindView(R.id.rv_device_list)
     RecyclerView mRVDevicesList;
     @BindView(R.id.refresh_layout)
@@ -66,6 +65,7 @@ public class DeviceListActivity extends BaseActivity<DeviceListPresenter> implem
     TextView mTVTitle;
     @BindView(R.id.iv_more)
     ImageView mIVMore;
+
 
     private View popView;
     private PopupWindow popupWindow;

@@ -37,4 +37,5 @@ public final class Constant {
 
     public static final SimpleDateFormat XAXIS_SDF = new SimpleDateFormat("HH:mm");
     public static final SimpleDateFormat SERVER_SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+    public static final SimpleDateFormat USE_TIME_SDF = new SimpleDateFormat("HH:mm:ss");
 }

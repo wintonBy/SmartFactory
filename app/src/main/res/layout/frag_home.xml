@@ -4,8 +4,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <RelativeLayout
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingRight="10dp"
+        android:background="@mipmap/img_detail"
+        android:layout_width="match_parent"
+        android:layout_height="140dp">
+        <TextView
+            android:id="@+id/page_name"
+            android:textSize="26dp"
+            android:textColor="@android:color/white"
+            android:text="运行汇总"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
+        <TextView
+            android:layout_marginTop="5dp"
+            android:textSize="@dimen/body_text_size"
+            android:textColor="@android:color/white"
+            android:layout_below="@+id/page_name"
+            android:text="5月10日.星期三"
+            android:id="@+id/tv_today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textSize="@dimen/super_small_size"
+            android:textColor="@android:color/white"
+            android:text="上次刷新：2018年5月10日10:21:48"
+            android:id="@+id/tv_refresh_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
     <LinearLayout
+        android:background="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
@@ -209,7 +245,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <android.support.v7.widget.RecyclerView
-            android:visibility="gone"
             android:id="@+id/rv_device_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

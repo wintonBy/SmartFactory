@@ -2,8 +2,13 @@ package com.sf.smartfactory.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.sf.smartfactory.R;
@@ -44,8 +49,6 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
 
     @BindView(R.id.vp_content)
     DiyScrollViewPager mVP;
-    @BindView(R.id.tv_title)
-    TextView mTVTitle;
     private List<Fragment> mFragments;
     private IndexViewPagerAdapter mAdapter;
 
@@ -73,9 +76,17 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
     @Override
     protected void initView() {
         setContentView(R.layout.act_index);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
         ButterKnife.bind(this);
         initBottomNavigation();
         mVP.setCanScroll(false);
+        mVP.setOffscreenPageLimit(4);
         startUpdateService();
     }
 
@@ -98,12 +109,10 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
     @Override
     protected void initListener() {
         super.initListener();
-        mTVTitle.setText(R.string.home);
         mNV.setOnTabSelectedListener(new NavigationView.OnTabSelectedListener() {
             @Override
             public void selected(int index, NavigationView.Model model) {
                 String title = model.getTitle();
-                mTVTitle.setText(title);
                 mVP.setCurrentItem(index,false);
             }
 

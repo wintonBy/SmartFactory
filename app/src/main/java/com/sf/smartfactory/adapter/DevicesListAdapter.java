@@ -2,7 +2,6 @@ package com.sf.smartfactory.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,10 +89,10 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
 
             if(!ObjectUtils.isEmpty(item.getDevice())){
                 //获取设备参数
-                mTVDeviceType.setText(String.format(mContext.getResources().getString(R.string.type_f),item.getDevice().getType().toUpperCase()));
-                String orgStr = String.format(mContext.getResources().getString(R.string.device_no_f),item.getDevice().getId());
+                mTVDeviceType.setText(String.format(mContext.getResources().getString(R.string.type_f),item.getDevice().getDeviceType().getName().toUpperCase()));
+                String orgStr = item.getDevice().getName();
                 mTVDeviceNum.setText(orgStr);
-                String imgUrl = DeviceUtils.INSTANCE.getImageByType(item.getDevice().getType());
+                String imgUrl = item.getDevice().getDeviceType().getImg();
                 mIVDevice.setBackgroundDrawable(getDeviceBgByType(item.getStatus()));
                 Glide.with(mContext).asDrawable().load(imgUrl).into(mIVDevice);
             }

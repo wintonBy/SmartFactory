@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="140dp">
+    <android.support.v7.widget.CardView
+        app:cardCornerRadius="5dp"
+        app:cardElevation="0dp"
+        app:contentPadding="5dp"
+        app:cardBackgroundColor="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:gravity="center"
+            android:text="title"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_text_size"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:gravity="center_vertical"
+                    android:id="@+id/tv_work_title"
+                    android:textColor="@android:color/white"
+                    android:text="加工信息："
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/tv_work_title"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/super_small_size"
+                    android:id="@+id/tv_work_data"
+                    android:text="@string/machine_clock_data_f"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_run_title"
+                android:textColor="@android:color/white"
+                android:text="运行信息："
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:gravity="center_vertical"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/tv_work_title"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/super_small_size"
+                android:id="@+id/tv_run_data"
+                android:text="@string/machine_clock_data_f"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+
+</FrameLayout>

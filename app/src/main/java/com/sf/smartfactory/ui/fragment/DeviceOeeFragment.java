@@ -178,10 +178,10 @@ public class DeviceOeeFragment extends BaseFragment {
     private void showOEE(OEE oee){
         barEntries.clear();
         if(oee != null){
-            barEntries.add(new BarEntry(1,oee.getOee()));
-            barEntries.add(new BarEntry(2,oee.getQe()));
-            barEntries.add(new BarEntry(3,oee.getPe()));
-            barEntries.add(new BarEntry(4,oee.getAe()));
+            barEntries.add(new BarEntry(1,(float)(oee.getOee())));
+            barEntries.add(new BarEntry(2,(float)(oee.getQe())));
+            barEntries.add(new BarEntry(3,(float)(oee.getPe())));
+            barEntries.add(new BarEntry(4,(float)(oee.getAe())));
         }
         barDataSet = new BarDataSet(barEntries,"");
         barDataSet.setColors(ContextCompat.getColor(getActivity(),R.color.oee_color));

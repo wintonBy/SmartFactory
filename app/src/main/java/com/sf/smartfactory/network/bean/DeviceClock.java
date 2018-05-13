@@ -20,6 +20,7 @@ public class DeviceClock implements Serializable {
     private long workAvg;
     private long workMax;
     private long workMin;
+    private String name;
 
     public Device getDevice() {
         return device;
@@ -75,5 +76,13 @@ public class DeviceClock implements Serializable {
 
     public void setWorkMin(long workMin) {
         this.workMin = workMin;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

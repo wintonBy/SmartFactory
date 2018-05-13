@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="@dimen/machine_info_type_pop_width"
+    android:layout_height="@dimen/machine_info_type_pop_height">
+    <ImageView
+        android:layout_marginLeft="90dp"
+        android:src="@mipmap/ic_pop_up"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp" />
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="-5dp"
+        android:background="@drawable/shape_device_id"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/tv_number_list"
+            android:text="@string/machine_process_number"
+            android:textSize="@dimen/body_text_size"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+        <View
+            android:background="#66ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <TextView
+            android:textColor="@android:color/white"
+            android:id="@+id/tv_clock_list"
+            android:text="@string/machine_process_clock"
+            android:textSize="@dimen/body_text_size"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+</LinearLayout>
