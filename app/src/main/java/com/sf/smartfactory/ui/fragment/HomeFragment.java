@@ -38,6 +38,7 @@ import com.sf.smartfactory.view.DevicePieValueFormatter;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.sf.smartfactory.view.ListItemDecoration;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -123,6 +124,7 @@ public class HomeFragment extends BaseFragment{
         rightTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.shape_tab_right,R.color.colorPrimary);
         checkFacPic();
         mRVDeviceList.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
+        mRVDeviceList.addItemDecoration(new ListItemDecoration());
         mAdapter = new DevicesListAdapter(getActivity(),mDevices);
         mAdapter.setListener(new DevicesListAdapter.ItemClickListener() {
             @Override

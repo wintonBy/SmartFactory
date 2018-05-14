@@ -24,6 +24,7 @@ import com.sf.smartfactory.network.bean.MachineProcess;
 import com.sf.smartfactory.network.response.DeviceClockResponse;
 import com.sf.smartfactory.network.response.MachineProcessListResponse;
 import com.sf.smartfactory.utils.DrawableUtils;
+import com.sf.smartfactory.view.ListItemDecoration;
 import com.sf.smartfactory.view.stateview.StateView;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -117,6 +118,7 @@ public class FactoryFragment extends BaseFragment{
         mClockList = new ArrayList<>();
         mClockAdapter = new DeviceClockListAdapter(getActivity(),mClockList);
         mRVClockList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRVClockList.addItemDecoration(new ListItemDecoration());
         mRVClockList.setAdapter(mClockAdapter);
         loadList();
     }

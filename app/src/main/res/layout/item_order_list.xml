@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:padding="5dp"
-    android:layout_height="160dp">
     <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         app:cardCornerRadius="4dp"
         app:contentPaddingLeft="5dp"
         app:contentPaddingTop="5dp"
         app:contentPaddingBottom="5dp"
         app:cardBackgroundColor="@android:color/white"
-        app:cardElevation="0dp"
+        app:cardElevation="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="140dp">
         <TextView
             android:textSize="@dimen/subhead_text_size"
             android:textColor="@color/black90"
@@ -77,5 +74,3 @@
             android:layout_height="20dp" />
 
     </android.support.v7.widget.CardView>
-
-</FrameLayout>

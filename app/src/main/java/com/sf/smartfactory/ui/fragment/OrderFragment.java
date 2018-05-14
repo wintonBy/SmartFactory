@@ -18,6 +18,7 @@ import com.sf.smartfactory.network.BaseSubscriber;
 import com.sf.smartfactory.network.RetrofitClient;
 import com.sf.smartfactory.network.bean.Order;
 import com.sf.smartfactory.network.response.OrderListResponse;
+import com.sf.smartfactory.view.ListItemDecoration;
 import com.sf.smartfactory.view.stateview.StateView;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -81,6 +82,7 @@ public class OrderFragment extends BaseFragment {
         setTvToday();
         mAdapter = new OrderListAdapter(getActivity(),mOrders);
         mRV.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRV.addItemDecoration(new ListItemDecoration());
         mRV.setAdapter(mAdapter);
         loadOrders();
     }

@@ -30,6 +30,7 @@ import com.sf.smartfactory.event.UpdateDataEvent;
 import com.sf.smartfactory.network.bean.Device;
 import com.sf.smartfactory.network.bean.DeviceStatus;
 import com.sf.smartfactory.presenter.DeviceListPresenter;
+import com.sf.smartfactory.view.ListItemDecoration;
 import com.sf.smartfactory.view.TypePopWindow;
 import com.sf.smartfactory.view.stateview.StateView;
 import com.blankj.utilcode.util.SnackbarUtils;
@@ -138,6 +139,7 @@ public class DeviceListActivity extends BaseActivity<DeviceListPresenter> implem
         super.initData();
         type = getIntent().getExtras().getString("type",LIST_ALL);
         mRVDevicesList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+        mRVDevicesList.addItemDecoration(new ListItemDecoration());
         mDevices = new ArrayList<>();
         mAdapter = new DevicesListAdapter(this,mDevices);
         mAdapter.setListener(new DevicesListAdapter.ItemClickListener() {
