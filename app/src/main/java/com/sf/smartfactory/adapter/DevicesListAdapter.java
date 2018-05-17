@@ -53,6 +53,8 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
                 @Override
                 public void onClick(View v) {
                     mListener.clickItem(item);
+
+                    
                 }
             });
         }
