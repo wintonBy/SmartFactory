@@ -122,6 +122,7 @@ public class DeviceRunTimeFragment extends BaseFragment {
         mPCRun.setUsePercentValues(true);
         mPCRun.setDrawEntryLabels(false);
         mPCRun.setRotationEnabled(false);
+        mPCRun.setTouchEnabled(false);
         mPCRun.setTransparentCircleRadius(0);
         mPCRun.setHoleRadius(45f);
         mPCRun.setNoDataText("暂无数据");
@@ -132,6 +133,7 @@ public class DeviceRunTimeFragment extends BaseFragment {
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setWordWrapEnabled(true);
+        legend.setTextSize(12);
     }
 
     private void initDescription(){
@@ -177,6 +179,7 @@ public class DeviceRunTimeFragment extends BaseFragment {
         entries[5].label = String.format("离线:% 3.1f%%",values.get(5));
         entries[6].label = String.format("急停:% 3.1f%%",values.get(6));
         entries[7].label = String.format("检修:% 3.1f%%",values.get(7));
+
         legend.resetCustom();
     }
 

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ObjectUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.network.bean.DeviceStatus;
@@ -54,7 +55,7 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
                 public void onClick(View v) {
                     mListener.clickItem(item);
 
-                    
+
                 }
             });
         }
@@ -71,6 +72,8 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
         ImageView mIVDevice;
         @BindView(R.id.tv_device_rate)
         TextView mTVDeviceRate;
+        @BindView(R.id.tv_device_status_time)
+        TextView mTVStatusTime;
 
         public DevicesViewHolder(View itemView) {
             super(itemView);
@@ -88,7 +91,7 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
             }
             mTVDeviceStatus.setText(DeviceUtils.INSTANCE.getStatusArrName(item.getStatus()));
             mTVDeviceStatus.setBackground(getTagBgByType(item.getStatus()));
-
+            mTVStatusTime.setText(TimeUtils.getFitTimeSpan(item.getDuration(),0,4));
             if(!ObjectUtils.isEmpty(item.getDevice())){
                 //获取设备参数
                 mTVDeviceType.setText(String.format(mContext.getResources().getString(R.string.type_f),item.getDevice().getDeviceType().getName().toUpperCase()));

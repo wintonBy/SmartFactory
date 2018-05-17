@@ -1,22 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    app:cardElevation="5dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_height="40dp">
+        <TextView
+            android:textColor="@color/black70"
+            android:gravity="center"
+            android:id="@+id/tv_machine_id"
+            android:layout_weight="1"
+            android:text="@string/machine_no"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/black70"
+            android:gravity="center"
+            android:text="@string/stuff_name"
+            android:id="@+id/tv_stuff_name"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/black70"
+            android:gravity="center"
+            android:text="@string/production"
+            android:id="@+id/tv_product"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textColor="@color/black70"
+            android:gravity="center"
+            android:text="@string/number"
+            android:id="@+id/tv_num"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
     <View
-        android:background="@android:color/darker_gray"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="1px"/>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <include
-            layout="@layout/item_machine_process_list"/>
-    </FrameLayout>
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="41dp"
         android:id="@+id/rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>
