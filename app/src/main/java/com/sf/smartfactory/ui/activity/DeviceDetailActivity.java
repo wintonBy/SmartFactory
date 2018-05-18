@@ -18,6 +18,7 @@ import com.sf.smartfactory.adapter.ChartsAdapter;
 import com.sf.smartfactory.contract.DeviceDetailContract;
 import com.sf.smartfactory.event.UpdateDataEvent;
 import com.sf.smartfactory.network.bean.LastStatus;
+import com.sf.smartfactory.network.bean.Quantity;
 import com.sf.smartfactory.presenter.DeviceDetailPresenter;
 import com.sf.smartfactory.ui.fragment.DeviceOeeFragment;
 import com.sf.smartfactory.ui.fragment.DeviceRateFragment;
@@ -52,7 +53,11 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     @BindView(R.id.tv_device_no)
     TextView mTVDeviceNo;
     @BindView(R.id.tv_device_status)
+    TextView mTVStatusDec;
+    @BindView(R.id.tv_device_status_value)
     TextView mTVStatus;
+    @BindView(R.id.tv_device_process_num)
+    TextView mTVProcessNum;
     @BindView(R.id.iv_device)
     ImageView mIVDevice;
     @BindView(R.id.tv_title)
@@ -151,12 +156,20 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
         String deviceId = status.getRecord().getDevice().getName();
         mTVDeviceNo.setText(deviceId);
         String deviceType = status.getRecord().getDevice().getDeviceType().getName();
-        mTVDeviceType.setText(String.format(getResources().getString(R.string.type_f),deviceType.toUpperCase()));
+        mTVDeviceType.setText(deviceType.toUpperCase());
         //设置设备状态
+        String strStatus = DeviceUtils.INSTANCE.getStatusArrName(status.getRecord().getStatus());
+        mTVStatus.setText(strStatus);
+
+        if(status.getRecord().getExtend()!= null){
+            Quantity quantity = status.getRecord().getExtend().getQuantity();
+            mTVProcessNum.setText(quantity.getCurrentSum()+"");
+        }
+
         long duration = status.getRecord().getDuration();
         String strDuration = TimeUtils.getFitTimeSpan(duration,0,4);
-        String strStatus = DeviceUtils.INSTANCE.getStatusArrName(status.getRecord().getStatus());
-        mTVStatus.setText(String.format(getResources().getString(R.string.device_status_desc_f),strStatus,strDuration));
+
+        mTVStatusDec.setText(String.format(getResources().getString(R.string.device_status_desc_f),strStatus,strDuration));
         String imageUrl = status.getRecord().getDevice().getDeviceType().getImg();
         Glide.with(this).load(imageUrl).into(mIVDevice);
     }

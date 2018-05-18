@@ -31,7 +31,7 @@
         <TextView
             android:textColor="@android:color/white"
             android:id="@+id/tv_normal"
-            android:text="@string/normal"
+            android:text="@string/running"
             android:textSize="@dimen/body_text_size"
             android:gravity="center"
             android:layout_width="match_parent"

@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.network.bean.DeviceStatus;
 import com.sf.smartfactory.network.bean.ParamsBean;
+import com.sf.smartfactory.network.bean.Quantity;
 import com.sf.smartfactory.utils.DeviceUtils;
 import com.sf.smartfactory.utils.DrawableUtils;
 
@@ -73,7 +74,7 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
         @BindView(R.id.tv_device_rate)
         TextView mTVDeviceRate;
         @BindView(R.id.tv_device_status_time)
-        TextView mTVStatusTime;
+        TextView mTVProcessNum;
 
         public DevicesViewHolder(View itemView) {
             super(itemView);
@@ -91,7 +92,8 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
             }
             mTVDeviceStatus.setText(DeviceUtils.INSTANCE.getStatusArrName(item.getStatus()));
             mTVDeviceStatus.setBackground(getTagBgByType(item.getStatus()));
-            mTVStatusTime.setText(TimeUtils.getFitTimeSpan(item.getDuration(),0,4));
+
+            mTVProcessNum.setText(TimeUtils.getFitTimeSpan(item.getDuration(),0,4));
             if(!ObjectUtils.isEmpty(item.getDevice())){
                 //获取设备参数
                 mTVDeviceType.setText(String.format(mContext.getResources().getString(R.string.type_f),item.getDevice().getDeviceType().getName().toUpperCase()));
@@ -111,8 +113,8 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
                                         paramsBean.getFeed_rate()
                                         ));
                 }
+                mTVProcessNum.setText("加工件数："+getProcessNum(item.getExtend().getQuantity()));
             }
-
         }
 
         /**
@@ -121,6 +123,13 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
         private void clearRate(){
             mTVDeviceRate.setText(mContext.getResources().getString(R.string.device_rate_d));
         }
+    }
+
+    private int getProcessNum(Quantity quantity){
+        if(quantity != null){
+            return quantity.getCurrentSum();
+        }
+        return 0;
     }
 
 

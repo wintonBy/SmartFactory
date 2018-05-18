@@ -10,7 +10,7 @@
     <string name="password_hint">密码</string>
     <string name="version_p">版本：%s</string>
     <string name="loading">加载中...</string>
-    <string name="normal">正常</string>
+    <string name="running">运行</string>
     <string name="error">异常</string>
     <string name="offline">离线</string>
     <string name="all">全部</string>

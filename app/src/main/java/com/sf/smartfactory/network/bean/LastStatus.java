@@ -26,6 +26,15 @@ public class LastStatus implements Serializable {
         private String status;
         private long duration;
         private Device device;
+        private ExtendBean extend;
+
+        public ExtendBean getExtend() {
+            return extend;
+        }
+
+        public void setExtend(ExtendBean extend) {
+            this.extend = extend;
+        }
 
         public String getStatus() {
             return status;
@@ -49,6 +58,18 @@ public class LastStatus implements Serializable {
 
         public void setDevice(Device device) {
             this.device = device;
+        }
+
+        public static class ExtendBean{
+            private Quantity quantity;
+
+            public Quantity getQuantity() {
+                return quantity;
+            }
+
+            public void setQuantity(Quantity quantity) {
+                this.quantity = quantity;
+            }
         }
     }
 }

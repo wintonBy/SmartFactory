@@ -43,7 +43,7 @@
     <LinearLayout
         android:background="@android:color/white"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="65dp"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_gravity="right"
-                android:text="@string/normal"
+                android:text="@string/running"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/tag_text_size" />
 
