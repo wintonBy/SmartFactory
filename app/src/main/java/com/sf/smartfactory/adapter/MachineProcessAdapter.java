@@ -39,11 +39,6 @@ public class MachineProcessAdapter extends IRVBaseAdapter<MachineProcess,Machine
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         MachineProcess item = mSource.get(position);
-        if(position % 2 == 0){
-            holder.itemView.setBackgroundResource(R.color.item_even_color);
-        }else {
-            holder.itemView.setBackgroundResource(R.color.item_odd_color);
-        }
         holder.bindData(item);
     }
 

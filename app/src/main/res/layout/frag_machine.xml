@@ -1,81 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-        <RelativeLayout
-            android:background="@mipmap/img_detail"
-            android:layout_width="match_parent"
-            android:paddingLeft="20dp"
-            android:paddingTop="20dp"
-            android:paddingRight="10dp"
-            android:layout_height="140dp">
-                <TextView
-                    android:id="@+id/page_name"
-                    android:textSize="26dp"
-                    android:textColor="@android:color/white"
-                    android:text="加工信息"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:paddingTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginRight="-0.75px"
+            android:background="@drawable/machine_tab_left"
+            android:gravity="center"
+            android:text="加工数量"
+            android:textColor="@android:color/black" />
 
-                <TextView
-                    android:layout_marginTop="5dp"
-                    android:textSize="@dimen/body_text_size"
-                    android:textColor="@android:color/white"
-                    android:layout_below="@+id/page_name"
-                    android:text="5月10日.星期三"
-                    android:id="@+id/tv_today"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_clock"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="-0.75px"
+            android:background="@drawable/machine_tab_right"
+            android:gravity="center"
+            android:text="加工节拍"
+            android:textColor="@android:color/black" />
 
-                <TextView
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:textSize="@dimen/super_small_size"
-                    android:textColor="@android:color/white"
-                    android:text="上次刷新：2018年5月10日10:21:48"
-                    android:id="@+id/tv_refresh_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+    </LinearLayout>
 
-        </RelativeLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-                <TextView
-                    android:textColor="@android:color/black"
-                    android:id="@+id/tv_number"
-                    android:background="@drawable/shape_tab_left"
-                    android:gravity="center"
-                    android:text="加工数量"
-                    android:layout_width="80dp"
-                    android:layout_marginRight="-0.75px"
-                    android:layout_height="30dp" />
-                <TextView
-                    android:textColor="@android:color/black"
-                    android:id="@+id/tv_clock"
-                    android:layout_marginLeft="-0.75px"
-                    android:background="@drawable/shape_tab_right"
-                    android:gravity="center"
-                    android:text="加工节拍"
-                    android:layout_width="80dp"
-                    android:layout_height="30dp" />
+        <include
+            android:id="@+id/lay_order_number_list"
+            layout="@layout/layout_order_number" />
 
-        </LinearLayout>
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-                <include
-                    android:id="@+id/lay_order_number_list"
-                    layout="@layout/layout_order_number"/>
-                <include
-                    android:id="@+id/lay_device_clock_list"
-                    layout="@layout/layout_device_clock"/>
-        </FrameLayout>
+        <include
+            android:id="@+id/lay_device_clock_list"
+            layout="@layout/layout_device_clock" />
+    </FrameLayout>
 
 
 </LinearLayout>

@@ -9,7 +9,7 @@
         android:gravity="center"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/subhead_text_size"
-        android:text="OEE分析-三日内"
+        android:text="OEE分析-今日"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <com.github.mikephil.charting.charts.BarChart

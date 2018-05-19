@@ -58,6 +58,8 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     TextView mTVStatus;
     @BindView(R.id.tv_device_process_num)
     TextView mTVProcessNum;
+    @BindView(R.id.tv_status_time)
+    TextView mTVStatusTime;
     @BindView(R.id.iv_device)
     ImageView mIVDevice;
     @BindView(R.id.tv_title)
@@ -165,9 +167,9 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
             Quantity quantity = status.getRecord().getExtend().getQuantity();
             mTVProcessNum.setText(quantity.getCurrentSum()+"");
         }
-
         long duration = status.getRecord().getDuration();
         String strDuration = TimeUtils.getFitTimeSpan(duration,0,4);
+        mTVStatusTime.setText(strDuration);
 
         mTVStatusDec.setText(String.format(getResources().getString(R.string.device_status_desc_f),strStatus,strDuration));
         String imageUrl = status.getRecord().getDevice().getDeviceType().getImg();

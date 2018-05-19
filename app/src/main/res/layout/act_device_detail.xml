@@ -15,13 +15,13 @@
             android:padding="10dp"
             android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="170dp"
             >
             <TextView
                 android:id="@+id/tv_device_no"
                 android:layout_width="100dp"
                 android:layout_height="30dp"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="--"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/title_text_size"
@@ -31,13 +31,13 @@
                 android:layout_below="@+id/tv_device_no"
                 android:id="@+id/iv_device"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_height="70dp"
                 android:background="@drawable/shape_device_id"
                 android:gravity="center"
                 android:text="1" />
 
             <LinearLayout
-                android:paddingLeft="10dp"
+                android:paddingLeft="20dp"
                 android:orientation="vertical"
                 android:layout_toRightOf="@id/tv_device_no"
                 android:layout_width="match_parent"
@@ -104,6 +104,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:textSize="@dimen/tag_text_size"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="持续时长"
+                        android:textColor="@android:color/white" />
+                    <TextView
+                        android:gravity="right"
+                        android:textSize="@dimen/tag_text_size"
+                        android:id="@+id/tv_status_time"
+                        android:layout_weight="2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="--"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/dash_line" />
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
                         android:layout_weight="1"
                         android:textSize="@dimen/tag_text_size"
                         android:layout_width="0dp"
@@ -114,66 +144,6 @@
                         android:gravity="right"
                         android:id="@+id/tv_device_process_num"
                         android:textSize="@dimen/tag_text_size"
-                        android:layout_weight="2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:text="--"
-                        android:textColor="@android:color/white" />
-                </LinearLayout>
-
-                <View
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@drawable/dash_line" />
-                <LinearLayout
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:textSize="@dimen/tag_text_size"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:text="快速倍率"
-                        android:textColor="@android:color/white" />
-                    <TextView
-                        android:gravity="right"
-                        android:textSize="@dimen/tag_text_size"
-                        android:id="@+id/tv_device_fast_rate"
-                        android:layout_weight="2"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:text="--"
-                        android:textColor="@android:color/white" />
-                </LinearLayout>
-
-                <View
-                    android:layout_marginTop="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@drawable/dash_line" />
-                <LinearLayout
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:textSize="@dimen/tag_text_size"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:text="进给倍率"
-                        android:textColor="@android:color/white" />
-                    <TextView
-                        android:textSize="@dimen/tag_text_size"
-                        android:gravity="right"
-                        android:id="@+id/tv_device_feed_rate"
                         android:layout_weight="2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"

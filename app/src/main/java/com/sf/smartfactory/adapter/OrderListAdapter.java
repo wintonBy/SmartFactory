@@ -6,11 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ObjectUtils;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.network.bean.Order;
+import com.sf.smartfactory.utils.OrderUtils;
 
 import java.util.List;
 
@@ -50,10 +52,14 @@ public class OrderListAdapter extends IRVBaseAdapter<Order,OrderListAdapter.Orde
         TextView mTVOrderName;
         @BindView(R.id.tv_client_name)
         TextView mTVClientName;
-        @BindView(R.id.tv_plan_time)
-        TextView mTVPlanTime;
+        @BindView(R.id.tv_plan_s_time)
+        TextView mTVPlanSTime;
+        @BindView(R.id.tv_plan_e_time)
+        TextView mTVPlanETime;
         @BindView(R.id.tv_status)
         TextView mTVStatus;
+        @BindView(R.id.pb_order)
+        ProgressBar mPbOrder;
 
         public OrderViewHolder(View itemView) {
             super(itemView);
@@ -66,7 +72,9 @@ public class OrderListAdapter extends IRVBaseAdapter<Order,OrderListAdapter.Orde
                 return;
             }
             mTVOrderNo.setText(String.format(mContext.getResources().getString(R.string.order_no_f),item.getNo()));
-            mTVOrderName.setText(String.format(mContext.getResources().getString(R.string.order_name_f),item.getName()));
+            mTVOrderName.setText(item.getName());
+            mTVStatus.setText(OrderUtils.INSTANCE.getStatusName(item.getStatus()));
+
             if(!ObjectUtils.isEmpty(item.getExtend())){
                 String clientName = item.getExtend().getClientName();
                 if(!ObjectUtils.isEmpty(clientName)){
@@ -76,8 +84,8 @@ public class OrderListAdapter extends IRVBaseAdapter<Order,OrderListAdapter.Orde
             }
             String start = item.getStartDt();
             String end = item.getEndDt();
-            mTVPlanTime.setText(String.format(mContext.getResources().getString(R.string.plan_time_f),start,end));
-
+            mTVPlanSTime.setText("计划开始:"+start);
+            mTVPlanETime.setText("计划结束:"+end);
         }
     }
 }

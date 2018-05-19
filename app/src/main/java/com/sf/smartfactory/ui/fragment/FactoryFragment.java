@@ -53,10 +53,6 @@ public class FactoryFragment extends BaseFragment{
     private View rootView;
     @BindView(R.id.rv)
     RecyclerView mRVOrderNumList;
-    @BindView(R.id.tv_refresh_time)
-    TextView mTVTime;
-    @BindView(R.id.tv_today)
-    TextView mTVToday;
     @BindView(R.id.lay_order_number_list)
     View orderLayout;
     @BindView(R.id.lay_device_clock_list)
@@ -105,12 +101,11 @@ public class FactoryFragment extends BaseFragment{
     }
 
     private void initView(){
-        leftTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.shape_tab_left,R.color.colorPrimary);
-        rightTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.shape_tab_right,R.color.colorPrimary);
+        leftTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.machine_tab_left,android.R.color.white);
+        rightTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.machine_tab_right,android.R.color.white);
     }
 
     private void initData(){
-        setTvToday();
         mProcessList = new ArrayList<>();
         mProcessAdapter = new MachineProcessAdapter(getActivity(),mProcessList);
         mRVOrderNumList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -243,7 +238,6 @@ public class FactoryFragment extends BaseFragment{
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshData(UpdateDataEvent event){
         loadList();
-        setRefreshTime();
     }
     @Override
     public void onStart() {
@@ -257,24 +251,6 @@ public class FactoryFragment extends BaseFragment{
         EventBus.getDefault().unregister(this);
     }
 
-
-    /**
-     * 展示上次刷新的页面时间
-     */
-    private void setRefreshTime(){
-        String time = TimeUtils.getString(System.currentTimeMillis(),0,0);
-        mTVTime.setText(String.format(getString(R.string.last_refresh_f),time));
-    }
-
-    /**
-     *
-     */
-    private void setTvToday(){
-        String week = TimeUtils.getChineseWeek(System.currentTimeMillis());
-        String date = TimeUtils.getNowString(new SimpleDateFormat("MM月dd日"));
-        mTVToday.setText(date+"·"+week);
-    }
-
     /**
      * 点击加工数量
      */
@@ -283,9 +259,9 @@ public class FactoryFragment extends BaseFragment{
         orderLayout.setVisibility(View.VISIBLE);
         checkView = mTVNumber;
         mTVNumber.setBackground(leftTabCheck);
-        mTVNumber.setTextColor(Color.WHITE);
-        mTVClock.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_right));
-        mTVClock.setTextColor(Color.BLACK);
+        mTVNumber.setTextColor(Color.BLACK);
+        mTVClock.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.machine_tab_right));
+        mTVClock.setTextColor(Color.WHITE);
     }
 
     /**
@@ -296,8 +272,8 @@ public class FactoryFragment extends BaseFragment{
         orderLayout.setVisibility(View.INVISIBLE);
         checkView = mTVClock;
         mTVClock.setBackground(rightTabCheck);
-        mTVClock.setTextColor(Color.WHITE);
-        mTVNumber.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_left));
-        mTVNumber.setTextColor(Color.BLACK);
+        mTVClock.setTextColor(Color.BLACK);
+        mTVNumber.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.machine_tab_left));
+        mTVNumber.setTextColor(Color.WHITE);
     }
 }

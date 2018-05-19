@@ -60,4 +60,13 @@
     <string name="machine_process_clock">加工节拍</string>
     <string name="machine_clock_data_f">最长周期：%s\n最短周期：%s\n平均周期：%s</string>
     <string name="last_refresh_f">上次刷新：%s</string>
+    
+    
+    
+    <string-array name="order_title">
+        <item>全部</item>
+        <item>进行中</item>
+        <item>挂起</item>
+        <item>已完成</item>
+    </string-array>
 </resources>

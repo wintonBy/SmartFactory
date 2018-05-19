@@ -1,76 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        app:cardCornerRadius="4dp"
-        app:contentPaddingLeft="5dp"
-        app:contentPaddingTop="5dp"
-        app:contentPaddingBottom="5dp"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardElevation="5dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:background="@android:color/white"
+    android:paddingBottom="5dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp">
+
+    <ImageView
+        android:id="@+id/iv_client"
+        android:scaleType="fitCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:src="@mipmap/ic_plan_time" />
+    <TextView
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/iv_client"
+        android:gravity="center_vertical"
+        android:id="@+id/tv_client_name"
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:text="浙江前进"
+        android:textColor="@color/black80"
+        android:textSize="@dimen/body_text_size" />
+    <ImageView
+        android:background="@mipmap/img_detail"
+        android:id="@+id/iv_order"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tv_client_name"
+        android:layout_width="80dp"
+        android:layout_height="80dp" />
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:layout_alignTop="@+id/iv_order"
+        android:layout_toRightOf="@+id/iv_order"
+        android:layout_below="@+id/tv_client_name"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="140dp">
+        android:layout_height="wrap_content">
         <TextView
-            android:textSize="@dimen/subhead_text_size"
+            android:gravity="center_vertical"
+            android:id="@+id/tv_order_name"
+            android:layout_width="150dp"
+            android:layout_height="25dp"
+            android:text="----"
             android:textColor="@color/black90"
-            android:text="订单编号：0910201220291"
+            android:textSize="@dimen/body_text_size" />
+        <TextView
             android:id="@+id/tv_order_no"
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
-        <LinearLayout
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal"
+            android:layout_height="20dp"
+            android:text="订单编号：0910201220291"
+            android:textColor="@color/black90"
+            android:textSize="@dimen/subhead_text_size" />
+        <TextView
+            android:id="@+id/tv_plan_s_time"
+            android:singleLine="true"
+            android:text="2018-03-20 23:53:54"
+            android:textColor="@color/black30"
             android:layout_width="match_parent"
-            android:layout_height="20dp">
-            <TextView
-                android:textSize="@dimen/body_text_size"
-                android:textColor="@color/black70"
-                android:text="订单名称：0910201220291"
-                android:id="@+id/tv_order_name"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
-            <TextView
-                android:textSize="@dimen/body_text_size"
-                android:textColor="@color/black70"
-                android:text="客户名称：浙江前进"
-                android:id="@+id/tv_client_name"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+            android:layout_height="wrap_content" />
         <TextView
-            android:gravity="bottom"
-            android:layout_marginLeft="21dp"
-            android:layout_gravity="bottom"
-            android:id="@+id/tv_plan_time"
-            android:text="2018-03-20 23:53:54 - 2018-06-28 23:53:57"
-            android:textColor="@color/black70"
-            android:textSize="@dimen/tag_text_size"
+            android:textColor="@color/black30"
+            android:id="@+id/tv_plan_e_time"
+            android:singleLine="true"
+            android:text="2018-03-20 23:53:54"
             android:layout_width="match_parent"
-            android:layout_height="20dp" />
-        <TextView
-            android:textColor="@color/black70"
-            android:textSize="@dimen/body_text_size"
-            android:layout_marginTop="50dp"
-            android:text="当前进度：20%"
-            android:id="@+id/tv_process"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp" />
-        <ImageView
-            android:layout_gravity="bottom"
-            android:src="@mipmap/ic_plan_time"
-            android:layout_width="20dp"
-            android:layout_height="16dp" />
-        <TextView
-            android:gravity="center"
-            android:textSize="12dp"
-            android:layout_gravity="top|right"
-            android:background="@drawable/tag_bg"
-            android:id="@+id/tv_status"
-            android:text="进行中"
-            android:textColor="@android:color/white"
-            android:layout_width="40dp"
-            android:layout_height="20dp" />
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="--"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="12dp" />
+
+    <ProgressBar
+        android:layout_alignParentBottom="true"
+        android:max="100"
+        android:min="0"
+        android:progress="20"
+        android:id="@+id/pb_order"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
