@@ -1,80 +1,248 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="5dp"
-    app:contentPadding="5dp"
-    app:cardPreventCornerOverlap="false"
-    app:cardBackgroundColor="@android:color/white"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="140dp">
-        <TextView
-            android:gravity="center"
-            android:text="title"
-            android:textColor="@color/black80"
-            android:textSize="@dimen/title_text_size"
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+    android:layout_height="145dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="false"
+    app:contentPadding="0dp">
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="40dp"
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:drawableLeft="@mipmap/ic_device"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/title_text_size" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent">
-                <TextView
-                    android:gravity="center_vertical"
-                    android:id="@+id/tv_work_title"
-                    android:textColor="@color/black80"
-                    android:text="加工信息："
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="5dp"
-                    android:layout_below="@+id/tv_work_title"
-                    android:textColor="@color/black80"
-                    android:textSize="@dimen/super_small_size"
-                    android:id="@+id/tv_work_data"
-                    android:text="@string/machine_clock_data_f"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
+            android:layout_height="1dp"
+            android:background="@drawable/blue_dash_line" />
+        <RelativeLayout
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="26dp">
+            <TextView
+                android:id="@+id/tv_work_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="加工信息"
+                android:textColor="@color/black90"
+                android:textSize="@dimen/body_text_size" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/tv_work_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="历史均值："
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/super_small_size" />
+        </RelativeLayout>
+
+
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
             <TextView
-                android:gravity="center_vertical"
-                android:layout_alignParentRight="true"
-                android:id="@+id/tv_run_title"
-                android:textColor="@color/black80"
-                android:text="运行信息："
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:gravity="center_vertical"
-                android:layout_alignParentRight="true"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginTop="5dp"
+                android:background="@drawable/tag_circle"
+                android:gravity="center"
+                android:text="小"
+                android:textColor="@android:color/white"
+                android:textSize="8dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_work_min"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/tv_work_title"
-                android:textColor="@color/black80"
-                android:textSize="@dimen/super_small_size"
-                android:id="@+id/tv_run_data"
-                android:text="@string/machine_clock_data_f"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="--"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="@dimen/tag_text_size" />
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/tag_circle"
+                android:gravity="center"
+                android:text="均"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="8dp" />
+
+            <TextView
+                android:id="@+id/tv_work_avg"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_work_title"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="--"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="@dimen/tag_text_size" />
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/tag_circle"
+                android:gravity="center"
+                android:text="大"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="8dp" />
+
+            <TextView
+                android:id="@+id/tv_work_max"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tv_work_title"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="--"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="@dimen/tag_text_size" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/blue_dash_line" />
+        <RelativeLayout
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="26dp">
+            <TextView
+                android:id="@+id/tv_run_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="运行信息"
+                android:textColor="@color/black90"
+                android:textSize="@dimen/body_text_size" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/tv_run_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="历史均值："
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/super_small_size" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/tag_circle"
+                android:gravity="center"
+                android:text="小"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="8dp" />
+
+            <TextView
+                android:id="@+id/tv_run_min"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="--"
+                android:textColor="@android:color/holo_green_light"
+                android:textSize="@dimen/tag_text_size" />
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/tag_circle"
+                android:gravity="center"
+                android:text="均"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="8dp" />
+
+            <TextView
+                android:id="@+id/tv_run_avg"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="--"
+                android:textColor="@android:color/holo_blue_light"
+                android:textSize="@dimen/tag_text_size" />
+
+            <TextView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/tag_circle"
+                android:gravity="center"
+                android:text="大"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="8dp" />
+
+            <TextView
+                android:id="@+id/tv_run_max"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="--"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="@dimen/tag_text_size" />
+
         </LinearLayout>
 
 
+    </LinearLayout>
 
 
-        </LinearLayout>
-
-
-    </android.support.v7.widget.CardView>
+</android.support.v7.widget.CardView>

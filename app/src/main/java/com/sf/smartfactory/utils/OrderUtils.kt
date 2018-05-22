@@ -6,18 +6,24 @@ package com.sf.smartfactory.utils
  * @package: com.sf.smartfactory.utils
  * @project: SmartFactory
  * @mail:
- * @describe: 一句话描述
+ * @describe: 订单工具类
  */
 object OrderUtils{
 
+    const val  ING = 0;
+
+    const val OVER = 10;
+
+    const val HOLD_UP = 11;
+
     fun getStatusName(status:Int) :String?{
-        if(status==0){
+        if(status==ING){
             return "进行中"
         }
-        if(status == 10){
+        if(status == OVER){
             return "已完成"
         }
-        if(status == 11){
+        if(status == HOLD_UP){
             return "挂起"
         }
         return null

@@ -46,6 +46,9 @@
         <activity android:name=".ui.activity.DeviceDetailActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.OrderDetailActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <service android:name=".service.UpdateDataService"
             android:enabled="true"/>

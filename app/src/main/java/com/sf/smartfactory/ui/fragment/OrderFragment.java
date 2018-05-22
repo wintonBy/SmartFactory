@@ -17,6 +17,7 @@ import com.sf.smartfactory.network.BaseSubscriber;
 import com.sf.smartfactory.network.RetrofitClient;
 import com.sf.smartfactory.network.bean.Order;
 import com.sf.smartfactory.network.response.OrderListResponse;
+import com.sf.smartfactory.utils.OrderUtils;
 import com.sf.smartfactory.view.ListItemDecoration;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -75,14 +76,14 @@ public class OrderFragment extends BaseFragment {
         initFragment();
         mAdapter = new IndexViewPagerAdapter(getActivity().getSupportFragmentManager(), fragments);
         mVP.setAdapter(mAdapter);
-        mNTS.setViewPager(mVP,0);
+        mNTS.setViewPager(mVP,1);
     }
 
     private void initFragment(){
+        fragments.add(OrderListFragment.newInstance(OrderUtils.HOLD_UP));
         fragments.add(OrderListFragment.newInstance(null));
-        fragments.add(OrderListFragment.newInstance(null));
-        fragments.add(OrderListFragment.newInstance(null));
-        fragments.add(OrderListFragment.newInstance(null));
+        fragments.add(OrderListFragment.newInstance(OrderUtils.ING));
+        fragments.add(OrderListFragment.newInstance(OrderUtils.OVER));
     }
 
 

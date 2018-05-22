@@ -29,6 +29,8 @@ import butterknife.ButterKnife;
  */
 public class OrderListAdapter extends IRVBaseAdapter<Order,OrderListAdapter.OrderViewHolder>{
 
+    private OnItemClickListener onItemClickListener;
+
     public OrderListAdapter(Context mContext, List<Order> mSource) {
         super(mContext, mSource);
     }
@@ -40,8 +42,16 @@ public class OrderListAdapter extends IRVBaseAdapter<Order,OrderListAdapter.Orde
     }
 
     @Override
-    public void onBindViewHolder(OrderViewHolder holder, int position) {
-        Order item = mSource.get(position);
+    public void onBindViewHolder(OrderViewHolder holder, final int position) {
+        final Order item = mSource.get(position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onItemClickListener!=null) {
+                    onItemClickListener.onItemClick(position, item);
+                }
+            }
+        });
         holder.bindData(item);
     }
 
@@ -60,11 +70,12 @@ public class OrderListAdapter extends IRVBaseAdapter<Order,OrderListAdapter.Orde
         TextView mTVStatus;
         @BindView(R.id.pb_order)
         ProgressBar mPbOrder;
+        @BindView(R.id.tv_order_percent)
+        TextView mPercent;
 
         public OrderViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
-            mTVClientName.setVisibility(View.INVISIBLE);
         }
 
         public void bindData(Order item){
@@ -74,13 +85,11 @@ public class OrderListAdapter extends IRVBaseAdapter<Order,OrderListAdapter.Orde
             mTVOrderNo.setText(String.format(mContext.getResources().getString(R.string.order_no_f),item.getNo()));
             mTVOrderName.setText(item.getName());
             mTVStatus.setText(OrderUtils.INSTANCE.getStatusName(item.getStatus()));
-
             if(!ObjectUtils.isEmpty(item.getExtend())){
                 String clientName = item.getExtend().getClientName();
-                if(!ObjectUtils.isEmpty(clientName)){
-                    mTVClientName.setVisibility(View.VISIBLE);
-                    mTVClientName.setText(String.format(mContext.getResources().getString(R.string.client_name_f),clientName));
-                }
+                mTVClientName.setText(String.format(mContext.getResources().getString(R.string.client_name_f),ObjectUtils.isEmpty(clientName)? "未知":clientName));
+                mPbOrder.setProgress(item.getExtend().getPercent());
+                mPercent.setText("进度："+item.getExtend().getPercent()+"%");
             }
             String start = item.getStartDt();
             String end = item.getEndDt();
@@ -88,4 +97,18 @@ public class OrderListAdapter extends IRVBaseAdapter<Order,OrderListAdapter.Orde
             mTVPlanETime.setText("计划结束:"+end);
         }
     }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public interface OnItemClickListener{
+        /**
+         * 点击item后的处理数据方法
+         * @param position
+         * @param item
+         */
+        void onItemClick(int position,Order item);
+    }
+
 }

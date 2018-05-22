@@ -146,14 +146,14 @@ public class RetrofitClient {
                 .subscribe(subscriber);
     }
 
-    public void orderList(Subscriber<OrderListResponse> subscriber){
-        mServer.orderList("0")
+    public void orderList(Integer status,Subscriber<OrderListResponse> subscriber){
+        mServer.orderList(status)
                 .compose(schedulersTransForm())
                 .subscribe(subscriber);
     }
 
-    public void machineProcessList(Subscriber<MachineProcessListResponse> subscriber){
-        mServer.machineProcessList(true,true,true)
+    public void machineProcessList(String flag,Subscriber<MachineProcessListResponse> subscriber){
+        mServer.machineProcessList(true,true,true,flag)
                 .compose(schedulersTransForm())
                 .subscribe(subscriber);
     }

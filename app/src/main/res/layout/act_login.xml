@@ -111,18 +111,18 @@
             android:text="@string/other_company"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
-            android:textSize="@dimen/super_small_size"
-            android:textColor="@android:color/white"
-            android:text="@string/develop_company"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:textSize="@dimen/super_small_size"
-            android:textColor="@android:color/white"
-            android:text="@string/developer_site"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--<TextView-->
+            <!--android:textSize="@dimen/super_small_size"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:text="@string/develop_company"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        <!--<TextView-->
+            <!--android:textSize="@dimen/super_small_size"-->
+            <!--android:textColor="@android:color/white"-->
+            <!--android:text="@string/developer_site"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
 
     </LinearLayout>
 

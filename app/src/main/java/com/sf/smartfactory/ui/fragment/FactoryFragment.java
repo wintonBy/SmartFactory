@@ -39,6 +39,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @author: winton
@@ -63,12 +64,22 @@ public class FactoryFragment extends BaseFragment{
     TextView mTVNumber;
     @BindView(R.id.tv_clock)
     TextView mTVClock;
+    @BindView(R.id.tv_current)
+    TextView mTVCurrent;
+    @BindView(R.id.tv_week)
+    TextView mTVWeek;
+    @BindView(R.id.tv_month)
+    TextView mTVMonth;
 
     private StateView mSVOrderNumber;
     private StateView mSVClock;
     private View checkView;
+    private View timeCheckView;
+
     Drawable leftTabCheck = null;
     Drawable rightTabCheck = null;
+
+    private String timeFlag;
 
     private List<MachineProcess> mProcessList;
     private MachineProcessAdapter mProcessAdapter;
@@ -103,6 +114,7 @@ public class FactoryFragment extends BaseFragment{
     private void initView(){
         leftTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.machine_tab_left,android.R.color.white);
         rightTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.machine_tab_right,android.R.color.white);
+
     }
 
     private void initData(){
@@ -149,13 +161,33 @@ public class FactoryFragment extends BaseFragment{
             }
         });
         checkNumberList();
+        checkCurrent();
+    }
+
+    @OnClick(R.id.tv_current)
+    public void clickCurrent(View v){
+        if(timeCheckView != v){
+            checkCurrent();
+        }
+    }
+
+    @OnClick(R.id.tv_week)
+    public void clickWeek(View v){
+        if(timeCheckView != v){
+            checkWeek();
+        }
+    }
+    @OnClick(R.id.tv_month)
+    public void clickMonth(View v){
+        if(timeCheckView != v){
+            checkMonth();
+        }
     }
 
     /**
      * 获取加工信息
      */
     private void loadList(){
-        loadProcessList();
         loadClockList();
     }
 
@@ -163,7 +195,7 @@ public class FactoryFragment extends BaseFragment{
      * 加载加工信息
      */
     private void loadProcessList(){
-        RetrofitClient.getInstance().machineProcessList(new BaseSubscriber<MachineProcessListResponse>(){
+        RetrofitClient.getInstance().machineProcessList(timeFlag,new BaseSubscriber<MachineProcessListResponse>(){
             @Override
             public void onNext(MachineProcessListResponse machineProcessListResponse) {
                 super.onNext(machineProcessListResponse);
@@ -176,7 +208,6 @@ public class FactoryFragment extends BaseFragment{
                 ToastUtils.showLong("数据异常");
                 mSVOrderNumber.showRetry();
                 return;
-
             }
             @Override
             public void onError(Throwable e) {
@@ -235,22 +266,6 @@ public class FactoryFragment extends BaseFragment{
         mClockAdapter.notifyDataSetChanged();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshData(UpdateDataEvent event){
-        loadList();
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
     /**
      * 点击加工数量
      */
@@ -275,5 +290,39 @@ public class FactoryFragment extends BaseFragment{
         mTVClock.setTextColor(Color.BLACK);
         mTVNumber.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.machine_tab_left));
         mTVNumber.setTextColor(Color.WHITE);
+    }
+
+    /**
+     * 选中当前班次
+     */
+    private void checkCurrent(){
+        timeCheckView = mTVCurrent;
+        mTVCurrent.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimary));
+        mTVMonth.setTextColor(ContextCompat.getColor(getActivity(),R.color.black30));
+        mTVWeek.setTextColor(ContextCompat.getColor(getActivity(),R.color.black30));
+        timeFlag = "";
+        loadProcessList();
+    }
+    /**
+     * 选中本周
+     */
+    private void checkWeek(){
+        timeCheckView = mTVWeek;
+        mTVWeek.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimary));
+        mTVMonth.setTextColor(ContextCompat.getColor(getActivity(),R.color.black30));
+        mTVCurrent.setTextColor(ContextCompat.getColor(getActivity(),R.color.black30));
+        timeFlag = "one_week";
+        loadProcessList();
+    }
+    /**
+     * 选中本月
+     */
+    private void checkMonth(){
+        timeCheckView = mTVMonth;
+        mTVMonth.setTextColor(ContextCompat.getColor(getActivity(),R.color.colorPrimary));
+        mTVCurrent.setTextColor(ContextCompat.getColor(getActivity(),R.color.black30));
+        mTVWeek.setTextColor(ContextCompat.getColor(getActivity(),R.color.black30));
+        timeFlag = "this_month";
+        loadProcessList();
     }
 }

@@ -26,7 +26,7 @@ public class Order implements Serializable {
     private List<OrderRelation> relations;
 
 
-    public static class TargetBean{
+    public static class TargetBean implements Serializable{
         private int quantity;
 
         public int getQuantity() {
@@ -38,9 +38,10 @@ public class Order implements Serializable {
         }
     }
 
-    public static class ExtendBean{
+    public static class ExtendBean implements Serializable{
         private int quantity;
         private String clientName;
+        private int percent;
 
         public int getQuantity() {
             return quantity;
@@ -55,7 +56,16 @@ public class Order implements Serializable {
         }
 
         public void setClientName(String clientName) {
+
             this.clientName = clientName;
+        }
+
+        public int getPercent() {
+            return percent;
+        }
+
+        public void setPercent(int percent) {
+            this.percent = percent;
         }
     }
 

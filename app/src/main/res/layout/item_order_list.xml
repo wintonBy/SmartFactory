@@ -2,41 +2,64 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@android:color/white"
+    android:background="@color/order_content_bg"
     android:paddingBottom="5dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
-    android:paddingTop="5dp">
+    >
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp">
+        <ImageView
+            android:id="@+id/iv_client"
+            android:layout_gravity="center_vertical"
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:src="@mipmap/ic_plan_time" />
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:id="@+id/tv_client_name"
+            android:layout_width="190dp"
+            android:singleLine="true"
+            android:layout_height="25dp"
+            android:text="浙江前进"
+            android:textColor="@color/black80"
+            android:textSize="@dimen/body_text_size" />
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:scaleType="fitCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:src="@mipmap/ic_right" />
 
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/tv_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="--"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="12dp" />
+
+    </LinearLayout>
     <ImageView
-        android:id="@+id/iv_client"
-        android:scaleType="fitCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:src="@mipmap/ic_plan_time" />
-    <TextView
-        android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/iv_client"
-        android:gravity="center_vertical"
-        android:id="@+id/tv_client_name"
-        android:layout_width="150dp"
-        android:layout_height="25dp"
-        android:text="浙江前进"
-        android:textColor="@color/black80"
-        android:textSize="@dimen/body_text_size" />
-    <ImageView
-        android:background="@mipmap/img_detail"
+        android:background="@mipmap/img_order"
         android:id="@+id/iv_order"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/tv_client_name"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="10dp"
         android:layout_width="80dp"
-        android:layout_height="80dp" />
+        android:layout_height="84dp" />
 
     <LinearLayout
         android:paddingLeft="10dp"
         android:layout_alignTop="@+id/iv_order"
         android:layout_toRightOf="@+id/iv_order"
-        android:layout_below="@+id/tv_client_name"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -44,51 +67,58 @@
             android:gravity="center_vertical"
             android:id="@+id/tv_order_name"
             android:layout_width="150dp"
-            android:layout_height="25dp"
+            android:layout_height="40dp"
             android:text="----"
             android:textColor="@color/black90"
-            android:textSize="@dimen/body_text_size" />
+            android:textSize="@dimen/subhead_text_size" />
         <TextView
             android:id="@+id/tv_order_no"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:text="订单编号：0910201220291"
-            android:textColor="@color/black90"
-            android:textSize="@dimen/subhead_text_size" />
+            android:text="----"
+            android:textColor="@color/black70"
+            android:textSize="@dimen/tag_text_size" />
         <TextView
             android:id="@+id/tv_plan_s_time"
             android:singleLine="true"
-            android:text="2018-03-20 23:53:54"
+            android:text="----"
+            android:gravity="center_vertical"
             android:textColor="@color/black30"
+            android:textSize="@dimen/super_small_size"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="12dp" />
         <TextView
+            android:textSize="@dimen/super_small_size"
             android:textColor="@color/black30"
             android:id="@+id/tv_plan_e_time"
             android:singleLine="true"
-            android:text="2018-03-20 23:53:54"
+            android:text="----"
+            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="12dp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_status"
-        android:layout_width="40dp"
-        android:layout_height="20dp"
-        android:layout_alignParentRight="true"
-        android:gravity="center"
-        android:text="--"
-        android:textColor="@android:color/holo_red_light"
-        android:textSize="12dp" />
 
     <ProgressBar
+        android:layout_marginLeft="10dp"
         android:layout_alignParentBottom="true"
         android:max="100"
         android:min="0"
-        android:progress="20"
+        android:progressDrawable="@drawable/progressbar_bg"
         android:id="@+id/pb_order"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_toLeftOf="@+id/tv_order_percent"
+        android:layout_marginBottom="7dp"
+        android:layout_height="6dp" />
+    <TextView
+        android:gravity="center"
+        android:textSize="@dimen/tag_text_size"
+        android:text="当前进度:---"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/tv_order_percent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="100dp"
+        android:layout_height="20dp" />
 </RelativeLayout>

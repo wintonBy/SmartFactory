@@ -14,7 +14,7 @@ public class MachineProcess implements Serializable{
 
     private Device device;
     private int sum;
-    private OrderPart part;
+    private Part part;
     private Stuff employee;
 
     public Device getDevice() {
@@ -33,11 +33,11 @@ public class MachineProcess implements Serializable{
         this.sum = sum;
     }
 
-    public OrderPart getPart() {
+    public Part getPart() {
         return part;
     }
 
-    public void setPart(OrderPart part) {
+    public void setPart(Part part) {
         this.part = part;
     }
 

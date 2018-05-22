@@ -2,6 +2,7 @@ package com.sf.smartfactory.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,8 +66,32 @@ public class MachineProcessAdapter extends IRVBaseAdapter<MachineProcess,Machine
                 mTVId.setText(item.getDevice().getName());
             }
             mTVNum.setText(String.valueOf(item.getSum()));
-            mTVStuff.setText("无");
-            mTVProduct.setText("无");
+            mTVStuff.setText(getEmployeeName(item));
+            mTVProduct.setText(getProductName(item));
         }
+    }
+
+    /**
+     * 获取员工姓名
+     * @param item
+     * @return
+     */
+    private String getEmployeeName(MachineProcess item){
+        if(item != null && item.getEmployee() != null && !TextUtils.isEmpty(item.getEmployee().getName())){
+            return item.getEmployee().getName();
+        }
+        return "--";
+    }
+
+    /**
+     *  获取产品名称
+     * @param item
+     * @return
+     */
+    private String getProductName(MachineProcess item){
+        if(item != null && item.getPart() != null && !TextUtils.isEmpty(item.getPart().getName())){
+            return item.getPart().getName();
+        }
+        return "--";
     }
 }

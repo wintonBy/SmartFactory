@@ -89,7 +89,7 @@ public interface ServerApi {
      * @return
      */
     @POST("rest/product/order/list")
-    Observable<OrderListResponse> orderList( @Query("status")String status);
+    Observable<OrderListResponse> orderList( @Query("status")Integer status);
 
     /**
      * 加工信息监控
@@ -102,7 +102,8 @@ public interface ServerApi {
     Observable<MachineProcessListResponse> machineProcessList(
                                                               @Query("needDevice")boolean needDevice,
                                                               @Query("needEmp")boolean needEmp,
-                                                              @Query("needProduct")boolean needProduct
+                                                              @Query("needProduct")boolean needProduct,
+                                                              @Query("flag")String flag
     );
 
     /**

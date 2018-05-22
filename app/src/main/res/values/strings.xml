@@ -24,7 +24,7 @@
     <string name="number">数量</string>
     <string name="cancel">取消</string>
     <string name="confirm">确认</string>
-    <string name="order_no_f">订单编号：%s</string>
+    <string name="order_no_f">订单号：%s</string>
     <string name="order_name_f">订单名称：%s</string>
     <string name="client_name_f">客户名称：%s</string>
     <string name="stuff_no_f">员工编号：%s</string>
@@ -33,9 +33,9 @@
     <string name="device_status_desc_f">设备当前处在%s状态,已持续%s</string>
 
     <string name="home">主页</string>
-    <string name="machine_info">加工信息</string>
+    <string name="machine_info">加工监控</string>
     <string name="stuff_info">员工信息</string>
-    <string name="order_manager">订单管理</string>
+    <string name="order_manager">订单监控</string>
     <string name="me">我</string>
     <string name="about">关于</string>
     <string name="factory_info">企业信息</string>
@@ -43,7 +43,7 @@
     <string name="system_setting">设置</string>
     <string name="version_info">版本信息</string>
     <string name="tip_time_pick">温馨提示：滑动两端选取时间范围</string>
-    <string name="other_company">豫鹏机器厂智能工厂手机端</string>
+    <string name="other_company">豫鹏机械厂智能工厂手机端</string>
     <string name="develop_company">杭州领克信息科技有限公司</string>
     <string name="developer_site">www.lingkexinxi.com</string>
     <string name="developer_address">联系地址：杭州市经济技术开发区白杨街道6号大街452号2-D1810</string>
@@ -58,15 +58,15 @@
     <string name="update_frequency">更新频率</string>
     <string name="machine_process_number">加工数量</string>
     <string name="machine_process_clock">加工节拍</string>
-    <string name="machine_clock_data_f">最长周期：%s\n最短周期：%s\n平均周期：%s</string>
+    <string name="machine_clock_data_f">最长周期：%s最短周期：%s平均周期：%s</string>
     <string name="last_refresh_f">上次刷新：%s</string>
     
     
     
     <string-array name="order_title">
+        <item>挂起</item>
         <item>全部</item>
         <item>进行中</item>
-        <item>挂起</item>
         <item>已完成</item>
     </string-array>
 </resources>

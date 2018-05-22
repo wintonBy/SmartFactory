@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class OrderRelation implements Serializable {
     private String productOrder;
-    private OrderPart part;
+    private Part part;
     private int status;
     private TargetBean target;
 
@@ -24,11 +24,11 @@ public class OrderRelation implements Serializable {
         this.productOrder = productOrder;
     }
 
-    public OrderPart getPart() {
+    public Part getPart() {
         return part;
     }
 
-    public void setPart(OrderPart part) {
+    public void setPart(Part part) {
         this.part = part;
     }
 
@@ -48,15 +48,35 @@ public class OrderRelation implements Serializable {
         this.target = target;
     }
 
-    public static class TargetBean{
+    public static class TargetBean implements Serializable{
         private int quantity;
+        private int doneNum;
+        private int percent;
+
 
         public int getQuantity() {
             return quantity;
         }
 
         public void setQuantity(int quantity) {
+
             this.quantity = quantity;
+        }
+
+        public int getDoneNum() {
+            return doneNum;
+        }
+
+        public void setDoneNum(int doneNum) {
+            this.doneNum = doneNum;
+        }
+
+        public int getPercent() {
+            return percent;
+        }
+
+        public void setPercent(int percent) {
+            this.percent = percent;
         }
     }
 }

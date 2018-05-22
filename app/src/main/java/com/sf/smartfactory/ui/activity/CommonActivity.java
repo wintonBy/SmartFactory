@@ -12,6 +12,7 @@ import com.sf.smartfactory.R;
 import com.sf.smartfactory.presenter.BasePresenter;
 import com.sf.smartfactory.ui.fragment.CompanyInfoFragment;
 import com.sf.smartfactory.ui.fragment.DeveloperInfoFragment;
+import com.sf.smartfactory.ui.fragment.OrderDetailFragment;
 import com.sf.smartfactory.ui.fragment.SettingFragment;
 import com.sf.smartfactory.ui.fragment.VersionFragment;
 

@@ -17,6 +17,7 @@ import com.sf.smartfactory.network.BaseSubscriber;
 import com.sf.smartfactory.network.RetrofitClient;
 import com.sf.smartfactory.network.bean.Order;
 import com.sf.smartfactory.network.response.OrderListResponse;
+import com.sf.smartfactory.ui.activity.OrderDetailActivity;
 import com.sf.smartfactory.view.ListItemDecoration;
 import com.sf.smartfactory.view.stateview.StateView;
 
@@ -43,17 +44,22 @@ public class OrderListFragment extends BaseFragment {
 
     private List<Order> mOrders;
     private OrderListAdapter mAdapter;
+    private Integer status;
+
 
     /**
      * 获取该类的实例
-     * @param params
+     * @param status 订单状态
      * @return
      */
-    public static OrderListFragment newInstance(Bundle params){
+    public static OrderListFragment newInstance(Integer status){
         OrderListFragment instance = new OrderListFragment();
-        if(params != null){
-            instance.setArguments(params);
+        Bundle params = new Bundle();
+        if(status == null){
+            status = -1;
         }
+        params.putInt("status",status);
+        instance.setArguments(params);
         return instance;
     }
 
@@ -62,13 +68,24 @@ public class OrderListFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_order_list,null);
         ButterKnife.bind(this,view);
+        mStateView = StateView.inject(mRV);
         initData();
         return view;
     }
 
     private void initData(){
         mOrders = new ArrayList<>();
+        status = getArguments().getInt("status");
+        if(status == -1){
+            status = null;
+        }
         mAdapter = new OrderListAdapter(getActivity(),mOrders);
+        mAdapter.setOnItemClickListener(new OrderListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, Order item) {
+                OrderDetailActivity.start(getActivity(),item);
+            }
+        });
         mRV.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRV.addItemDecoration(new ListItemDecoration());
         mRV.setAdapter(mAdapter);
@@ -76,7 +93,7 @@ public class OrderListFragment extends BaseFragment {
     }
 
     private void loadOrders(){
-        RetrofitClient.getInstance().orderList(new BaseSubscriber<OrderListResponse>(){
+        RetrofitClient.getInstance().orderList(status,new BaseSubscriber<OrderListResponse>(){
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
@@ -90,7 +107,7 @@ public class OrderListFragment extends BaseFragment {
                     setOrderList(orderListResponse.getData().getList());
                     return;
                 }
-//                mStateView.showRetry();
+                mStateView.showRetry();
                 ToastUtils.showLong("数据异常");
             }
         });
@@ -98,14 +115,14 @@ public class OrderListFragment extends BaseFragment {
 
     private void setOrderList(List<Order> list){
         mOrders.clear();
-//        if(list == null){
-//            mStateView.showRetry();
-//            return;
-//        }
-//        if(list.isEmpty()){
-//            mStateView.showEmpty();
-//            return;
-//        }
+        if(list == null){
+            mStateView.showRetry();
+            return;
+        }
+        if(list.isEmpty()){
+            mStateView.showEmpty();
+            return;
+        }
         mOrders.addAll(list);
         mAdapter.notifyDataSetChanged();
     }

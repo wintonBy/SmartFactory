@@ -9,11 +9,12 @@
     <color name="error_color">#D85F66</color>
     <color name="all_color">#61A1DE</color>
 
-    <color name="list_bg_color">#D6D6D6</color>
+    <color name="list_bg_color">#E6E6E6</color>
     <color name="item_even_color">#FFFFFF</color>
     <color name="item_odd_color">#F6F9FE</color>
+    <color name="order_content_bg">#F7F7F7</color>
 
-    <color name="page_bg">#F7F7F7</color>
+    <color name="page_bg">#F0F0F0</color>
 
     <color name="black">#000000</color>
     <color name="black90">#212121</color>

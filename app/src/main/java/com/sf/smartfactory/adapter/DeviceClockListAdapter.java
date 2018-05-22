@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
 import com.sf.smartfactory.R;
-import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.network.bean.DeviceClock;
 
 import java.util.List;
@@ -42,11 +41,27 @@ public class DeviceClockListAdapter extends IRVBaseAdapter<DeviceClock,DeviceClo
     public void onBindViewHolder(DeviceClockListAdapter.ViewHolder holder, int position) {
         DeviceClock item = mSource.get(position);
         String title = getTitle(item);
-        String workData = getWorkData(item);
-        String runData = getRunData(item);
         holder.setTitle(title);
-        holder.setTvWorkData(workData);
-        holder.setTvRunData(runData);
+
+        String maxC = item.getWorkMax()==0 ? "无":TimeUtils.getFitTimeSpan(item.getWorkMax(), 0,4);
+        String minC = item.getWorkMin()==0 ? "无":TimeUtils.getFitTimeSpan(item.getWorkMin(),0,4);
+        String avgC = item.getWorkAvg()==0 ? "无":TimeUtils.getFitTimeSpan(item.getWorkAvg(),0,4);
+        String workHistory = item.getWorkHistoryAvg()==0 ? "无":TimeUtils.getFitTimeSpan(item.getWorkHistoryAvg(),0,4);
+        holder.setTvWorkMin(minC);
+        holder.setTvWorkAvg(avgC);
+        holder.setTvWorkMax(maxC);
+        holder.setTvWorkHistory(workHistory);
+
+        String maxR = item.getRunMax()==0 ? "无":TimeUtils.getFitTimeSpan(item.getRunMax(),0,4);
+        String minR = item.getRunMin()==0 ? "无":TimeUtils.getFitTimeSpan(item.getRunMin(),0,4);
+        String avgR = item.getRunAvg()==0 ? "无":TimeUtils.getFitTimeSpan(item.getRunMin(),0,4);
+        String runHistory = item.getRunHistoryAvg()==0 ? "无":TimeUtils.getFitTimeSpan(item.getRunHistoryAvg(),0,4);
+        holder.setTvRunMin(minR);
+        holder.setTvRunAvg(avgR);
+        holder.setTvRunMax(maxR);
+        holder.setTvRunHistory(runHistory);
+
+
     }
 
 
@@ -55,41 +70,40 @@ public class DeviceClockListAdapter extends IRVBaseAdapter<DeviceClock,DeviceClo
             return "";
         }
         String deviceName = clock.getDevice().getName();
-        String product = clock.getName();
+        String product = clock.getPart() == null ? "--":clock.getPart().getName();
+        String productNo = clock.getPart() == null ? "--":clock.getPart().getNo();
         StringBuilder builder = new StringBuilder();
-        builder.append("设备：")
-                .append(deviceName);
-        if(!TextUtils.isEmpty(product)){
-            builder.append("产品：").append(product);
-        }
+        builder.append(deviceName)
+                .append("·")
+                .append(TextUtils.isEmpty(product)? "--":product)
+                .append("·")
+                .append(TextUtils.isEmpty(productNo)?"--":productNo);
         return builder.toString();
 
-    }
-
-    private String getWorkData(DeviceClock clock){
-        String maxC = clock.getWorkMax()==0 ? "无":TimeUtils.getFitTimeSpan(clock.getWorkMax(), 0,4);
-        String minC = clock.getWorkMin()==0 ? "无":TimeUtils.getFitTimeSpan(clock.getWorkMin(),0,4);
-        String avgC = clock.getWorkAvg()==0 ? "无":TimeUtils.getFitTimeSpan(clock.getWorkAvg(),0,4);
-
-        return String.format(mContext.getString(R.string.machine_clock_data_f),maxC,minC,avgC);
-    }
-
-    private String getRunData(DeviceClock clock){
-        String maxR = clock.getRunMax()==0 ? "无":TimeUtils.getFitTimeSpan(clock.getRunMax(),0,4);
-        String minR = clock.getRunMin()==0 ? "无":TimeUtils.getFitTimeSpan(clock.getRunMin(),0,4);
-        String avgR = clock.getRunAvg()==0 ? "无":TimeUtils.getFitTimeSpan(clock.getRunMin(),0,4);
-        return String.format(mContext.getString(R.string.machine_clock_data_f),maxR,minR,avgR);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.tv_title)
         TextView tvTitle;
 
-        @BindView(R.id.tv_work_data)
-        TextView tvWorkData;
+        @BindView(R.id.tv_work_min)
+        TextView tvWorkMin;
+        @BindView(R.id.tv_work_avg)
+        TextView tvWorkAvg;
+        @BindView(R.id.tv_work_max)
+        TextView tvWorkMax;
+        @BindView(R.id.tv_work_history)
+        TextView tvWorkHistory;
 
-        @BindView(R.id.tv_run_data)
-        TextView tvRunData;
+
+        @BindView(R.id.tv_run_min)
+        TextView tvRunMin;
+        @BindView(R.id.tv_run_avg)
+        TextView tvRunAvg;
+        @BindView(R.id.tv_run_max)
+        TextView tvRunMax;
+        @BindView(R.id.tv_run_history)
+        TextView tvRunHistory;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -101,15 +115,46 @@ public class DeviceClockListAdapter extends IRVBaseAdapter<DeviceClock,DeviceClo
                 tvTitle.setText(title);
             }
         }
-        public void setTvWorkData(String data){
+        public void setTvWorkMin(String data){
             if(!TextUtils.isEmpty(data)){
-                tvWorkData.setText(data);
+                tvWorkMin.setText(data);
+            }
+        }
+        public void setTvWorkAvg(String data){
+            if(!TextUtils.isEmpty(data)){
+                tvWorkAvg.setText(data);
+            }
+        }
+        public void setTvWorkMax(String data){
+            if(!TextUtils.isEmpty(data)){
+                tvWorkMax.setText(data);
+            }
+        }
+        public void setTvWorkHistory(String data){
+            if(!TextUtils.isEmpty(data)){
+                tvWorkHistory.setText("历史均值:"+data);
             }
         }
 
-        public void setTvRunData(String data){
+        public void setTvRunMin(String data){
             if(!TextUtils.isEmpty(data)){
-                tvRunData.setText(data);
+                tvRunMin.setText(data);
+            }
+        }
+
+        public void setTvRunAvg(String data){
+            if(!TextUtils.isEmpty(data)){
+                tvRunAvg.setText(data);
+            }
+        }
+        public void setTvRunMax(String data){
+            if(!TextUtils.isEmpty(data)){
+                tvRunMax.setText(data);
+            }
+        }
+        public void setTvRunHistory(String data){
+            if(!TextUtils.isEmpty(data)){
+                tvRunHistory.setText("历史均值:"+data);
             }
         }
     }

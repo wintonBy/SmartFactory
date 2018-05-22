@@ -9,18 +9,22 @@ import java.util.Map;
  * @package: com.sf.smartfactory.network.bean
  * @project: SmartFactory
  * @mail:
- * @describe: 一句话描述
+ * @describe: 加工节拍
  */
 public class DeviceClock implements Serializable {
 
     private Device device;
+    private long runHistoryAvg;
     private long runAvg;
     private long runMax;
     private long runMin;
+
+    private long workHistoryAvg;
     private long workAvg;
     private long workMax;
     private long workMin;
-    private String name;
+
+    private Part part;
 
     public Device getDevice() {
         return device;
@@ -78,11 +82,27 @@ public class DeviceClock implements Serializable {
         this.workMin = workMin;
     }
 
-    public String getName() {
-        return name;
+    public long getRunHistoryAvg() {
+        return runHistoryAvg;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRunHistoryAvg(long runHistoryAvg) {
+        this.runHistoryAvg = runHistoryAvg;
+    }
+
+    public long getWorkHistoryAvg() {
+        return workHistoryAvg;
+    }
+
+    public void setWorkHistoryAvg(long workHistoryAvg) {
+        this.workHistoryAvg = workHistoryAvg;
+    }
+
+    public Part getPart() {
+        return part;
+    }
+
+    public void setPart(Part part) {
+        this.part = part;
     }
 }

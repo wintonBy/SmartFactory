@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @mail:
  * @describe: 订单part
  */
-public class OrderPart implements Serializable {
+public class Part implements Serializable {
     private int id;
     private String no;
     private String name;

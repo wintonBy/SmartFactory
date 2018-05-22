@@ -16,15 +16,15 @@
             android:layout_gravity="bottom"
             app:nts_color="#fff"
             app:nts_size="@dimen/body_text_size"
-            app:nts_weight="6dp"
+            app:nts_weight="4dp"
             app:nts_factor="2.5"
             app:nts_titles="@array/order_title"
-            app:nts_type="point"
+            app:nts_type="line"
             app:nts_gravity="bottom"
-            app:nts_corners_radius="3dp"
+            app:nts_corners_radius="2dp"
             app:nts_animation_duration="300"
             app:nts_active_color="#fff"
-            app:nts_inactive_color="#ddd"/>
+            app:nts_inactive_color="#ccc"/>
     </FrameLayout>
     <android.support.v4.view.ViewPager
         android:id="@+id/vp"
