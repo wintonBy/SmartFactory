@@ -250,6 +250,7 @@ public class FactoryFragment extends BaseFragment{
             mSVOrderNumber.showEmpty();
             return;
         }
+        mSVOrderNumber.showContent();
         mProcessList.addAll(list);
         mProcessAdapter.notifyDataSetChanged();
     }
@@ -260,9 +261,16 @@ public class FactoryFragment extends BaseFragment{
      */
     private void setClocksList(List<DeviceClock> list){
         mClockList.clear();
-        if(list != null){
-            mClockList.addAll(list);
+        if(list == null){
+            mSVClock.showRetry();
+            return;
         }
+        if(list.isEmpty()){
+            mSVClock.showEmpty();
+            return;
+        }
+        mSVClock.showContent();
+        mClockList.addAll(list);
         mClockAdapter.notifyDataSetChanged();
     }
 
