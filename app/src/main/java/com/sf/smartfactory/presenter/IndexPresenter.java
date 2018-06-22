@@ -22,21 +22,17 @@ public class IndexPresenter extends BasePresenter<IndexActivity> implements Inde
     @Override
     public void checkVersion() {
         UpdateInfoResponse.loadUpdateInfo(new BaseSubscriber<UpdateInfoResponse>(){
+
             @Override
-            public void onNext(UpdateInfoResponse updateInfoResponse) {
-                super.onNext(updateInfoResponse);
-                if(!updateInfoResponse.isSuccess()){
-                    LogUtils.eTag(TAG,updateInfoResponse.getMessage());
-                    return;
-                }
+            public void success(UpdateInfoResponse updateInfoResponse) {
                 if(hasNewVersion(updateInfoResponse.getData())){
                     getView().showNewVersion(updateInfoResponse.getData());
                 }
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            public void failed(Throwable e) {
+
             }
         });
     }

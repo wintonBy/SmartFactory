@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
-        android:src="@mipmap/pic_fac"
+        android:id="@+id/iv_pic_fac"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

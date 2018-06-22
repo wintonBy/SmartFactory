@@ -5,11 +5,13 @@ import com.sf.smartfactory.network.response.DeviceClockResponse;
 import com.sf.smartfactory.network.response.DeviceListResponse;
 import com.sf.smartfactory.network.response.DeviceRateResponse;
 import com.sf.smartfactory.network.response.DeviceSummaryResponse;
+import com.sf.smartfactory.network.response.FactoryInfoResponse;
 import com.sf.smartfactory.network.response.LastStatusResponse;
 import com.sf.smartfactory.network.response.LoginResponse;
 import com.sf.smartfactory.network.response.MachineProcessListResponse;
 import com.sf.smartfactory.network.response.OEEResponse;
 import com.sf.smartfactory.network.response.OrderListResponse;
+import com.sf.smartfactory.network.response.QuickTimeResponse;
 import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
 import com.sf.smartfactory.network.response.StatusListResponse;
 import com.sf.smartfactory.network.response.StuffListResponse;
@@ -32,11 +34,11 @@ import rx.Observable;
  * @package: com.sf.smartfactory.network.subscriber
  * @project: SmartFactory
  * @mail:
- * @describe: 一句话描述
+ * @describe: 服务端API
  */
 public interface ServerApi {
 
-    public static final String BASE_URL = "https://leadtotech.com/mes-cnc/";
+    public static final String BASE_URL = "https://www.leadtotech.com/mes-server-auto/";
 
     @GET("{url}")
     Observable<ResponseBody> executeGet(@Path("url") String url, @QueryMap Map<String, String> params);
@@ -123,6 +125,26 @@ public interface ServerApi {
     @POST("rest/analysis/device/time")
     Observable<DeviceRateResponse> rate(@Query("deviceId")String deviceId, @Query("start")long start, @Query("end")long end , @Query("needDeviceValues") boolean needDeviceValues);
 
+    /**
+     * time接口
+     * @param deviceId
+     * @param start
+     * @param end
+     * @return
+     */
+    @POST("rest/analysis/device/time")
+    Observable<TimeResponse> time(@Query("deviceId")String deviceId, @Query("start")long start, @Query("end")long end , @Query("needDeviceValues") boolean needDeviceValues);
+
+    /**
+     *  quickTime接口
+     * @param deviceId
+     * @param start
+     * @param end
+     * @param needDeviceValues
+     * @return
+     */
+    @POST("rest/analysis/device/time")
+    Observable<QuickTimeResponse> quickTime(@Query("deviceId")String deviceId, @Query("start")long start, @Query("end")long end , @Query("needDeviceValues") boolean needDeviceValues);
 
     /**
      * time接口
@@ -143,6 +165,8 @@ public interface ServerApi {
      */
     @POST("rest/analysis/device/time")
     Observable<StatusListResponse> timeStatus(@Query("deviceId")String deviceId, @Query("start")long start, @Query("end")long end );
+
+
 
 
 
@@ -179,6 +203,13 @@ public interface ServerApi {
 
     @POST("rest/analysis/device/clocks")
     Observable<DeviceClockResponse> deviceClock();
+
+    /**
+     * 获取工厂信息
+     * @return
+     */
+    @POST("rest/setting/factory/query")
+    Observable<FactoryInfoResponse> getFactory();
 
 
 }

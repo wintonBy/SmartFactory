@@ -62,6 +62,12 @@ public interface DeviceDetailContract {
          * @param deviceId
          */
         void loadTimeStatus(String deviceId);
+
+        /**
+         * 获取数据总接口
+         * @param deviceId
+         */
+        void loadTime(String deviceId);
     }
 
 }

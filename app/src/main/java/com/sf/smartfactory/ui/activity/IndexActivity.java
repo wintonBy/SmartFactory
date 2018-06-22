@@ -9,15 +9,11 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.adapter.IndexViewPagerAdapter;
 import com.sf.smartfactory.contract.IndexContract;
-import com.sf.smartfactory.network.BaseSubscriber;
-import com.sf.smartfactory.network.RetrofitClient;
 import com.sf.smartfactory.network.bean.UpdateInfo;
-import com.sf.smartfactory.network.response.DeviceClockResponse;
 import com.sf.smartfactory.presenter.IndexPresenter;
 import com.sf.smartfactory.service.UpdateDataService;
 import com.sf.smartfactory.ui.fragment.FactoryFragment;
@@ -136,14 +132,13 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
         mFragments = new ArrayList<>();
         mFragments.add(HomeFragment.newInstance(null));
         mFragments.add(FactoryFragment.newInstance(null));
-//        mFragments.add(StuffFragment.newInstance(null));
         mFragments.add(OrderFragment.newInstance(null));
         mFragments.add(UserFragment.newInstance(null));
     }
 
     @Override
-    protected IndexPresenter loadPresenter() {
-        return new IndexPresenter();
+    protected IndexPresenter loadPresenter(){
+            return new IndexPresenter();
     }
 
     @Override

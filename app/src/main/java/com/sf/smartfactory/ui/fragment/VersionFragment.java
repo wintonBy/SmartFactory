@@ -84,13 +84,9 @@ public class VersionFragment extends BaseFragment {
     @OnClick(R.id.check_update)
     public void clickCheckUpdate(View view){
         UpdateInfoResponse.loadUpdateInfo(new BaseSubscriber<UpdateInfoResponse>(){
+
             @Override
-            public void onNext(UpdateInfoResponse updateInfoResponse) {
-                super.onNext(updateInfoResponse);
-                if(!updateInfoResponse.isSuccess()){
-                    LogUtils.eTag(TAG,updateInfoResponse.getMessage());
-                    return;
-                }
+            public void success(UpdateInfoResponse updateInfoResponse) {
                 if(hasNewVersion(updateInfoResponse.getData())){
                     showNewVersion(updateInfoResponse.getData());
                 }else {
@@ -99,8 +95,8 @@ public class VersionFragment extends BaseFragment {
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            public void failed(Throwable e) {
+                ToastUtils.showLong(e.getMessage());
             }
         });
     }

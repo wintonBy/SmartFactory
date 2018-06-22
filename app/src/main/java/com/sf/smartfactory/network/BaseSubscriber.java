@@ -12,7 +12,7 @@ import rx.Subscriber;
  * Created by winton on 2017/6/25.
  */
 
-public class BaseSubscriber<T extends BaseResponse> extends Subscriber<T> {
+public abstract class BaseSubscriber<T extends BaseResponse> extends Subscriber<T> {
 
 
     @Override
@@ -29,21 +29,33 @@ public class BaseSubscriber<T extends BaseResponse> extends Subscriber<T> {
     public void onError(Throwable e) {
         e.printStackTrace();
         LogUtils.e(e.getMessage());
+        failed(e);
     }
 
     @Override
     public void onNext(T t) {
         if(t == null){
-            onError(new IllegalStateException("null response"));
+            failed(new Exception("数据异常"));
             return;
         }
+        if(Constant.REQUEST_LIMIT.equals(t.getMessage())){
+            LogUtils.e("请求超过限制");
+            failed(new Exception(t.getMessage()));
+            return;
+        }
+
         if(!t.isSuccess() ){
             if(Constant.TOKEN_ERROR.equals(t.getMessage()) || Constant.LOGIN_EXPIRATION.equals(t.getMessage())){
                 ToastUtils.showLong("登录失效，重新登录");
                 MyApplication.INSTANCE.toLogin();
                 return;
             }
+            failed(new Exception(t.message));
         }
+        success(t);
     }
+    abstract public void success(T t);
+
+    abstract public void failed(Throwable e);
 
 }

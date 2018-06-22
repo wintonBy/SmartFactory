@@ -19,6 +19,7 @@ import com.sf.smartfactory.network.response.OEEResponse;
 import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
 import com.sf.smartfactory.network.response.StatusListResponse;
 import com.sf.smartfactory.network.response.TimeResponse;
+import com.sf.smartfactory.network.subscriber.QuickSubscriber;
 import com.sf.smartfactory.ui.activity.DeviceDetailActivity;
 import com.sf.smartfactory.utils.DateUtils;
 
@@ -36,6 +37,17 @@ import java.util.List;
  */
 public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> implements DeviceDetailContract.Presenter {
 
+    long start ;
+
+    long lastEnd;
+
+    boolean isFirstLoad;
+
+    public DeviceDetailPresenter(){
+        start = DateUtils.INSTANCE.getWorkStart();
+        isFirstLoad = true;
+    }
+
 
     @Override
     public void loadLastStatus(String deviceId) {
@@ -43,32 +55,70 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
             return;
         }
         RetrofitClient.getInstance().lastStatusOne(deviceId,new BaseSubscriber<LastStatusResponse>(){
+
             @Override
-            public void onNext(LastStatusResponse lastStatusResponse) {
-                super.onNext(lastStatusResponse);
-                if(lastStatusResponse.isSuccess()){
-                    getView().setDeviceInfo(lastStatusResponse.getData());
+            public void success(LastStatusResponse lastStatusResponse) {
+                getView().setDeviceInfo(lastStatusResponse.getData());
+            }
+
+            @Override
+            public void failed(Throwable e) {
+
+            }
+        });
+    }
+
+    @Override
+    public void loadTime(final String deviceId) {
+        long start = DateUtils.INSTANCE.getWorkStart();
+        long end = System.currentTimeMillis();
+        RetrofitClient.getInstance().quickTime(deviceId, start, end, new QuickSubscriber() {
+            @Override
+            public void failed(Throwable e) {
+                getView().showError(e.getMessage());
+            }
+
+            @Override
+            public void onSummary(RunTimeSummary summary) {
+                if(summary != null){
+                    DeviceTimeEvent event = new DeviceTimeEvent(deviceId,false,summary);
+                    EventBus.getDefault().post(event);
                     return;
                 }
                 getView().showError("数据异常");
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            public void onStatus(List<Status> list) {
+                if(list != null){
+                    DeviceTimeStatusEvent event = new DeviceTimeStatusEvent(deviceId,false,list);
+                    EventBus.getDefault().post(event);
+                    return;
+                }
+                getView().showError("数据异常");
+            }
+
+            @Override
+            public void onDeviceValues(List<TimeResponse.Device> list) {
+                if(list != null){
+                    DeviceRateEvent rateEvent = new DeviceRateEvent(deviceId,false,list);
+                    EventBus.getDefault().post(rateEvent);
+                    return;
+                }
+                getView().showError("数据异常");
             }
         });
     }
 
     @Override
+    @Deprecated
     public void loadRates(final String deviceId) {
         long start = DateUtils.INSTANCE.getWorkStart();
         long end = System.currentTimeMillis();
         RetrofitClient.getInstance().rate(deviceId,start,end,new BaseSubscriber<DeviceRateResponse>(){
             @Override
-            public void onNext(DeviceRateResponse rateResponse) {
-                super.onNext(rateResponse);
-                if(rateResponse.isSuccess() && rateResponse.getData() != null){
+            public void success(DeviceRateResponse rateResponse) {
+                if(rateResponse.getData() != null){
                     DeviceRateEvent rateEvent = new DeviceRateEvent(deviceId,false,rateResponse.getData().getDeviceValues());
                     EventBus.getDefault().post(rateEvent);
                     return;
@@ -77,8 +127,7 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            public void failed(Throwable e) {
                 DeviceRateEvent event = new DeviceRateEvent(deviceId,true,null);
                 EventBus.getDefault().post(event);
             }
@@ -88,10 +137,10 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
     @Override
     public void loadOEE(final String deviceId) {
         RetrofitClient.getInstance().oee(deviceId,new BaseSubscriber<OEEResponse>(){
+
             @Override
-            public void onNext(OEEResponse oeeResponse) {
-                super.onNext(oeeResponse);
-                if(oeeResponse.isSuccess() && !ObjectUtils.isEmpty(oeeResponse.getData())){
+            public void success(OEEResponse oeeResponse) {
+                if(!ObjectUtils.isEmpty(oeeResponse.getData())){
                     OEE oee = oeeResponse.getData().getOee();
                     if(oee == null){
                         oee = new OEE();
@@ -104,58 +153,53 @@ public class DeviceDetailPresenter extends BasePresenter<DeviceDetailActivity> i
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            public void failed(Throwable e) {
                 DeviceOeeEvent event = new DeviceOeeEvent(deviceId,true,null);
                 EventBus.getDefault().post(event);
             }
         });
+
+
     }
 
     @Override
+    @Deprecated
     public void loadTimeSummary(final String deviceId) {
 
         long start = DateUtils.INSTANCE.getWorkStart();
         long end = System.currentTimeMillis();
         RetrofitClient.getInstance().timeSummary(deviceId,start,end,new BaseSubscriber<RunTimeSummaryResponse>(){
+
             @Override
-            public void onNext(RunTimeSummaryResponse runTimeSummaryResponse) {
-                super.onNext(runTimeSummaryResponse);
-                if(!runTimeSummaryResponse.isSuccess()){
-                    getView().showError(runTimeSummaryResponse.getMessage());
-                }
+            public void success(RunTimeSummaryResponse runTimeSummaryResponse) {
                 RunTimeSummary summary = runTimeSummaryResponse.getData().getSummary();
                 DeviceTimeEvent event = new DeviceTimeEvent(deviceId,false,summary);
                 EventBus.getDefault().post(event);
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            public void failed(Throwable e) {
+                getView().showError(e.getMessage());
             }
         });
     }
 
     @Override
+    @Deprecated
     public void loadTimeStatus(final String deviceId) {
         long start = DateUtils.INSTANCE.getWorkStart();
         long end = System.currentTimeMillis();
         RetrofitClient.getInstance().statusList(deviceId,start,end,new BaseSubscriber<StatusListResponse>(){
+
             @Override
-            public void onNext(StatusListResponse statusListResponse) {
-                super.onNext(statusListResponse);
-                if(!statusListResponse.isSuccess()){
-                    getView().showError(statusListResponse.getMessage());
-                    return;
-                }
+            public void success(StatusListResponse statusListResponse) {
                 List<Status> statusList = statusListResponse.getData().getList();
                 DeviceTimeStatusEvent event = new DeviceTimeStatusEvent(deviceId,false,statusList);
                 EventBus.getDefault().post(event);
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            public void failed(Throwable e) {
                 DeviceTimeStatusEvent event = new DeviceTimeStatusEvent(deviceId,true,null);
                 EventBus.getDefault().post(event);
             }

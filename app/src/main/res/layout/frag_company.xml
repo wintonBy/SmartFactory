@@ -6,6 +6,7 @@
         android:layout_marginTop="10dp"
         style="@style/Setting_Item_Divider"/>
     <TextView
+        android:id="@+id/tv_fac_name"
         android:drawablePadding="5dp"
         android:drawableLeft="@mipmap/ic_company"
         android:drawableRight="@null"
@@ -14,6 +15,7 @@
     <View
         style="@style/Setting_Item_Divider"/>
     <TextView
+        android:id="@+id/tv_build_time"
         android:drawablePadding="5dp"
         android:drawableLeft="@mipmap/ic_time"
         android:drawableRight="@null"
@@ -22,6 +24,7 @@
     <View
         style="@style/Setting_Item_Divider"/>
     <TextView
+        android:id="@+id/tv_found"
         android:drawablePadding="5dp"
         android:drawableLeft="@mipmap/ic_money"
         android:drawableRight="@null"
@@ -30,6 +33,7 @@
     <View
         style="@style/Setting_Item_Divider"/>
     <TextView
+        android:id="@+id/tv_leader"
         android:drawablePadding="5dp"
         android:drawableLeft="@mipmap/ic_company_person"
         android:drawableRight="@null"
@@ -38,6 +42,7 @@
     <View
         style="@style/Setting_Item_Divider"/>
     <TextView
+        android:id="@+id/tv_emp"
         android:drawablePadding="5dp"
         android:drawableLeft="@mipmap/ic_emp"
         android:drawableRight="@null"

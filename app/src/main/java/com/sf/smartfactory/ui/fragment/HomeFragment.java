@@ -12,9 +12,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.TimeUtils;
+import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -23,6 +25,7 @@ import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.sf.smartfactory.MyApplication;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.adapter.DevicesListAdapter;
 import com.sf.smartfactory.event.UpdateDataEvent;
@@ -80,6 +83,8 @@ public class HomeFragment extends BaseFragment{
     TextView mTVDeviceList;
     @BindView(R.id.lay_fac_pic)
     View mFacPic;
+    @BindView(R.id.iv_pic_fac)
+    ImageView mIVFac;
     @BindView(R.id.tv_refresh_time)
     TextView mTVTime;
     @BindView(R.id.tv_today)
@@ -135,8 +140,20 @@ public class HomeFragment extends BaseFragment{
             }
         });
         mRVDeviceList.setAdapter(mAdapter);
-
         loadData();
+        loadFacImg();
+
+    }
+
+    /**
+     * 加载工厂图片
+     */
+    private void loadFacImg(){
+        if(MyApplication.mFactoryInfo != null && MyApplication.mFactoryInfo.getWorkshopImgApp() != null){
+            Glide.with(this).load(MyApplication.mFactoryInfo.getWorkshopImgApp()).into(mIVFac);
+        }else {
+
+        }
     }
 
     private void showDevicesList(List<DeviceStatus> list) {
@@ -156,16 +173,10 @@ public class HomeFragment extends BaseFragment{
      */
     private void loadDeviceSummary(){
         RetrofitClient.getInstance().deviceSummary(new BaseSubscriber<DeviceSummaryResponse>(){
+
             @Override
-            public void onNext(DeviceSummaryResponse deviceSummaryResponse) {
-                super.onNext(deviceSummaryResponse);
-                if(deviceSummaryResponse == null){
-                    ToastUtils.showLong("数据异常");
-                    return;
-                }
-                if( !ObjectUtils.isEmpty(deviceSummaryResponse)
-                    && deviceSummaryResponse.isSuccess()
-                    && !ObjectUtils.isEmpty(deviceSummaryResponse.getData())){
+            public void success(DeviceSummaryResponse deviceSummaryResponse) {
+                if( !ObjectUtils.isEmpty(deviceSummaryResponse.getData())){
                     DeviceSummaryResponse.Summary summary = deviceSummaryResponse.getData();
                     setNormal(summary.getNormal());
                     setError(summary.getAbnormal());
@@ -173,20 +184,20 @@ public class HomeFragment extends BaseFragment{
                     setALL(summary.getNormal()+summary.getAbnormal()+summary.getOffline());
                 }
             }
+
+            @Override
+            public void failed(Throwable e) {
+
+            }
         });
     }
 
     private void loadDeviceList(){
-        RetrofitClient.getInstance().monitorDeviceList(new BaseSubscriber<DeviceListResponse>(){
-            @Override
-            public void onStart() {
-                super.onStart();
-            }
+        DeviceListResponse.loadList(new BaseSubscriber<DeviceListResponse>(){
 
             @Override
-            public void onNext(DeviceListResponse deviceListResponse) {
-                super.onNext(deviceListResponse);
-                if(deviceListResponse == null || deviceListResponse.getData() == null){
+            public void success(DeviceListResponse deviceListResponse) {
+                if( deviceListResponse.getData() == null){
                     ToastUtils.showLong("数据异常");
                     return;
                 }
@@ -194,9 +205,8 @@ public class HomeFragment extends BaseFragment{
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                ToastUtils.showLong("服务异常");
+            public void failed(Throwable e) {
+                ToastUtils.showLong(e.getMessage());
             }
         });
     }

@@ -86,13 +86,7 @@ public class StuffFragment extends BaseFragment {
     private void loadStuffList(){
         RetrofitClient.getInstance().stuffList(new BaseSubscriber<StuffListResponse>(){
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-            }
-
-            @Override
-            public void onNext(StuffListResponse stuffListResponse) {
-                super.onNext(stuffListResponse);
+            public void success(StuffListResponse stuffListResponse) {
                 if(!ObjectUtils.isEmpty(stuffListResponse)
                         && stuffListResponse.isSuccess()
                         && stuffListResponse.getData() !=null){
@@ -102,6 +96,11 @@ public class StuffFragment extends BaseFragment {
                 ToastUtils.showLong("数据异常");
                 mStateView.showRetry();
                 return;
+            }
+
+            @Override
+            public void failed(Throwable e) {
+
             }
         });
     }

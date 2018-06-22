@@ -43,12 +43,12 @@ public class UpdateDataService extends IntentService {
     protected void onHandleIntent(@Nullable Intent intent) {
         LogUtils.dTag(TAG,"onHandleIntent");
         while (isRunning()){
-            EventBus.getDefault().post(new UpdateDataEvent());
             try {
                 Thread.sleep(Constant.REFRESH_SPACE);
             }catch (InterruptedException e){
                 LogUtils.eTag(TAG,"异常",e);
             }
+            EventBus.getDefault().post(new UpdateDataEvent());
         }
         LogUtils.dTag(TAG,"onHandleIntent finish");
     }

@@ -104,21 +104,16 @@ public class SettingFragment extends BaseFragment{
      */
     private void doLogout(){
         RetrofitClient.getInstance().logout(new BaseSubscriber<BaseResponse>(){
+
             @Override
-            public void onNext(BaseResponse baseResponse) {
-                super.onNext(baseResponse);
-                if(baseResponse.isSuccess()){
-                    cleanUserInfo();
-                    MyApplication.INSTANCE.toLogin();
-                    return;
-                }
-                ToastUtils.showShort("注销失败");
+            public void success(BaseResponse baseResponse) {
+                cleanUserInfo();
+                MyApplication.INSTANCE.toLogin();
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                ToastUtils.showShort("网络异常");
+            public void failed(Throwable e) {
+                ToastUtils.showShort(e.getMessage());
             }
         });
     }

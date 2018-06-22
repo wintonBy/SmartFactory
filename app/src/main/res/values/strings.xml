@@ -60,7 +60,13 @@
     <string name="machine_process_clock">加工节拍</string>
     <string name="machine_clock_data_f">最长周期：%s最短周期：%s平均周期：%s</string>
     <string name="last_refresh_f">上次刷新：%s</string>
-    
+
+
+    <string name="fac_name_f">公司名称：%s</string>
+    <string name="build_time_f">成立日期：%s</string>
+    <string name="found_f">注册资金：%s</string>
+    <string name="emp_f">员工数量：%s</string>
+    <string name="leader_f">企业法人：%s</string>
     
     
     <string-array name="order_title">

@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
 import com.sf.smartfactory.aspectj.annotation.DebugTrace;
 import com.sf.smartfactory.constant.Constant;
+import com.sf.smartfactory.network.bean.FactoryInfo;
 import com.sf.smartfactory.ui.activity.LoginActivity;
 
 import java.lang.ref.WeakReference;
@@ -34,6 +35,10 @@ public class MyApplication extends Application {
     private List<WeakReference<Activity>> mActivitys;
 
     public static PermissionUtils permissionInstance;
+    /**
+     * 工厂信息
+     */
+    public static FactoryInfo mFactoryInfo;
 
     @DebugTrace
     @Override
@@ -42,13 +47,12 @@ public class MyApplication extends Application {
         INSTANCE = this;
         initUtils();
         initPermission();
-        Constant.REFRESH_SPACE = SPUtils.getInstance().getInt(Constant.SP_UPDATE_FREQUENCY_VALUE,5 * 1000);
+        Constant.REFRESH_SPACE = SPUtils.getInstance().getInt(Constant.SP_UPDATE_FREQUENCY_VALUE,Constant.REFRESH_SPACE);
     }
 
     /**
      * 初始化工具类
      */
-    @DebugTrace
     private void initUtils(){
 
         Utils.init(this);
@@ -103,7 +107,7 @@ public class MyApplication extends Application {
      * 初始化程序需要的权限
      */
     private void initPermission(){
-        permissionInstance = PermissionUtils.permission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        permissionInstance = PermissionUtils.permission(Manifest.permission_group.STORAGE);
     }
 
 }

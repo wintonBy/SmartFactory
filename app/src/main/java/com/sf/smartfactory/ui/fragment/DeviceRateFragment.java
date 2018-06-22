@@ -51,6 +51,7 @@ public class DeviceRateFragment extends BaseFragment {
     private List<String> mTimes;
     private LineChartManager lineChartManager;
 
+
     /**
      * 获取该类的实例
      * @param params
@@ -119,7 +120,6 @@ public class DeviceRateFragment extends BaseFragment {
         if(ObjectUtils.isEmpty(event.getDevices())){
             return;
         }
-
         setDeviceRate(event.getDevices());
     }
 

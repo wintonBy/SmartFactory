@@ -7,6 +7,7 @@
         android:layout_marginTop="10dp"
         style="@style/Setting_Item_Divider"/>
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rl_update_frequency"
        style="@style/Setting_Item_RL">
         <TextView

@@ -196,12 +196,10 @@ public class FactoryFragment extends BaseFragment{
      */
     private void loadProcessList(){
         RetrofitClient.getInstance().machineProcessList(timeFlag,new BaseSubscriber<MachineProcessListResponse>(){
+
             @Override
-            public void onNext(MachineProcessListResponse machineProcessListResponse) {
-                super.onNext(machineProcessListResponse);
-                if( !ObjectUtils.isEmpty(machineProcessListResponse)
-                        && machineProcessListResponse.isSuccess()
-                        && !ObjectUtils.isEmpty(machineProcessListResponse.getData())){
+            public void success(MachineProcessListResponse machineProcessListResponse) {
+                if(!ObjectUtils.isEmpty(machineProcessListResponse.getData())){
                     setProcessList(machineProcessListResponse.getData().getList());
                     return;
                 }
@@ -209,19 +207,20 @@ public class FactoryFragment extends BaseFragment{
                 mSVOrderNumber.showRetry();
                 return;
             }
+
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            public void failed(Throwable e) {
+
             }
         });
     }
 
     private void loadClockList(){
         RetrofitClient.getInstance().deviceClock(new BaseSubscriber<DeviceClockResponse>(){
+
             @Override
-            public void onNext(DeviceClockResponse deviceClockResponse) {
-                super.onNext(deviceClockResponse);
-                if(deviceClockResponse.isSuccess() && deviceClockResponse.getData() != null){
+            public void success(DeviceClockResponse deviceClockResponse) {
+                if(deviceClockResponse.getData() != null){
                     setClocksList(deviceClockResponse.getData().getClocks());
                     return;
                 }
@@ -230,8 +229,8 @@ public class FactoryFragment extends BaseFragment{
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            public void failed(Throwable e) {
+
             }
         });
     }

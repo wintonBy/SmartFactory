@@ -1,5 +1,6 @@
 package com.sf.smartfactory.ui.fragment;
 
+import android.Manifest;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.PermissionUtils;
 import com.sf.smartfactory.MyApplication;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.constant.Constant;
@@ -33,6 +35,9 @@ import java.net.URL;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.RuntimePermissions;
 
 /**
  * @author: winton
@@ -42,6 +47,7 @@ import butterknife.OnClick;
  * @mail:
  * @describe: 升级提示
  */
+@RuntimePermissions
 public class UpdateApkDialog extends DialogFragment {
 
     @BindView(R.id.tv_title)
@@ -120,10 +126,17 @@ public class UpdateApkDialog extends DialogFragment {
         this.dismiss();
     }
 
+    @NeedsPermission(Manifest.permission_group.STORAGE)
     @OnClick(R.id.bt_update)
     public void clickUpdate(View view){
         downloadApk(downloadUrl);
     }
+
+    @OnPermissionDenied(Manifest.permission_group.STORAGE)
+    public void requestStoragePerDenied(){
+        ToastUtils.showLong("存储权限被拒绝，导致应用升级功能异常");
+    }
+
 
     /**
      * 下载APK

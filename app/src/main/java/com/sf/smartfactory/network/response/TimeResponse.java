@@ -1,6 +1,8 @@
 package com.sf.smartfactory.network.response;
 
 import com.sf.smartfactory.network.bean.ParamsBean;
+import com.sf.smartfactory.network.bean.RunTimeSummary;
+import com.sf.smartfactory.network.bean.Status;
 
 import java.io.Serializable;
 import java.util.List;
@@ -26,14 +28,16 @@ public class TimeResponse extends BaseResponse {
     }
 
     public static class DataBean{
-        private Summary summary;
+        private RunTimeSummary summary;
         private List<Device> deviceValues;
+        private List<Status> list;
 
-        public Summary getSummary() {
+
+        public RunTimeSummary getSummary() {
             return summary;
         }
 
-        public void setSummary(Summary summary) {
+        public void setSummary(RunTimeSummary summary) {
             this.summary = summary;
         }
 
@@ -44,84 +48,16 @@ public class TimeResponse extends BaseResponse {
         public void setDeviceValues(List<Device> deviceValues) {
             this.deviceValues = deviceValues;
         }
-    }
 
-
-
-    public static class Summary implements Serializable{
-        private long offline;
-        private long idle;
-        private long emergency;
-        private long working;
-        private long collect_err;
-        private long pause;
-        private long editing;
-        private long overhaul;
-
-        public long getOffline() {
-            return offline;
+        public List<Status> getList() {
+            return list;
         }
 
-        public void setOffline(long offline) {
-            this.offline = offline;
-        }
-
-        public long getIdle() {
-            return idle;
-        }
-
-        public void setIdle(long idle) {
-            this.idle = idle;
-        }
-
-        public long getEmergency() {
-            return emergency;
-        }
-
-        public void setEmergency(long emergency) {
-            this.emergency = emergency;
-        }
-
-        public long getWorking() {
-            return working;
-        }
-
-        public void setWorking(long working) {
-            this.working = working;
-        }
-
-        public long getCollect_err() {
-            return collect_err;
-        }
-
-        public void setCollect_err(long collect_err) {
-            this.collect_err = collect_err;
-        }
-
-        public long getPause() {
-            return pause;
-        }
-
-        public void setPause(long pause) {
-            this.pause = pause;
-        }
-
-        public long getEditing() {
-            return editing;
-        }
-
-        public void setEditing(long editing) {
-            this.editing = editing;
-        }
-
-        public long getOverhaul() {
-            return overhaul;
-        }
-
-        public void setOverhaul(long overhaul) {
-            this.overhaul = overhaul;
+        public void setList(List<Status> list) {
+            this.list = list;
         }
     }
+
     public static class Device implements Serializable{
         private int id;
         private String createDt;

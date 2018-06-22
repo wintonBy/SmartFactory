@@ -1,5 +1,6 @@
 package com.sf.smartfactory.ui.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -40,6 +41,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,6 +82,7 @@ public class DeviceListActivity extends BaseActivity<DeviceListPresenter> implem
     public static final String LIST_NORMAL = "normal";
     public static final String LIST_ERROR = "error";
     public static final String LIST_OFFLINE = "offline";
+
 
     /**
      * 启动设备列表页的方法
@@ -249,15 +252,14 @@ public class DeviceListActivity extends BaseActivity<DeviceListPresenter> implem
         mPresenter.loadDeviceList(type);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUpdate(UpdateDataEvent event){
-        refreshData();
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdateData(UpdateDataEvent event){
+        refreshData();
     }
 
     @Override
@@ -266,9 +268,5 @@ public class DeviceListActivity extends BaseActivity<DeviceListPresenter> implem
         EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
 }

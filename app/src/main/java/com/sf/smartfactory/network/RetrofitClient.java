@@ -13,15 +13,19 @@ import com.sf.smartfactory.network.response.DeviceClockResponse;
 import com.sf.smartfactory.network.response.DeviceListResponse;
 import com.sf.smartfactory.network.response.DeviceRateResponse;
 import com.sf.smartfactory.network.response.DeviceSummaryResponse;
+import com.sf.smartfactory.network.response.FactoryInfoResponse;
 import com.sf.smartfactory.network.response.LastStatusResponse;
 import com.sf.smartfactory.network.response.LoginResponse;
 import com.sf.smartfactory.network.response.MachineProcessListResponse;
 import com.sf.smartfactory.network.response.OEEResponse;
 import com.sf.smartfactory.network.response.OrderListResponse;
+import com.sf.smartfactory.network.response.QuickTimeResponse;
 import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
 import com.sf.smartfactory.network.response.StatusListResponse;
 import com.sf.smartfactory.network.response.StuffListResponse;
+import com.sf.smartfactory.network.response.TimeResponse;
 import com.sf.smartfactory.network.response.UpdateInfoResponse;
+import com.sf.smartfactory.network.subscriber.QuickSubscriber;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -36,6 +40,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -181,6 +186,18 @@ public class RetrofitClient {
                 .subscribe(subscriber);
     }
 
+    public void time(String deviceId, long start, long end, Subscriber<TimeResponse> subscriber){
+        mServer.time(deviceId,start,end,true)
+                .compose(schedulersTransForm())
+                .subscribe(subscriber);
+    }
+
+    public void quickTime(String deviceId, long start, long end, QuickSubscriber subscriber){
+        mServer.quickTime(deviceId,start,end,true)
+                .compose(schedulersTransForm())
+                .subscribe(subscriber);
+    }
+
     public void lastStatusOne(String deviceId, Subscriber<LastStatusResponse> subscriber){
         mServer.lastStatusOne(deviceId)
                 .compose(schedulersTransForm())
@@ -206,6 +223,12 @@ public class RetrofitClient {
 
     public void deviceClock(Subscriber<DeviceClockResponse> subscriber){
         mServer.deviceClock()
+                .compose(schedulersTransForm())
+                .subscribe(subscriber);
+    }
+
+    public void getFactory(Subscriber<FactoryInfoResponse> subscriber){
+        mServer.getFactory()
                 .compose(schedulersTransForm())
                 .subscribe(subscriber);
     }

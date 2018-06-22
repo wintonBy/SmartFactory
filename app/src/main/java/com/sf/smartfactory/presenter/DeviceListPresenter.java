@@ -22,53 +22,58 @@ import java.util.List;
  */
 public class DeviceListPresenter extends BasePresenter<DeviceListActivity> implements DeviceListContract.Presenter {
 
+    /**
+     * 服务端获取到的数据
+     */
+    private List<DeviceStatus> allData;
+
 
     @Override
     public void loadDeviceList(final String type) {
-        RetrofitClient.getInstance().monitorDeviceList(new BaseSubscriber<DeviceListResponse>(){
-            @Override
-            public void onStart() {
-                super.onStart();
-            }
+
+        DeviceListResponse.loadList(new BaseSubscriber<DeviceListResponse>(){
 
             @Override
-            public void onNext(DeviceListResponse deviceListResponse) {
-                super.onNext(deviceListResponse);
-                if(deviceListResponse == null || deviceListResponse.getData() == null){
+            public void success(DeviceListResponse deviceListResponse) {
+                if(deviceListResponse.getData() == null){
                     getView().showError("服务异常");
                     return;
                 }
-                getView().showDevicesList(filterList(deviceListResponse.getData().getList(),type));
+                allData = deviceListResponse.getData().getList();
+                filterList(type);
             }
 
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                getView().showError("服务异常");
+            public void failed(Throwable e) {
+                getView().showError(e.getMessage());
             }
         });
+
+
     }
 
     /**
      * 本地筛选
-     * @param statuses
      * @param type
      * @return
      */
-    private List<DeviceStatus> filterList(List<DeviceStatus> statuses,String type){
+    @Override
+    public void filterList(String type){
         if(type.equals(DeviceListActivity.LIST_ALL)){
-            return statuses;
+            getView().showDevicesList(allData);
+            return;
         }
         List<DeviceStatus> result = new ArrayList<>();
-        if(statuses == null){
-            return result;
+        if(allData == null){
+            getView().showDevicesList(result);
+            return;
         }
-        for(int i =0;i<statuses.size();i++){
-            DeviceStatus item = statuses.get(i);
+        for(int i =0;i<allData.size();i++){
+            DeviceStatus item = allData.get(i);
             if(DeviceUtils.INSTANCE.isTypeRight(item.getStatus(),type)){
                 result.add(item);
             }
         }
-        return result;
+        getView().showDevicesList(result);
     }
 }

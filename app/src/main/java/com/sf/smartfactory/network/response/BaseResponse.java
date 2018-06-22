@@ -13,6 +13,10 @@ import java.io.Serializable;
 public class BaseResponse implements Serializable {
     public static final int FAILED = 0;
     public static final int SUCCESS = 1;
+    /**
+     * 登录失效
+     */
+    public static final int CODE_TIME_OUT = 2;
 
     public String message;
     public int result;
@@ -30,5 +34,9 @@ public class BaseResponse implements Serializable {
             return true;
         }
         return false;
+    }
+
+    public boolean isCodeTimeOut(){
+        return getResult() == CODE_TIME_OUT;
     }
 }

@@ -26,12 +26,13 @@ public final class Constant {
 
     public static final String TOKEN_ERROR = "token error";
     public static final String LOGIN_EXPIRATION = "登录失效";
+    public static final String REQUEST_LIMIT = "请求频率限制";
 
     /*刷新间隔*/
     public static  int REFRESH_SPACE = 5 * 1000;
 
     /*统一的版本号*/
-    public static final int VERSION_CODE =20180502;
+    public static final int VERSION_CODE =20180622;
 
     public static final String APK_DOWNLOAD_NAME = "release.apk";
 

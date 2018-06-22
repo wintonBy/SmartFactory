@@ -94,19 +94,14 @@ public class OrderListFragment extends BaseFragment {
 
     private void loadOrders(){
         RetrofitClient.getInstance().orderList(status,new BaseSubscriber<OrderListResponse>(){
+
             @Override
-            public void onError(Throwable e) {
-                super.onError(e);
+            public void success(OrderListResponse orderListResponse) {
+                setOrderList(orderListResponse.getData().getList());
             }
 
             @Override
-            public void onNext(OrderListResponse orderListResponse) {
-                super.onNext(orderListResponse);
-                if(!ObjectUtils.isEmpty(orderListResponse)
-                        && orderListResponse.isSuccess()){
-                    setOrderList(orderListResponse.getData().getList());
-                    return;
-                }
+            public void failed(Throwable e) {
                 mStateView.showRetry();
                 ToastUtils.showLong("数据异常");
             }

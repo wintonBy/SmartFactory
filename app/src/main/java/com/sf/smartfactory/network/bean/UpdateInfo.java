@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @package: com.sf.smartfactory.network.bean
  * @project: SmartFactory
  * @mail:
- * @describe: 一句话描述
+ * @describe: 升级信息
  */
 public class UpdateInfo implements Serializable {
     private int force;

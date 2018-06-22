@@ -1,8 +1,11 @@
 package com.sf.smartfactory.ui.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -30,6 +33,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,6 +78,10 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     private ChartsAdapter mAdapter;
     private List<Fragment> mChartsFrag;
 
+    private static final int UPDATE_FREQUENCY = 10 * 1000;
+
+    private MyHandler mUIHandler;
+
     /**
      * 进入详情页的方法
      * @param context
@@ -104,6 +112,7 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     @Override
     protected void initData() {
         super.initData();
+        mUIHandler = new MyHandler(this);
         startParams = getIntent().getExtras();
         deviceId = startParams.getString("deviceId");
         mTVTitle.setText("设备详情");
@@ -129,23 +138,34 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
+    protected void onResume() {
+        super.onResume();
+        mUIHandler.sendEmptyMessageDelayed(MyHandler.UPDATE,UPDATE_FREQUENCY);
     }
+
 
     @Override
     protected void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
+        mUIHandler.removeMessages(MyHandler.UPDATE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mUIHandler != null){
+            mUIHandler = null;
+        }
     }
 
     private void loadData(){
         mPresenter.loadLastStatus(deviceId);
         mPresenter.loadOEE(deviceId);
-        mPresenter.loadRates(deviceId);
-        mPresenter.loadTimeSummary(deviceId);
-        mPresenter.loadTimeStatus(deviceId);
+        mPresenter.loadTime(deviceId);
+
+//        mPresenter.loadRates(deviceId);
+//        mPresenter.loadTimeSummary(deviceId);
+//        mPresenter.loadTimeStatus(deviceId);
     }
 
     @Override
@@ -183,8 +203,27 @@ public class DeviceDetailActivity extends BaseActivity<DeviceDetailPresenter> im
         }
         SnackbarUtils.with(getWindow().getDecorView()).setMessage(msg).showError();
     }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUpdate(UpdateDataEvent event){
-        loadData();
+
+    private static class MyHandler extends Handler{
+
+        public static final int UPDATE = 0x0001;
+
+        private WeakReference<DeviceDetailActivity> mActivity;
+
+        public MyHandler(DeviceDetailActivity activity){
+            mActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case UPDATE:
+                    if(mActivity.get() != null && !mActivity.get().isFinishing()){
+                        mActivity.get().loadData();
+                        sendEmptyMessageDelayed(UPDATE,UPDATE_FREQUENCY);
+                    }
+                    break;
+            }
+        }
     }
 }

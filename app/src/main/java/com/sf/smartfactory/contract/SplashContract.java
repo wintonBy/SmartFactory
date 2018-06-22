@@ -19,7 +19,10 @@ public interface SplashContract {
     }
 
     interface Presenter{
-
+        /**
+         * 获取工厂信息
+         */
+        void loadFactoryInfo();
     }
 
 }

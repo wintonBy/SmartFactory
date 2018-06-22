@@ -39,5 +39,11 @@ public interface DeviceListContract {
          * 获取设备列表
          */
         void loadDeviceList(String type);
+
+        /**
+         * 过滤数据并显示
+         * @param type
+         */
+        void filterList(String type);
     }
 }

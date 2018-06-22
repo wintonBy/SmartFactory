@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.SnackbarUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.sf.smartfactory.MyApplication;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.contract.LoginContract;
@@ -35,6 +37,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     EditText mETPassword;
     @BindView(R.id.bt_login)
     Button mBTLogin;
+    @BindView(R.id.tv_fac_name)
+    TextView mTVFacName;
 
     private LoadingDialog mLoading;
 
@@ -121,6 +125,18 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             if(!StringUtils.isTrimEmpty(password)){
                 mETPassword.setText(password);
             }
+        }
+        setFacName();
+    }
+
+    /**
+     * 显示工厂信息
+     */
+    private void setFacName(){
+        if(MyApplication.mFactoryInfo == null || MyApplication.mFactoryInfo.getCompany() == null ||  MyApplication.mFactoryInfo.getCompany().getName() == null){
+            mTVFacName.setText("");
+        }else {
+            mTVFacName.setText(MyApplication.mFactoryInfo.getCompany().getName());
         }
     }
 
