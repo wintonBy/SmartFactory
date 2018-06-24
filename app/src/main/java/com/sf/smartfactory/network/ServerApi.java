@@ -1,5 +1,6 @@
 package com.sf.smartfactory.network;
 
+import com.sf.smartfactory.BuildConfig;
 import com.sf.smartfactory.network.response.BaseResponse;
 import com.sf.smartfactory.network.response.DeviceClockResponse;
 import com.sf.smartfactory.network.response.DeviceListResponse;
@@ -38,7 +39,7 @@ import rx.Observable;
  */
 public interface ServerApi {
 
-    public static final String BASE_URL = "https://www.leadtotech.com/mes-server-auto/";
+    public static final String BASE_URL = BuildConfig.SERVER_HOST;
 
     @GET("{url}")
     Observable<ResponseBody> executeGet(@Path("url") String url, @QueryMap Map<String, String> params);

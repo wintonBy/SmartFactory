@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">LKT智能工厂</string>
     <string name="app_slogan">专注，成就品质</string>
     <string name="text_empty">还没有数据呢！</string>
     <string name="text_retry">获取数据失败，点击重试！</string>
