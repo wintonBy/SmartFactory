@@ -14,7 +14,12 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
-        debug { storeFile file("debug.keystore") }
+        debug {
+            storeFile file('../key/debugKey.jks')
+            storePassword '123456'
+            keyAlias 'debugKey'
+            keyPassword '123456'
+        }
 
         release {
             storeFile file('../key/debugKey.jks')
