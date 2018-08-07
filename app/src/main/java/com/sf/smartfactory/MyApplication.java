@@ -33,20 +33,11 @@ public class MyApplication extends Application {
     public static MyApplication INSTANCE;
 
     private List<WeakReference<Activity>> mActivitys;
-
-    public static PermissionUtils permissionInstance;
-    /**
-     * 工厂信息
-     */
-    public static FactoryInfo mFactoryInfo;
-
-    @DebugTrace
     @Override
     public void onCreate() {
         super.onCreate();
         INSTANCE = this;
         initUtils();
-        initPermission();
         Constant.REFRESH_SPACE = SPUtils.getInstance().getInt(Constant.SP_UPDATE_FREQUENCY_VALUE,Constant.REFRESH_SPACE);
     }
 
@@ -102,12 +93,4 @@ public class MyApplication extends Application {
             ((Activity) context).finish();
         }
     }
-
-    /**
-     * 初始化程序需要的权限
-     */
-    private void initPermission(){
-        permissionInstance = PermissionUtils.permission(Manifest.permission_group.STORAGE);
-    }
-
 }

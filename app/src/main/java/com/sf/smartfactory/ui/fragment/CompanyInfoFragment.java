@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sf.smartfactory.MyApplication;
+import com.blankj.utilcode.util.SPUtils;
 import com.sf.smartfactory.R;
+import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.network.bean.Company;
-import com.sf.smartfactory.network.bean.FactoryInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,15 +63,15 @@ public class CompanyInfoFragment extends BaseFragment{
     }
 
     private void initData(){
-        if(MyApplication.mFactoryInfo == null || MyApplication.mFactoryInfo.getCompany() == null){
-            return;
-        }
-        company = MyApplication.mFactoryInfo.getCompany();
-
-        mTVFacName.setText(String.format(getResources().getString(R.string.fac_name_f),TextUtils.isEmpty(company.getName())? "--":company.getName()));
-        mTVBuildTime.setText(String.format(getResources().getString(R.string.build_time_f),TextUtils.isEmpty(company.getDate())? "--":company.getDate()));
-        mTVFound.setText(String.format(getResources().getString(R.string.found_f),TextUtils.isEmpty(company.getFund())? "--":company.getFund()));
-        mTVLeader.setText(String.format(getResources().getString(R.string.leader_f),TextUtils.isEmpty(company.getLegalperson())? "--":company.getLegalperson()));
-        mTVEmp.setText(String.format(getResources().getString(R.string.emp_f),TextUtils.isEmpty(company.getEmpnums())? "--":company.getEmpnums()));
+        String name = SPUtils.getInstance().getString(Constant.SP_FACTORY_NAME,"");
+        String date = SPUtils.getInstance().getString(Constant.SP_FACTORY_DATE,"");
+        String found = SPUtils.getInstance().getString(Constant.SP_FACTORY_FOUND,"");
+        String legalPerson = SPUtils.getInstance().getString(Constant.SP_FACTORY_LEGAL_PERSON,"");
+        String empNum = SPUtils.getInstance().getString(Constant.SP_FACTORY_EMP_NUM,"");
+        mTVFacName.setText(String.format(getResources().getString(R.string.fac_name_f),TextUtils.isEmpty(name)? "--":name));
+        mTVBuildTime.setText(String.format(getResources().getString(R.string.build_time_f),TextUtils.isEmpty(date)? "--":date));
+        mTVFound.setText(String.format(getResources().getString(R.string.found_f),TextUtils.isEmpty(found)? "--":found));
+        mTVLeader.setText(String.format(getResources().getString(R.string.leader_f),TextUtils.isEmpty(legalPerson)? "--":legalPerson));
+        mTVEmp.setText(String.format(getResources().getString(R.string.emp_f),TextUtils.isEmpty(empNum)? "--":empNum));
     }
 }

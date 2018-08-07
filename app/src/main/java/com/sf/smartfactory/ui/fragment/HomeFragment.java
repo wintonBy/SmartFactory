@@ -1,12 +1,11 @@
 package com.sf.smartfactory.ui.fragment;
 
 import android.graphics.Color;
-import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,19 +14,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ObjectUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.TimeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
-import com.github.mikephil.charting.charts.Chart;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LegendEntry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.sf.smartfactory.MyApplication;
+import com.bumptech.glide.request.RequestOptions;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.adapter.DevicesListAdapter;
+import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.event.UpdateDataEvent;
 import com.sf.smartfactory.network.BaseSubscriber;
 import com.sf.smartfactory.network.RetrofitClient;
@@ -37,10 +32,6 @@ import com.sf.smartfactory.network.response.DeviceSummaryResponse;
 import com.sf.smartfactory.ui.activity.DeviceDetailActivity;
 import com.sf.smartfactory.ui.activity.DeviceListActivity;
 import com.sf.smartfactory.utils.DrawableUtils;
-import com.sf.smartfactory.view.DevicePieValueFormatter;
-import com.blankj.utilcode.util.ObjectUtils;
-import com.blankj.utilcode.util.SnackbarUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.sf.smartfactory.view.ListItemDecoration;
 
 import org.greenrobot.eventbus.EventBus;
@@ -54,8 +45,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.github.mikephil.charting.charts.Chart.PAINT_INFO;
 
 /**
  * @author: winton
@@ -149,11 +138,11 @@ public class HomeFragment extends BaseFragment{
      * 加载工厂图片
      */
     private void loadFacImg(){
-        if(MyApplication.mFactoryInfo != null && MyApplication.mFactoryInfo.getWorkshopImgApp() != null){
-            Glide.with(this).load(MyApplication.mFactoryInfo.getWorkshopImgApp()).into(mIVFac);
-        }else {
-
-        }
+        String imgUrl = SPUtils.getInstance().getString(Constant.SP_FACTORY_IMAGE,"");
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.mipmap.fac_loading)
+                .centerInside();
+        Glide.with(this).load(imgUrl).apply(options).into(mIVFac);
     }
 
     private void showDevicesList(List<DeviceStatus> list) {

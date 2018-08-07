@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SmartFactory.iml" filepath="$PROJECT_DIR$/SmartFactory.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Factory.iml" filepath="$PROJECT_DIR$/Factory.iml" />
+      <module fileurl="file://E:\Android_workspace_Studio\Factory\SmartFactory.iml" filepath="E:\Android_workspace_Studio\Factory\SmartFactory.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\Android_workspace_Studio\Factory\app\app.iml" filepath="E:\Android_workspace_Studio\Factory\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -80,6 +80,7 @@ dependencies {
     implementation 'com.blankj:utilcode:1.14.1'
     implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation 'com.android.support:design:27.0.2'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     /*view 注解工具*/
     implementation 'com.jakewharton:butterknife:8.6.0'

@@ -89,6 +89,11 @@
         <item name="arc_suffix_text_size">@dimen/tag_text_size</item>
         <item name="arc_suffix_text_padding">-5dp</item>
         <item name="arc_stroke_width">4dp</item>
+    </style>
 
+    <style name="content_title">
+        <item name="android:textSize">@dimen/body_text_size</item>
+        <item name="android:textColor">@color/black90</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

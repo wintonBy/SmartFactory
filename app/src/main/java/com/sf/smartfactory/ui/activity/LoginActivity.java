@@ -133,11 +133,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
      * 显示工厂信息
      */
     private void setFacName(){
-        if(MyApplication.mFactoryInfo == null || MyApplication.mFactoryInfo.getCompany() == null ||  MyApplication.mFactoryInfo.getCompany().getName() == null){
-            mTVFacName.setText("");
-        }else {
-            mTVFacName.setText(MyApplication.mFactoryInfo.getCompany().getName());
-        }
+        String name = SPUtils.getInstance().getString(Constant.SP_FACTORY_NAME,"");
+        mTVFacName.setText(name);
     }
 
     @Override

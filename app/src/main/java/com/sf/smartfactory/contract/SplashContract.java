@@ -16,6 +16,11 @@ public interface SplashContract {
          * 跳转到下个页面
          */
         void toNext();
+        /**
+         * 用于显示错误信息
+         * @param msg
+         */
+        void showError(String msg);
     }
 
     interface Presenter{

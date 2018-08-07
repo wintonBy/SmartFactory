@@ -1,9 +1,12 @@
 package com.sf.smartfactory.presenter;
 
+import com.blankj.utilcode.util.SPUtils;
 import com.sf.smartfactory.MyApplication;
+import com.sf.smartfactory.constant.Constant;
 import com.sf.smartfactory.contract.SplashContract;
 import com.sf.smartfactory.network.BaseSubscriber;
 import com.sf.smartfactory.network.RetrofitClient;
+import com.sf.smartfactory.network.bean.FactoryInfo;
 import com.sf.smartfactory.network.response.FactoryInfoResponse;
 
 /**
@@ -22,7 +25,7 @@ public class SplashPresenter extends BasePresenter implements SplashContract.Pre
 
             @Override
             public void success(FactoryInfoResponse factoryInfoResponse) {
-                MyApplication.mFactoryInfo = factoryInfoResponse.getData().getSetting();
+                saveFactoryInfo(factoryInfoResponse.getData().getSetting());
             }
 
             @Override
@@ -30,5 +33,20 @@ public class SplashPresenter extends BasePresenter implements SplashContract.Pre
 
             }
         });
+    }
+
+    /**
+     * 保存工厂信息
+     * @param info
+     */
+    private void saveFactoryInfo(FactoryInfo info){
+        SPUtils.getInstance().put(Constant.SP_FACTORY_IMAGE,info.getWorkshopImgApp());
+        if(info.getCompany()!= null){
+            SPUtils.getInstance().put(Constant.SP_FACTORY_DATE,info.getCompany().getDate());
+            SPUtils.getInstance().put(Constant.SP_FACTORY_FOUND,info.getCompany().getFund());
+            SPUtils.getInstance().put(Constant.SP_FACTORY_NAME,info.getCompany().getName());
+            SPUtils.getInstance().put(Constant.SP_FACTORY_EMP_NUM,info.getCompany().getEmpnums());
+            SPUtils.getInstance().put(Constant.SP_FACTORY_LEGAL_PERSON,info.getCompany().getLegalperson());
+        }
     }
 }

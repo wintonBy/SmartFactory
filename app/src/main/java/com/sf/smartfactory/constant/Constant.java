@@ -23,6 +23,13 @@ public final class Constant {
     public static final String SP_IS_FIRST_OPEN = "first_open";
     public static final String SP_UPDATE_FREQUENCY_VALUE = "update_frequency_value";
     public static final String SP_UPDATE_FREQUENCY_TITLE = "update_frequency_title";
+    public static final String SP_FACTORY_IMAGE = "factory_image";
+    public static final String SP_FACTORY_DATE = "factory_date";
+    public static final String SP_FACTORY_FOUND = "factory_found";
+    public static final String SP_FACTORY_NAME = "factory_name";
+    public static final String SP_FACTORY_EMP_NUM = "factory_emp_num";
+    public static final String SP_FACTORY_LEGAL_PERSON = "factory_legal_person";
+
 
 
 

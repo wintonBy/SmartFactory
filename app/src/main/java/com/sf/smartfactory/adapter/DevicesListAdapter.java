@@ -55,8 +55,6 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
                 @Override
                 public void onClick(View v) {
                     mListener.clickItem(item);
-
-
                 }
             });
         }
@@ -71,10 +69,16 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
         TextView mTVDeviceType;
         @BindView(R.id.iv_device)
         ImageView mIVDevice;
-        @BindView(R.id.tv_device_rate)
-        TextView mTVDeviceRate;
-        @BindView(R.id.tv_device_status_time)
+        @BindView(R.id.tv_device_rate_axis)
+        TextView mTVAxisRate;
+        @BindView(R.id.tv_device_rate_fast)
+        TextView mTVFastRate;
+        @BindView(R.id.tv_device_rate_feed)
+        TextView mTVFeedRate;
+        @BindView(R.id.tv_product_num)
         TextView mTVProcessNum;
+        @BindView(R.id.tv_duration)
+        TextView mTVDuration;
 
         public DevicesViewHolder(View itemView) {
             super(itemView);
@@ -91,9 +95,7 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
                 return;
             }
             mTVDeviceStatus.setText(DeviceUtils.INSTANCE.getStatusArrName(item.getStatus()));
-            mTVDeviceStatus.setBackground(getTagBgByType(item.getStatus()));
-
-            mTVProcessNum.setText(TimeUtils.getFitTimeSpan(item.getDuration(),0,4));
+            mTVDuration.setText("持续时长:"+TimeUtils.getFitTimeSpan(item.getDuration(),0,4));
             if(!ObjectUtils.isEmpty(item.getDevice())){
                 //获取设备参数
                 mTVDeviceType.setText(String.format(mContext.getResources().getString(R.string.type_f),item.getDevice().getDeviceType().getName().toUpperCase()));
@@ -107,11 +109,12 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
                 //获取扩展参数
                 if(!ObjectUtils.isEmpty(item.getExtend().getParams())){
                     ParamsBean paramsBean = item.getExtend().getParams();
-                    mTVDeviceRate.setText(String.format(mContext.getResources().getString(R.string.device_rate_f),
-                                        paramsBean.getAxis_rate(),
-                                        paramsBean.getFast_rate(),
-                                        paramsBean.getFeed_rate()
-                                        ));
+                    mTVAxisRate.setText(String.format(mContext.getResources().getString(R.string.device_rate_axis_f),
+                                        paramsBean.getAxis_rate()));
+                    mTVFastRate.setText(String.format(mContext.getResources().getString(R.string.device_rate_fast_f),
+                                        paramsBean.getFast_rate()));
+                    mTVFeedRate.setText(String.format(mContext.getResources().getString(R.string.device_rate_feed_f),
+                                        paramsBean.getFeed_rate()));
                 }
                 mTVProcessNum.setText("加工件数："+getProcessNum(item.getExtend().getQuantity()));
             }
@@ -121,7 +124,9 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
          * 设置倍率的默认值
          */
         private void clearRate(){
-            mTVDeviceRate.setText(mContext.getResources().getString(R.string.device_rate_d));
+            mTVAxisRate.setText(mContext.getResources().getString(R.string.device_rate_axis));
+            mTVFastRate.setText(mContext.getResources().getString(R.string.device_rate_fast));
+            mTVFeedRate.setText(mContext.getResources().getString(R.string.device_rate_feed));
         }
     }
 
