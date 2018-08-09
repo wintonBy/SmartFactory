@@ -102,6 +102,9 @@ public class ProcessDailyAdapter extends IRVBaseAdapter<List<ProcessNum>,Process
             date.setText(processNum.getDate());
             TextView num = item.findViewById(R.id.tv_num);
             num.setText(processNum.getNum()+"");
+            if(position == llDaily.getChildCount() -1){
+                item.findViewById(R.id.divider_line).setVisibility(View.INVISIBLE);
+            }
         }
 
 

@@ -6,9 +6,12 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.adapter.IndexViewPagerAdapter;
@@ -44,13 +47,12 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
     @BindView(R.id.nv_bottom)
     NavigationView mNV;
 
-    @BindView(R.id.vp_content)
-    DiyScrollViewPager mVP;
-    private List<Fragment> mFragments;
-    private IndexViewPagerAdapter mAdapter;
+    private List<Model> mFragments;
+    private int currentIndex = -1;
 
     private UpdateApkDialog updateFragment;
 
+    private FragmentManager fragmentManager;
 
     /**
      * 启动首页的方法
@@ -81,11 +83,25 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
             window.setStatusBarColor(Color.TRANSPARENT);
         }
         ButterKnife.bind(this);
-        initBottomNavigation();
-        mVP.setCanScroll(false);
-        mVP.setOffscreenPageLimit(4);
-        startUpdateService();
     }
+
+    private void changeFragment(int index){
+        if(index == currentIndex){
+            return;
+        }
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        Model model = mFragments.get(index);
+        if(!model.fragment.isAdded()){
+            ft.add(R.id.fl_content,model.fragment,model.tag);
+        }
+        if(currentIndex != -1){
+            ft.hide(mFragments.get(currentIndex).fragment);
+        }
+        ft.show(model.fragment);
+        ft.commit();
+        currentIndex = index;
+    }
+
 
     /**
      * 初始化底部导航栏
@@ -110,7 +126,7 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
             @Override
             public void selected(int index, NavigationView.Model model) {
                 String title = model.getTitle();
-                mVP.setCurrentItem(index,false);
+                changeFragment(index);
             }
 
             @Override
@@ -124,17 +140,18 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
     protected void initData() {
         super.initData();
         initFragments();
-        mAdapter = new IndexViewPagerAdapter(getSupportFragmentManager(),mFragments);
-        mVP.setAdapter(mAdapter);
         mPresenter.checkVersion();
-
+        initBottomNavigation();
+        fragmentManager = getSupportFragmentManager();
+        changeFragment(0);
+        startUpdateService();
     }
     private void initFragments(){
         mFragments = new ArrayList<>();
-        mFragments.add(HomeFragment.newInstance(null));
-        mFragments.add(FactoryFragment.newInstance(null));
-        mFragments.add(OrderFragment.newInstance(null));
-        mFragments.add(new ProcessDailyFragment());
+        mFragments.add(new Model("home",HomeFragment.newInstance(null)));
+        mFragments.add(new Model("factory",FactoryFragment.newInstance(null)));
+        mFragments.add(new Model("order",OrderFragment.newInstance(null)));
+        mFragments.add(new Model("user",UserFragment.newInstance(null)));
     }
 
     @Override
@@ -179,5 +196,15 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
     private void startUpdateService(){
         Intent intent = new Intent(this, UpdateDataService.class);
         startService(intent);
+    }
+
+    private class Model{
+        final String tag ;
+        final Fragment fragment;
+        Model(String tag,Fragment fragment ){
+            this.tag = tag;
+            this.fragment = fragment;
+        }
+
     }
 }

@@ -16,6 +16,7 @@ import com.sf.smartfactory.network.BaseSubscriber;
 import com.sf.smartfactory.network.RetrofitClient;
 import com.sf.smartfactory.network.bean.ProcessNum;
 import com.sf.smartfactory.network.response.ProcessNumResponse;
+import com.sf.smartfactory.view.ListItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,19 @@ public class ProcessDailyFragment extends BaseFragment{
     private ProcessDailyAdapter adapter;
     private List<List<ProcessNum>> dataList;
 
+    /**
+     * 获取该类的实例
+     * @param params
+     * @return
+     */
+    public static ProcessDailyFragment newInstance(Bundle params){
+        ProcessDailyFragment instance = new ProcessDailyFragment();
+        if(params != null){
+            instance.setArguments(params);
+        }
+        return instance;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,6 +65,7 @@ public class ProcessDailyFragment extends BaseFragment{
 
     private void initView() {
         mRV.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRV.addItemDecoration(new ListItemDecoration());
     }
     private void initData() {
         dataList = new ArrayList<>();

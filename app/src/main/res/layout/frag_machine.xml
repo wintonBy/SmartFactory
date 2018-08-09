@@ -41,18 +41,12 @@
 
     </LinearLayout>
 
-    <FrameLayout
+    <com.sf.smartfactory.view.DiyScrollViewPager
+        android:id="@+id/dvp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/lay_order_number_list"
-            layout="@layout/layout_order_number" />
-
-        <include
-            android:id="@+id/lay_device_clock_list"
-            layout="@layout/layout_device_clock" />
-    </FrameLayout>
+    </com.sf.smartfactory.view.DiyScrollViewPager>
 
 
 </LinearLayout>
