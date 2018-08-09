@@ -12,6 +12,7 @@ import com.sf.smartfactory.network.response.LoginResponse;
 import com.sf.smartfactory.network.response.MachineProcessListResponse;
 import com.sf.smartfactory.network.response.OEEResponse;
 import com.sf.smartfactory.network.response.OrderListResponse;
+import com.sf.smartfactory.network.response.ProcessNumResponse;
 import com.sf.smartfactory.network.response.QuickTimeResponse;
 import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
 import com.sf.smartfactory.network.response.StatusListResponse;
@@ -211,6 +212,15 @@ public interface ServerApi {
      */
     @POST("rest/setting/factory/query")
     Observable<FactoryInfoResponse> getFactory();
+
+    /**
+     * 获取加工数量
+     * @param start
+     * @param end
+     * @return
+     */
+    @POST("rest/analysis/product/part/daily/app")
+    Observable<ProcessNumResponse> getProcessNum(@Query("start")long start,@Query("end")long end);
 
 
 }

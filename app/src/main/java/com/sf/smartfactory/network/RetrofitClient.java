@@ -19,6 +19,7 @@ import com.sf.smartfactory.network.response.LoginResponse;
 import com.sf.smartfactory.network.response.MachineProcessListResponse;
 import com.sf.smartfactory.network.response.OEEResponse;
 import com.sf.smartfactory.network.response.OrderListResponse;
+import com.sf.smartfactory.network.response.ProcessNumResponse;
 import com.sf.smartfactory.network.response.QuickTimeResponse;
 import com.sf.smartfactory.network.response.RunTimeSummaryResponse;
 import com.sf.smartfactory.network.response.StatusListResponse;
@@ -229,6 +230,12 @@ public class RetrofitClient {
 
     public void getFactory(Subscriber<FactoryInfoResponse> subscriber){
         mServer.getFactory()
+                .compose(schedulersTransForm())
+                .subscribe(subscriber);
+    }
+
+    public void getProcessNum(long start, long end, Subscriber<ProcessNumResponse> subscriber){
+        mServer.getProcessNum(start,end)
                 .compose(schedulersTransForm())
                 .subscribe(subscriber);
     }

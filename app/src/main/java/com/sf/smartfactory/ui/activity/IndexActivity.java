@@ -19,6 +19,7 @@ import com.sf.smartfactory.service.UpdateDataService;
 import com.sf.smartfactory.ui.fragment.FactoryFragment;
 import com.sf.smartfactory.ui.fragment.HomeFragment;
 import com.sf.smartfactory.ui.fragment.OrderFragment;
+import com.sf.smartfactory.ui.fragment.ProcessDailyFragment;
 import com.sf.smartfactory.ui.fragment.UpdateApkDialog;
 import com.sf.smartfactory.ui.fragment.UserFragment;
 import com.sf.smartfactory.view.DiyScrollViewPager;
@@ -133,7 +134,7 @@ public class IndexActivity extends BaseActivity<IndexPresenter> implements Index
         mFragments.add(HomeFragment.newInstance(null));
         mFragments.add(FactoryFragment.newInstance(null));
         mFragments.add(OrderFragment.newInstance(null));
-        mFragments.add(UserFragment.newInstance(null));
+        mFragments.add(new ProcessDailyFragment());
     }
 
     @Override

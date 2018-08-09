@@ -51,6 +51,7 @@ public abstract class BaseSubscriber<T extends BaseResponse> extends Subscriber<
                 return;
             }
             failed(new Exception(t.message));
+            return;
         }
         success(t);
     }
