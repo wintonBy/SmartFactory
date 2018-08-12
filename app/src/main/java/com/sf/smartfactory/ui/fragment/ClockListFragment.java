@@ -57,7 +57,7 @@ public class ClockListFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView  = inflater.inflate(R.layout.layout_device_clock,container,false);
+        View rootView  = inflater.inflate(R.layout.fragment_device_clock,container,false);
         ButterKnife.bind(this,rootView);
         mSVClock = StateView.inject(mRVClockList);
         initListener();

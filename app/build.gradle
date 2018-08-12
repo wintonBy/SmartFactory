@@ -68,8 +68,6 @@ android {
 
 }
 
-
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -138,6 +136,10 @@ dependencies {
         exclude module: "support-v13"
     }
     annotationProcessor "com.github.hotchemi:permissionsdispatcher-processor:3.2.0"
+
+    /*开源日历视图*/
+    compile 'com.haibin:calendarview:3.4.0'
+    compile 'com.squareup:android-times-square:1.6.5@aar'
 
 }
 repositories {

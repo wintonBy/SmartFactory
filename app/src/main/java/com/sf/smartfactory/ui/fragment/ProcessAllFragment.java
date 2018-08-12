@@ -70,7 +70,7 @@ public class ProcessAllFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView  = inflater.inflate(R.layout.layout_order_number,container,false);
+        View rootView  = inflater.inflate(R.layout.frag_process_number,container,false);
         ButterKnife.bind(this,rootView);
         mSVOrderNumber = StateView.inject(mRVOrderNumList);
         initListener();

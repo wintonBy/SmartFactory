@@ -68,21 +68,21 @@
            android:layout_below="@id/tv_all_process"
            android:layout_marginLeft="100dp"
            android:text="计划开始：--"
-           android:id="@+id/tv_start"
+           android:id="@+id/tv_space_time"
            android:textColor="@android:color/white"
            android:textSize="@dimen/super_small_size"
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />
        <View
            android:layout_marginLeft="100dp"
-           android:layout_below="@id/tv_start"
+           android:layout_below="@id/tv_space_time"
            android:background="@drawable/dash_line"
            android:layout_width="match_parent"
            android:layout_height="1dp"/>
        <TextView
            android:layout_marginTop="3dp"
            android:textColor="@android:color/white"
-           android:layout_below="@id/tv_start"
+           android:layout_below="@id/tv_space_time"
            android:layout_marginLeft="100dp"
            android:text="计划结束：--"
            android:id="@+id/tv_end"

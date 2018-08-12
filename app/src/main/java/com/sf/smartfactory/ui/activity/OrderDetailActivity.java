@@ -2,8 +2,6 @@ package com.sf.smartfactory.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.TimedText;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -41,7 +39,7 @@ public class OrderDetailActivity extends BaseActivity<OrderDetailPresenter> impl
     TextView mTVClientName;
     @BindView(R.id.tv_status)
     TextView mTVStatus;
-    @BindView(R.id.tv_start)
+    @BindView(R.id.tv_space_time)
     TextView mTVStart;
     @BindView(R.id.tv_end)
     TextView mTVEnd;

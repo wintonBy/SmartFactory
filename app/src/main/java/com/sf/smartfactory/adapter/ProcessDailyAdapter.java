@@ -15,6 +15,7 @@ import com.sf.smartfactory.network.bean.ProcessNum;
 
 import java.util.List;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -28,7 +29,10 @@ import butterknife.ButterKnife;
  */
 public class ProcessDailyAdapter extends IRVBaseAdapter<List<ProcessNum>,ProcessDailyAdapter.ViewHolder> {
 
-
+    @BindString(R.string.process_date_f)
+    String process_date_f;
+    @BindString(R.string.process_num_f)
+    String process_num_f;
 
     public ProcessDailyAdapter(Context mContext, List<List<ProcessNum>> mSource) {
         super(mContext, mSource);
@@ -99,9 +103,9 @@ public class ProcessDailyAdapter extends IRVBaseAdapter<List<ProcessNum>,Process
         private void setDaily(ProcessNum processNum,int position) {
             View item = llDaily.getChildAt(position);
             TextView date = item.findViewById(R.id.tv_date);
-            date.setText(processNum.getDate());
+            date.setText(String.format(process_date_f,processNum.getDate()));
             TextView num = item.findViewById(R.id.tv_num);
-            num.setText(processNum.getNum()+"");
+            num.setText(String.format(process_num_f,processNum.getNum()));
             if(position == llDaily.getChildCount() -1){
                 item.findViewById(R.id.divider_line).setVisibility(View.INVISIBLE);
             }
