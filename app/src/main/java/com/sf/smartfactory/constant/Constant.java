@@ -41,7 +41,7 @@ public final class Constant {
     public static  int REFRESH_SPACE = 5 * 1000;
 
     /*统一的版本号*/
-    public static final int VERSION_CODE = Integer.parseInt(BuildConfig.INNER_VERSION);
+    public static final long VERSION_CODE = Integer.parseInt(BuildConfig.INNER_VERSION);
 
     public static final String APK_DOWNLOAD_NAME = "release.apk";
 

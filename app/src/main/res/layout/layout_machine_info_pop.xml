@@ -1,57 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/item_bg"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="400dp"
+    android:background="@drawable/item_bg">
 
-    <android.support.constraint.ConstraintLayout
+    <TextView
+        android:id="@+id/tv_tip"
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="35dp"
+        android:background="@color/item_head_color"
+        android:gravity="center"
+        android:text="选择日期(可选单日，也可选范围)："
+        android:textColor="@android:color/white" />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/tag_bg"
-            android:gravity="center"
-            android:text="选择日期(可选单日，也可选范围)："
-            android:textColor="@android:color/white"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="2dp" />
+    <com.squareup.timessquare.CalendarPickerView
+        android:id="@+id/calendarView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/bt_choose"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tip"
+        app:tsquare_dayBackground="@android:color/white"
+        app:tsquare_dividerColor="@android:color/white">
 
-        <com.squareup.timessquare.CalendarPickerView
-            android:id="@+id/calendarView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/bt_choose"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3">
+    </com.squareup.timessquare.CalendarPickerView>
 
-        </com.squareup.timessquare.CalendarPickerView>
+    <Button
+        android:id="@+id/bt_choose"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/tag_bg"
+        android:text="确认"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/button_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/bt_choose"
-            android:layout_width="0dp"
-            android:textColor="@android:color/white"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/tag_bg"
-            android:text="确认"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

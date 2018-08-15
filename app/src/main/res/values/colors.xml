@@ -14,7 +14,7 @@
     <color name="item_odd_color">#F6F9FE</color>
     <color name="order_content_bg">#F7F7F7</color>
 
-    <color name="page_bg">#F0F0F0</color>
+    <color name="page_bg">#E0E0E0</color>
 
     <color name="black">#000000</color>
     <color name="black90">#212121</color>
@@ -23,6 +23,8 @@
     <color name="black30">#AAAAAA</color>
 
     <color name="LightSlateBlue">#8470FF</color>
+    <color name="day_select_mid">#84bbFF</color>
+    <color name="item_head_color">#65c0ba</color>
 
 
     <color name="idle_color">#00FFF9</color>

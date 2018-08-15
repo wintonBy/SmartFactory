@@ -1,6 +1,10 @@
 package com.sf.smartfactory.view;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,7 +20,9 @@ import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.sf.smartfactory.R;
+import com.sf.smartfactory.ui.fragment.BaseFragment;
 import com.sf.smartfactory.utils.DateUtils;
+import com.squareup.timessquare.CalendarCellDecorator;
 import com.squareup.timessquare.CalendarPickerView;
 
 import java.util.ArrayList;
@@ -36,7 +42,7 @@ import butterknife.OnClick;
  * @mail:
  * @describe: 日期选择对话框
  */
-public class DatePickDialog extends DialogFragment {
+public class DatePickDialog extends BaseFragment {
 
     @BindView(R.id.calendarView)
     CalendarPickerView mCalendarView;
@@ -44,23 +50,29 @@ public class DatePickDialog extends DialogFragment {
     @BindView(R.id.bt_choose)
     Button btChoose;
 
+    private  DataPickerDecorator dataPickerDecorator;
+    private String[] newShortWeekdays = {"","日","一","二","三","四","五","六"};
+
     private long start;
     private long end;
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setCancelable(false);
-        int style = DialogFragment.STYLE_NO_TITLE;
-        int theme =android.R.style.Theme_Holo_Light_Dialog;
-        setStyle(style,theme);
-    }
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_machine_info_pop,container,false);
         ButterKnife.bind(this,view);
+        initCalendarView();
         return view;
+    }
+
+    private void initCalendarView(){
+        dataPickerDecorator = new DataPickerDecorator(getContext());
+        List<CalendarCellDecorator> d = new ArrayList<>();
+        d.add(dataPickerDecorator);
+        mCalendarView.setCustomDayView(new DayViewAdapter());
+        mCalendarView.setDecorators(d);
+        mCalendarView.setDateTypeface(Typeface.DEFAULT);
     }
 
     @OnClick(R.id.bt_choose)
@@ -80,19 +92,11 @@ public class DatePickDialog extends DialogFragment {
         }else {
             end = DateUtils.INSTANCE.getDayEnd(stEnd);
         }
-
-        this.dismiss();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        Window window = getDialog().getWindow();
-        WindowManager.LayoutParams  pa = window.getAttributes();
-        pa.width = WindowManager.LayoutParams.MATCH_PARENT;
-        pa.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(pa);
-        window.setGravity(Gravity.BOTTOM);
         initView();
     }
 
@@ -108,9 +112,12 @@ public class DatePickDialog extends DialogFragment {
         calendar.add(Calendar.YEAR,10);
         calendar.add(Calendar.DAY_OF_YEAR,1);
         Date maxDate = calendar.getTime();
+
         mCalendarView.init(minDate,maxDate)
                 .inMode(CalendarPickerView.SelectionMode.RANGE)
+                .setShortWeekdays(newShortWeekdays)
                 .withSelectedDates(initRange());
+
         mCalendarView.setOnDateSelectedListener(new CalendarPickerView.OnDateSelectedListener() {
             @Override
             public void onDateSelected(Date date) {
@@ -134,27 +141,4 @@ public class DatePickDialog extends DialogFragment {
         return range;
     }
 
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        if(listener != null){
-            listener.onDismiss(start,end);
-        }
-    }
-
-    private Listener listener;
-
-    public void setListener(Listener listener) {
-        this.listener = listener;
-    }
-
-    public interface  Listener{
-        /**
-         * 选择时间
-         * @param start
-         * @param end
-         */
-        void onDismiss(long start, long end);
-    }
 }
