@@ -17,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.SizeUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.adapter.ProcessDailyAdapter;
 import com.sf.smartfactory.network.BaseSubscriber;
@@ -107,6 +108,12 @@ public class ProcessDailyFragment extends BaseFragment{
         mRV.setLayoutManager(new LinearLayoutManager(getContext()));
         mRV.addItemDecoration(new ListItemDecoration());
         mCalendarView = new DataPickerHelper.Builder(mCalendarView).build();
+        mCalendarView.setOnInvalidDateSelectedListener(new CalendarPickerView.OnInvalidDateSelectedListener() {
+            @Override
+            public void onInvalidDateSelected(Date date) {
+                ToastUtils.showShort("超出日期选择范围！");
+            }
+        });
         mFLCalendar.setTranslationY(-mHeight);
         mFLCalendar.setVisibility(View.GONE);
     }

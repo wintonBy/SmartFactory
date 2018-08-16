@@ -1,28 +1,20 @@
 package com.sf.smartfactory;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.text.format.DateUtils;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CrashUtils;
-import com.blankj.utilcode.util.PermissionUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.Utils;
-import com.sf.smartfactory.aspectj.annotation.DebugTrace;
 import com.sf.smartfactory.constant.Constant;
-import com.sf.smartfactory.network.bean.FactoryInfo;
 import com.sf.smartfactory.ui.activity.LoginActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-
-import rx.Observable;
 
 /**
  * Created by winton on 2017/6/25.

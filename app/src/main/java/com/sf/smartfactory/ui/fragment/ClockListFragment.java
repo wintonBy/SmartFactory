@@ -3,13 +3,13 @@ package com.sf.smartfactory.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.adapter.DeviceClockListAdapter;
 import com.sf.smartfactory.network.BaseSubscriber;
@@ -36,6 +36,10 @@ import butterknife.ButterKnife;
 public class ClockListFragment extends BaseFragment {
     @BindView(R.id.rv_clock_list)
     RecyclerView mRVClockList;
+
+    @BindView(R.id.srl)
+    SwipeRefreshLayout mSRL;
+
     private StateView mSVClock;
     private DeviceClockListAdapter mClockAdapter;
     private List<DeviceClock> mClockList;
@@ -59,7 +63,6 @@ public class ClockListFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView  = inflater.inflate(R.layout.fragment_device_clock,container,false);
         ButterKnife.bind(this,rootView);
-        mSVClock = StateView.inject(mRVClockList);
         initListener();
         initData();
         return rootView;
@@ -75,9 +78,9 @@ public class ClockListFragment extends BaseFragment {
     }
 
     private void initListener() {
-        mSVClock.setOnRetryClickListener(new StateView.OnRetryClickListener() {
+        mSRL.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRetryClick() {
+            public void onRefresh() {
                 loadClockList();
             }
         });
@@ -87,18 +90,23 @@ public class ClockListFragment extends BaseFragment {
         RetrofitClient.getInstance().deviceClock(new BaseSubscriber<DeviceClockResponse>(){
 
             @Override
+            public void onStart() {
+                super.onStart();
+                mSRL.setRefreshing(true);
+            }
+
+            @Override
             public void success(DeviceClockResponse deviceClockResponse) {
+                mSRL.setRefreshing(false);
                 if(deviceClockResponse.getData() != null){
                     setClocksList(deviceClockResponse.getData().getClocks());
                     return;
                 }
-                mSVClock.showRetry();
-                ToastUtils.showShort(deviceClockResponse.getMessage());
             }
 
             @Override
             public void failed(Throwable e) {
-
+                mSRL.setRefreshing(false);
             }
         });
     }
@@ -108,15 +116,9 @@ public class ClockListFragment extends BaseFragment {
      */
     private void setClocksList(List<DeviceClock> list){
         mClockList.clear();
-        if(list == null){
-            mSVClock.showRetry();
-            return;
-        }
         if(list.isEmpty()){
-            mSVClock.showEmpty();
             return;
         }
-        mSVClock.showContent();
         mClockList.addAll(list);
         mClockAdapter.notifyDataSetChanged();
     }

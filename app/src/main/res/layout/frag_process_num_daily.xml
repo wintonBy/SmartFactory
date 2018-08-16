@@ -42,7 +42,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <include
-        layout="@layout/layout_machine_info_pop"
+        layout="@layout/layout_calendar_pop"
         android:id="@+id/f_calendar"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

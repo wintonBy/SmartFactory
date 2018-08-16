@@ -6,11 +6,11 @@
     android:orientation="vertical">
     <RelativeLayout
         android:paddingLeft="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="30dp"
         android:paddingRight="10dp"
         android:background="@mipmap/img_detail"
         android:layout_width="match_parent"
-        android:layout_height="140dp">
+        android:layout_height="150dp">
         <TextView
             android:id="@+id/page_name"
             android:textSize="26dp"

@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/user_layout"
         android:layout_width="match_parent"
-        android:layout_height="160dp">
+        android:layout_height="170dp">
 
         <com.sf.smartfactory.view.DynamicBackgroundView
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/shape_head_circle"
             android:padding="2dp"
             android:scaleType="fitXY"

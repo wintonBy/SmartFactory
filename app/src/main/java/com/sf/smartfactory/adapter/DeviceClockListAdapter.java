@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.TimeUtils;
 import com.sf.smartfactory.R;
 import com.sf.smartfactory.network.bean.DeviceClock;
+import com.sf.smartfactory.utils.DateUtils;
 
 import java.util.List;
 
@@ -43,22 +44,22 @@ public class DeviceClockListAdapter extends IRVBaseAdapter<DeviceClock,DeviceClo
         String title = getTitle(item);
         holder.setTitle(title);
 
-        String maxC = item.getWorkMax()==0 ? "无":TimeUtils.getFitTimeSpan(item.getWorkMax(), 0,4);
-        String minC = item.getWorkMin()==0 ? "无":TimeUtils.getFitTimeSpan(item.getWorkMin(),0,4);
-        String avgC = item.getWorkAvg()==0 ? "无":TimeUtils.getFitTimeSpan(item.getWorkAvg(),0,4);
-        String workHistory = item.getWorkHistoryAvg()==0 ? "无":TimeUtils.getFitTimeSpan(item.getWorkHistoryAvg(),0,4);
-        holder.setTvWorkMin(minC);
-        holder.setTvWorkAvg(avgC);
-        holder.setTvWorkMax(maxC);
+        String maxC =  DateUtils.INSTANCE.getTimeSpan(item.getWorkMax());
+        String minC = DateUtils.INSTANCE.getTimeSpan(item.getWorkMin());
+        String avgC = DateUtils.INSTANCE.getTimeSpan(item.getWorkAvg());
+        String workHistory = DateUtils.INSTANCE.getTimeSpan(item.getWorkHistoryAvg());
+        holder.setTvWorkMin(String.format(mContext.getString(R.string.min_f),minC));
+        holder.setTvWorkAvg(String.format(mContext.getString(R.string.avg_f),avgC));
+        holder.setTvWorkMax(String.format(mContext.getString(R.string.max_f),maxC));
         holder.setTvWorkHistory(workHistory);
 
-        String maxR = item.getRunMax()==0 ? "无":TimeUtils.getFitTimeSpan(item.getRunMax(),0,4);
-        String minR = item.getRunMin()==0 ? "无":TimeUtils.getFitTimeSpan(item.getRunMin(),0,4);
-        String avgR = item.getRunAvg()==0 ? "无":TimeUtils.getFitTimeSpan(item.getRunMin(),0,4);
-        String runHistory = item.getRunHistoryAvg()==0 ? "无":TimeUtils.getFitTimeSpan(item.getRunHistoryAvg(),0,4);
-        holder.setTvRunMin(minR);
-        holder.setTvRunAvg(avgR);
-        holder.setTvRunMax(maxR);
+        String maxR = DateUtils.INSTANCE.getTimeSpan(item.getRunMax());
+        String minR = DateUtils.INSTANCE.getTimeSpan(item.getRunMin());
+        String avgR = DateUtils.INSTANCE.getTimeSpan(item.getRunMin());
+        String runHistory = DateUtils.INSTANCE.getTimeSpan(item.getRunHistoryAvg());
+        holder.setTvRunMin(String.format(mContext.getString(R.string.min_f),minR));
+        holder.setTvRunAvg(String.format(mContext.getString(R.string.avg_f),avgR));
+        holder.setTvRunMax(String.format(mContext.getString(R.string.max_f),maxR));
         holder.setTvRunHistory(runHistory);
 
 

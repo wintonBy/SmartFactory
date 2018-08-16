@@ -18,31 +18,38 @@ public object DateUtils{
      * 获取今天的起始long
      */
     fun getTodayStart() :Long{
-        var result :Long = 0;
         var strFormat = SimpleDateFormat("yyyy-MM-dd");
         var todayStart:String = strFormat.format(Date());
-        result = TimeUtils.getMillis(todayStart,strFormat,0,0);
-        return result;
+        return  TimeUtils.getMillis(todayStart,strFormat,0,0);
     }
 
+    /**
+     * 获取今天工作开始日期
+     */
     fun getWorkStart():Long{
-        var result :Long = 0;
-        var todayStart = getTodayStart();
-        result = TimeUtils.getMillis(todayStart,7 * 60 * 60,1000);
-        return result;
+        val todayStart = getTodayStart();
+        return TimeUtils.getMillis(todayStart,7 * 60 * 60,1000);
     }
 
+    /**
+     * 获取今天结束日期
+     */
     fun getTodayEnd() :Long{
-        var result:Long = 0;
-        result = TimeUtils.getMillis(getTodayStart(),24 * 60 * 60,1000) -1;
+        val result = TimeUtils.getMillis(getTodayStart(),24 * 60 * 60,1000) -1;
         return result;
     }
 
+    /**
+     * long 转日期
+     */
     fun getDate(time: Long):String{
         var simpleDateFormat = SimpleDateFormat("yyyy年MM月dd日")
         return simpleDateFormat.format(time)
     }
 
+    /**
+     * yyyyMMdd 转long
+     */
     fun getTime(str:String ):Long{
         var simpleDateFormat = SimpleDateFormat("yyyyMMdd")
         var date = simpleDateFormat.parse(str)
@@ -87,12 +94,44 @@ public object DateUtils{
         return calendar.timeInMillis
     }
 
+    /**
+     * 判断是否是今日
+     */
     fun isToday(date: Date):Boolean{
-        var sdf = SimpleDateFormat("yyyyMMdd")
-        var today = Date()
-        var sToday = sdf.format(today)
-        var day = sdf.format(date)
+        val sdf = SimpleDateFormat("yyyyMMdd")
+        val today = Date()
+        val sToday = sdf.format(today)
+        val day = sdf.format(date)
         return  sToday.contentEquals(day)
+    }
+
+    fun getTimeSpan(mills:Long):String{
+        if(mills <=0){
+            return "00:00:00";
+        }
+        val h = mills/(60 * 60 * 1000)
+        val left = mills%(60 * 60 *1000)
+        val m = left/(60 * 1000)
+        val s = (left%(60 * 1000))/1000
+        var result:StringBuilder = StringBuilder();
+        if(h >9){
+            result.append(h)
+        }else{
+            result.append(0).append(h)
+        }
+        result.append(":")
+        if(m>9){
+            result.append(m)
+        }else{
+            result.append(0).append(m)
+        }
+        result.append(":")
+        if(s >9){
+            result.append(s)
+        }else{
+            result.append(0).append(s)
+        }
+        return result.toString()
     }
 
 }

@@ -1,22 +1,13 @@
 package com.sf.smartfactory.view;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
-import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.sf.smartfactory.R;
@@ -60,7 +51,7 @@ public class DatePickDialog extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_machine_info_pop,container,false);
+        View view = inflater.inflate(R.layout.layout_calendar_pop,container,false);
         ButterKnife.bind(this,view);
         initCalendarView();
         return view;

@@ -64,6 +64,10 @@
     <string name="machine_clock_data_f">最长周期：%s最短周期：%s平均周期：%s</string>
     <string name="last_refresh_f">上次刷新：%s</string>
 
+    <string name="max_f">最长:%s</string>
+    <string name="min_f">最短:%s</string>
+    <string name="avg_f">平均:%s</string>
+
 
     <string name="fac_name_f">公司名称：%s</string>
     <string name="build_time_f">成立日期：%s</string>

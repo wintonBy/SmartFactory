@@ -151,7 +151,7 @@ public class FactoryFragment extends BaseFragment{
     private void checkNumberDailyList() {
         mVP.setCurrentItem(1);
         checkView = mTVDaily;
-        mTVNumber.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.machine_tab_center));
+        mTVNumber.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.machine_tab_left));
         mTVNumber.setTextColor(Color.WHITE);
         mTVDaily.setBackground(centerTabCheck);
         mTVDaily.setTextColor(Color.BLACK);
