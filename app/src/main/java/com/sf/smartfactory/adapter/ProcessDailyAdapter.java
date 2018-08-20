@@ -57,6 +57,7 @@ public class ProcessDailyAdapter extends IRVBaseAdapter<List<ProcessNum>,Process
         TextView tvName;
         @BindView(R.id.ll_daily)
         LinearLayout llDaily;
+
         ViewHolder(View view){
             super(view);
             ButterKnife.bind(this,view);
@@ -98,12 +99,17 @@ public class ProcessDailyAdapter extends IRVBaseAdapter<List<ProcessNum>,Process
         private void setDaily(ProcessNum processNum,int position) {
             View item = llDaily.getChildAt(position);
             TextView date = item.findViewById(R.id.tv_date);
-            date.setText(String.format(mContext.getResources().getString(R.string.process_date_f),processNum.getDate()));
+            date.setText(processNum.getDate());
             TextView num = item.findViewById(R.id.tv_num);
-            num.setText(String.format(mContext.getResources().getString(R.string.process_num_f),processNum.getNum()));
+            num.setText(processNum.getNum()+"");
             if(position == llDaily.getChildCount() -1){
                 item.findViewById(R.id.divider_line).setVisibility(View.INVISIBLE);
             }
+            TextView tvEmp = item.findViewById(R.id.tv_emp);
+            tvEmp.setText(processNum.getEmployee() == null? "--":processNum.getEmployee().getName());
+            TextView tvPart = item.findViewById(R.id.tv_part);
+            tvPart.setText(processNum.getPart() == null? "--":processNum.getPart().getName());
+
         }
 
 

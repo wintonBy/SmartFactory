@@ -14,6 +14,8 @@ public class ProcessNum implements Serializable {
     private String date;
 
     private int num;
+    private Part part;
+    private Stuff employee;
 
     private Device device;
 
@@ -39,5 +41,21 @@ public class ProcessNum implements Serializable {
 
     public void setDevice(Device device) {
         this.device = device;
+    }
+
+    public Part getPart() {
+        return part;
+    }
+
+    public void setPart(Part part) {
+        this.part = part;
+    }
+
+    public Stuff getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Stuff employee) {
+        this.employee = employee;
     }
 }

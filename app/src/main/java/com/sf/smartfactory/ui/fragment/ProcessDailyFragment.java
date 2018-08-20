@@ -221,6 +221,7 @@ public class ProcessDailyFragment extends BaseFragment{
         }else {
             end = DateUtils.INSTANCE.getDayEnd(stEnd);
         }
+        mTVSpaceTime.setText(DateUtils.INSTANCE.getDate(start)+"——"+DateUtils.INSTANCE.getDate(end));
         loadData();
     }
 }

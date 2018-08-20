@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 //apply plugin: 'android-aspectjx'
-apply plugin: 'org.greenrobot.greendao'
+//apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 27
@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 3
-        versionName "1.2.0"
+        versionCode 4
+        versionName "1.2.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     signingConfigs {
@@ -52,10 +52,17 @@ android {
         }
         lkt_yp {
             dimension "user"
-            resValue "string", "app_name", "LKT-YP智能工厂"
+            resValue "string", "app_name", "豫鹏智能工厂"
             applicationId "com.sf.smartfactory_yp"
             buildConfigField "String", "SERVER_HOST", "\"https://www.leadtotech.com/mes-cnc/\""
-            buildConfigField "String", "INNER_VERSION", "\"20180815\""
+            buildConfigField "String", "INNER_VERSION", "\"20180820\""
+        }
+        lkt_ym {
+            dimension "user"
+            resValue "string", "app_name", "云木数字工厂"
+            applicationId "com.sf.smartfactory_ym"
+            buildConfigField "String", "SERVER_HOST", "\"https://www.linkortech.com/mes-server-yunmu/\""
+            buildConfigField "String", "INNER_VERSION", "\"20180820\""
         }
     }
 
@@ -117,9 +124,6 @@ dependencies {
     /*EventBus*/
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    compile 'org.greenrobot:greendao:3.2.2' // add library
-    compile 'org.greenrobot:greendao-generator:3.2.2'
 
     compile 'com.alibaba:fastjson:1.1.68.android'
     /*Glide*/
