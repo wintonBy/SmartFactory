@@ -52,7 +52,7 @@ public abstract class BaseSubscriber<T extends BaseResponse> extends Subscriber<
         }
 
         if(!t.isSuccess() ){
-            if(Constant.TOKEN_ERROR.equals(t.getMessage()) || Constant.LOGIN_EXPIRATION.equals(t.getMessage())|| !isCodeTimeOut){
+            if(Constant.TOKEN_ERROR.equals(t.getMessage()) || Constant.LOGIN_EXPIRATION.equals(t.getMessage()) && !isCodeTimeOut){
                 isCodeTimeOut = true;
                 ToastUtils.showLong("登录失效，重新登录");
                 MyApplication.INSTANCE.toLogin();
