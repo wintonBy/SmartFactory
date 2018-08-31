@@ -70,18 +70,17 @@ public class HomeFragment extends BaseFragment{
     TextView mTVPic;
     @BindView(R.id.tv_device_list)
     TextView mTVDeviceList;
-    @BindView(R.id.lay_fac_pic)
-    View mFacPic;
     @BindView(R.id.iv_pic_fac)
     ImageView mIVFac;
     @BindView(R.id.tv_refresh_time)
     TextView mTVTime;
     @BindView(R.id.tv_today)
     TextView mTVToday;
+    @BindView(R.id.tv_title)
+    TextView mTVTitle;
 
     private View checkView = mTVPic;
-    Drawable leftTabCheck = null;
-    Drawable rightTabCheck = null;
+    Drawable tabCheck = null;
 
 
 
@@ -112,10 +111,10 @@ public class HomeFragment extends BaseFragment{
     }
 
     private void initData(){
+        mTVTitle.setText("运行监控");
         mDevices = new ArrayList<>();
         setTvToday();
-        leftTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.shape_tab_left,R.color.colorPrimary);
-        rightTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.shape_tab_right,R.color.colorPrimary);
+        tabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.shape_tab_center,R.color.colorPrimary);
         checkFacPic();
         mRVDeviceList.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false));
         mRVDeviceList.addItemDecoration(new ListItemDecoration());
@@ -319,11 +318,11 @@ public class HomeFragment extends BaseFragment{
      */
     private void checkFacPic(){
         checkView = mTVPic;
-        mTVPic.setBackground(leftTabCheck);
+        mTVPic.setBackground(tabCheck);
         mTVPic.setTextColor(Color.WHITE);
-        mTVDeviceList.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_right));
+        mTVDeviceList.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_center));
         mTVDeviceList.setTextColor(Color.BLACK);
-        mFacPic.setVisibility(View.VISIBLE);
+        mIVFac.setVisibility(View.VISIBLE);
         mRVDeviceList.setVisibility(View.INVISIBLE);
     }
 
@@ -332,11 +331,11 @@ public class HomeFragment extends BaseFragment{
      */
     private void checkDeviceList(){
         checkView = mTVDeviceList;
-        mTVPic.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_left));
-        mTVDeviceList.setBackground(rightTabCheck);
+        mTVPic.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_center));
+        mTVDeviceList.setBackground(tabCheck);
         mTVDeviceList.setTextColor(Color.WHITE);
         mTVPic.setTextColor(Color.BLACK);
-        mFacPic.setVisibility(View.INVISIBLE);
+        mIVFac.setVisibility(View.INVISIBLE);
         mRVDeviceList.setVisibility(View.VISIBLE);
     }
 

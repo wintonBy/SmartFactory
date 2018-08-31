@@ -4,80 +4,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <RelativeLayout
-        android:paddingLeft="20dp"
-        android:paddingTop="30dp"
+    <include
+        layout="@layout/layout_actionbar"/>
+    <LinearLayout
+        android:elevation="@dimen/elevation"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:background="@mipmap/img_detail"
+        android:background="@drawable/item_bg"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
-        <TextView
-            android:id="@+id/page_name"
-            android:textSize="26dp"
-            android:textColor="@android:color/white"
-            android:text="运行监控"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="60dp">
 
         <TextView
             android:layout_marginTop="5dp"
             android:textSize="@dimen/body_text_size"
-            android:textColor="@android:color/white"
-            android:layout_below="@+id/page_name"
+            android:textColor="@android:color/black"
             android:text="5月10日.星期三"
             android:id="@+id/tv_today"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_weight="1"
+            android:layout_height="0dp" />
 
         <TextView
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:textSize="@dimen/super_small_size"
-            android:textColor="@android:color/white"
+            android:textSize="@dimen/body_text_size"
+            android:textColor="@android:color/black"
             android:text="上次刷新：2018年5月10日10:21:48"
             android:id="@+id/tv_refresh_time"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_weight="1"
+            android:layout_height="0dp"/>
 
-    </RelativeLayout>
+    </LinearLayout>
     <LinearLayout
-        android:background="@android:color/white"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
+        android:layout_height="110dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="10dp">
+        >
 
         <android.support.v7.widget.CardView
             android:id="@+id/cv_all"
+            android:layout_marginLeft="5dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="5dp"
+            app:cardElevation="@dimen/elevation"
+            android:layout_height="100dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="@color/all_color"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="0dp"
-            app:contentPaddingRight="3dp">
+            app:cardCornerRadius="5dp"
+            app:contentPadding="10dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_horizontal"
                 android:src="@mipmap/ic_all" />
 
             <TextView
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_gravity="right"
                 android:text="@string/all"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/tag_text_size" />
+                android:textSize="@dimen/subhead_text_size" />
 
             <TextView
                 android:id="@+id/tv_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
+                android:layout_gravity="center_horizontal|bottom"
                 android:singleLine="true"
                 android:text="--"
                 android:textColor="@android:color/white"
@@ -87,35 +90,34 @@
 
         <android.support.v7.widget.CardView
             android:id="@+id/cv_normal"
+            app:cardElevation="@dimen/elevation"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="5dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="@color/normal_color"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="0dp"
-            app:contentPaddingRight="3dp">
+            app:cardCornerRadius="5dp"
+            app:contentPadding="10dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_horizontal"
                 android:src="@mipmap/ic_normal" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_gravity="right"
+                android:layout_gravity="center"
                 android:text="@string/running"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/tag_text_size" />
+                android:textSize="@dimen/subhead_text_size" />
 
             <TextView
                 android:id="@+id/tv_normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
+                android:layout_gravity="center_horizontal|bottom"
                 android:singleLine="true"
                 android:text="--"
                 android:textColor="@android:color/white"
@@ -126,34 +128,33 @@
         <android.support.v7.widget.CardView
             android:id="@+id/cv_error"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="5dp"
+            android:layout_height="100dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
             app:cardBackgroundColor="@color/error_color"
             app:cardCornerRadius="4dp"
-            app:cardElevation="0dp"
-            app:contentPaddingRight="3dp">
+            app:cardElevation="@dimen/elevation"
+            app:contentPadding="10dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_horizontal"
                 android:src="@mipmap/ic_error" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_gravity="right"
+                android:layout_gravity="center"
                 android:text="@string/error"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/tag_text_size" />
+                android:textSize="@dimen/subhead_text_size" />
 
             <TextView
                 android:id="@+id/tv_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
+                android:layout_gravity="center_horizontal|bottom"
                 android:singleLine="true"
                 android:text="--"
                 android:textColor="@android:color/white"
@@ -163,35 +164,35 @@
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
+            android:layout_marginRight="5dp"
             android:id="@+id/cv_offline"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="100dp"
             android:layout_weight="1"
             app:cardBackgroundColor="@color/offline_color"
             app:cardCornerRadius="4dp"
-            app:cardElevation="0dp"
-            app:contentPaddingRight="3dp">
+            app:cardElevation="@dimen/elevation"
+            app:contentPadding="10dp">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_horizontal"
                 android:src="@mipmap/ic_offline" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_gravity="right"
+                android:layout_gravity="center"
                 android:text="@string/offline"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/tag_text_size" />
+                android:textSize="@dimen/subhead_text_size" />
 
             <TextView
                 android:id="@+id/tv_offline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom"
+                android:layout_gravity="center_horizontal|bottom"
                 android:singleLine="true"
                 android:text="--"
                 android:textColor="@android:color/white"
@@ -203,25 +204,27 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="40dp">
         <TextView
             android:textColor="@android:color/black"
             android:id="@+id/tv_fac_pic"
-            android:background="@drawable/shape_tab_left"
+            android:background="@drawable/shape_tab_center"
             android:gravity="center"
             android:text="车间视图"
+            android:elevation="@dimen/elevation"
             android:layout_width="80dp"
-            android:layout_marginRight="-0.75px"
+            android:layout_marginRight="10dp"
             android:layout_height="30dp" />
         <TextView
             android:textColor="@android:color/black"
             android:id="@+id/tv_device_list"
-            android:layout_marginLeft="-0.75px"
-            android:background="@drawable/shape_tab_right"
+            android:elevation="@dimen/elevation"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/shape_tab_center"
             android:gravity="center"
             android:text="设备列表"
             android:layout_width="80dp"
@@ -235,9 +238,10 @@
             android:id="@+id/rv_device_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <include
-            android:id="@+id/lay_fac_pic"
-            layout="@layout/layout_fac_pic"/>
+        <ImageView
+            android:id="@+id/iv_pic_fac"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </FrameLayout>
 
 

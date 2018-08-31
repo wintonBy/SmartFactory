@@ -95,6 +95,7 @@ public class DevicesListAdapter extends IRVBaseAdapter<DeviceStatus,DevicesListA
                 return;
             }
             mTVDeviceStatus.setText(DeviceUtils.INSTANCE.getStatusArrName(item.getStatus()));
+            mTVDeviceStatus.setBackgroundDrawable(getTagBgByType(item.getStatus()));
             mTVDuration.setText("持续时长:"+TimeUtils.getFitTimeSpan(item.getDuration(),0,4));
             if(!ObjectUtils.isEmpty(item.getDevice())){
                 //获取设备参数

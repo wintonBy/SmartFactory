@@ -37,8 +37,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     EditText mETPassword;
     @BindView(R.id.bt_login)
     Button mBTLogin;
-    @BindView(R.id.tv_fac_name)
-    TextView mTVFacName;
 
     private LoadingDialog mLoading;
 
@@ -126,16 +124,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 mETPassword.setText(password);
             }
         }
-        setFacName();
     }
 
-    /**
-     * 显示工厂信息
-     */
-    private void setFacName(){
-        String name = SPUtils.getInstance().getString(Constant.SP_FACTORY_NAME,"");
-        mTVFacName.setText(name);
-    }
 
     @Override
     public void onClick(View v) {

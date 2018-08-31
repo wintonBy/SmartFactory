@@ -17,6 +17,10 @@ public class LoginBaseSubscriber extends BaseSubscriber<LoginResponse>{
 
     @Override
     public void success(LoginResponse loginResponse) {
+        /**
+         * 登陆成功后，清除登陆失效的标志位
+         */
+        BaseSubscriber.isCodeTimeOut = false;
         SPUtils.getInstance().put(Constant.SP_TOKEN,loginResponse.getToken());
         SPUtils.getInstance().put(Constant.SP_USER_NAME,loginResponse.getUser().getName());
         SPUtils.getInstance().put(Constant.SP_USER_GENDER,loginResponse.getUser().getGender());

@@ -1,36 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <FrameLayout
-        android:background="@color/colorPrimary"
-        android:paddingTop="30dp"
+    <include
+        layout="@layout/layout_actionbar"/>
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
-        <com.gigamole.navigationtabstrip.NavigationTabStrip
-            android:id="@+id/nts"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="bottom"
-            app:nts_color="#fff"
-            app:nts_size="@dimen/body_text_size"
-            app:nts_weight="4dp"
-            app:nts_factor="2.5"
-            app:nts_titles="@array/order_title"
-            app:nts_type="line"
-            app:nts_gravity="bottom"
-            app:nts_corners_radius="2dp"
-            app:nts_animation_duration="300"
-            app:nts_active_color="#fff"
-            app:nts_inactive_color="#ccc"/>
-    </FrameLayout>
-    <android.support.v4.view.ViewPager
+        android:layout_height="46dp">
+
+        <TextView
+            android:id="@+id/tv_hold_up"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_tab_center"
+            android:elevation="@dimen/elevation"
+            android:gravity="center"
+            android:text="挂起"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toStartOf="@+id/tv_all"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_all"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_tab_center"
+            android:elevation="@dimen/elevation"
+            android:gravity="center"
+            android:text="全部"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toStartOf="@+id/tv_ing"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_hold_up"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_ing"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_tab_center"
+            android:elevation="@dimen/elevation"
+            android:gravity="center"
+            android:text="进行中"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toStartOf="@+id/tv_complete"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_all"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_complete"
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/shape_tab_center"
+            android:elevation="@dimen/elevation"
+            android:gravity="center"
+            android:text="已完成"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_ing"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+    <com.sf.smartfactory.view.DiyScrollViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v4.view.ViewPager>
+    </com.sf.smartfactory.view.DiyScrollViewPager>
 
 </LinearLayout>

@@ -33,7 +33,7 @@
         </activity>
         <activity android:name=".ui.activity.LoginActivity"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".ui.activity.IndexActivity"

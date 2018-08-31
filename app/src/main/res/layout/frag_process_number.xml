@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     app:cardElevation="0dp"
-    app:cardCornerRadius="0dp"
-    app:cardBackgroundColor="@color/order_content_bg"
+    app:cardCornerRadius="5dp"
+    app:cardBackgroundColor="@android:color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,31 +13,34 @@
         android:layout_width="match_parent"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:layout_height="30dp">
+        android:layout_height="40dp">
         <TextView
             android:id="@+id/tv_current"
             android:gravity="center"
             android:text="当前班次"
             android:textStyle="bold"
+            android:textSize="@dimen/subhead_text_size"
             android:layout_width="wrap_content"
             android:paddingRight="15dp"
-            android:layout_height="30dp" />
+            android:layout_height="match_parent" />
         <TextView
             android:id="@+id/tv_week"
             android:gravity="center"
+            android:textSize="@dimen/subhead_text_size"
             android:text="一周内"
             android:textStyle="bold"
             android:paddingRight="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="match_parent" />
         <TextView
             android:id="@+id/tv_month"
             android:gravity="center"
             android:text="本月"
+            android:textSize="@dimen/subhead_text_size"
             android:textStyle="bold"
             android:paddingRight="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="30dp" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
     <View

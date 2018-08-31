@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4E90C2</color>
-    <color name="colorPrimaryDark">#4E90C2</color>
-    <color name="colorAccent">#4E90C2</color>
+    <color name="colorPrimary">#275AA1</color>
+    <color name="colorPrimaryDark">#275AA1</color>
+    <color name="colorAccent">#275AA1</color>
 
     <color name="load_dialog_bg">#66000000</color>
-    <color name="normal_color">#67BFCB</color>
+    <color name="normal_color">#F4C430</color>
     <color name="error_color">#D85F66</color>
     <color name="all_color">#61A1DE</color>
 
-    <color name="list_bg_color">#E6E6E6</color>
+    <color name="list_bg_color">#B7C0CC</color>
     <color name="item_even_color">#FFFFFF</color>
     <color name="item_odd_color">#F6F9FE</color>
     <color name="order_content_bg">#F7F7F7</color>
 
-    <color name="page_bg">#E0E0E0</color>
+    <color name="page_bg">#B7C0CC</color>
 
     <color name="black">#000000</color>
     <color name="black90">#212121</color>
@@ -36,7 +36,7 @@
     <color name="emergency_color">#FF5500</color>
     <color name="overhaul_color">#FFFF00</color>
 
-    <color name="oee_color">#4285F4</color>
+    <color name="oee_color">#F4C430</color>
     <color name="ae_color">#EA4335</color>
     <color name="qe_color">#FBCC05</color>
     <color name="pe_color">#34A853</color>

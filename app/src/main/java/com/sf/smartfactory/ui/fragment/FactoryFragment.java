@@ -64,13 +64,12 @@ public class FactoryFragment extends BaseFragment{
     TextView mTVDaily;
     @BindView(R.id.tv_clock)
     TextView mTVClock;
+    @BindView(R.id.tv_title)
+    TextView mTVTitle;
 
 
 
     private View checkView;
-    Drawable leftTabCheck = null;
-
-    Drawable rightTabCheck = null;
     Drawable centerTabCheck = null;
 
     private List<Fragment> fragments;
@@ -101,13 +100,12 @@ public class FactoryFragment extends BaseFragment{
     }
 
     private void initView(){
-        leftTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.machine_tab_left,android.R.color.white);
-        rightTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.machine_tab_right,android.R.color.white);
-        centerTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.machine_tab_center,android.R.color.white);
+        centerTabCheck = DrawableUtils.INSTANCE.changeDrawableColor(getActivity(),R.drawable.shape_tab_center,R.color.colorPrimary);
         mVP.setCanScroll(false);
     }
 
     private void initData(){
+        mTVTitle.setText("加工监控");
         fragments = new ArrayList<>();
         fragments.add(ProcessAllFragment.newInstance(null));
         fragments.add(ProcessDailyFragment.newInstance(null));
@@ -151,12 +149,12 @@ public class FactoryFragment extends BaseFragment{
     private void checkNumberDailyList() {
         mVP.setCurrentItem(1);
         checkView = mTVDaily;
-        mTVNumber.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.machine_tab_left));
-        mTVNumber.setTextColor(Color.WHITE);
+        mTVNumber.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_center));
+        mTVNumber.setTextColor(Color.BLACK);
         mTVDaily.setBackground(centerTabCheck);
-        mTVDaily.setTextColor(Color.BLACK);
-        mTVClock.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.machine_tab_right));
-        mTVClock.setTextColor(Color.WHITE);
+        mTVDaily.setTextColor(Color.WHITE);
+        mTVClock.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_center));
+        mTVClock.setTextColor(Color.BLACK);
     }
 
     /**
@@ -165,13 +163,13 @@ public class FactoryFragment extends BaseFragment{
     private void checkNumberList(){
         mVP.setCurrentItem(0);
         checkView = mTVNumber;
-        mTVNumber.setBackground(leftTabCheck);
-        mTVNumber.setTextColor(Color.BLACK);
+        mTVNumber.setBackground(centerTabCheck);
+        mTVNumber.setTextColor(Color.WHITE);
 
-        mTVDaily.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.machine_tab_center));
-        mTVDaily.setTextColor(Color.WHITE);
-        mTVClock.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.machine_tab_right));
-        mTVClock.setTextColor(Color.WHITE);
+        mTVDaily.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_center));
+        mTVDaily.setTextColor(Color.BLACK);
+        mTVClock.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_center));
+        mTVClock.setTextColor(Color.BLACK);
     }
 
     /**
@@ -180,12 +178,12 @@ public class FactoryFragment extends BaseFragment{
     private void checkClockList(){
         mVP.setCurrentItem(2);
         checkView = mTVClock;
-        mTVNumber.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.machine_tab_left));
-        mTVNumber.setTextColor(Color.WHITE);
-        mTVDaily.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.machine_tab_center));
-        mTVDaily.setTextColor(Color.WHITE);
-        mTVClock.setBackground(rightTabCheck);
-        mTVClock.setTextColor(Color.BLACK);
+        mTVNumber.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_center));
+        mTVNumber.setTextColor(Color.BLACK);
+        mTVDaily.setBackground(ContextCompat.getDrawable(getActivity(),R.drawable.shape_tab_center));
+        mTVDaily.setTextColor(Color.BLACK);
+        mTVClock.setBackground(centerTabCheck);
+        mTVClock.setTextColor(Color.WHITE);
     }
 
 

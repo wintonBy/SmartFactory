@@ -2,13 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@color/order_content_bg"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
+    android:elevation="@dimen/elevation"
+    android:background="@drawable/item_bg"
     android:paddingBottom="5dp"
     >
     <LinearLayout
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:background="@android:color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="35dp">

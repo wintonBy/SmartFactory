@@ -96,7 +96,7 @@ public class SettingFragment extends BaseFragment{
         Constant.REFRESH_SPACE = sec * 1000;
         tvUpdateFrequency.setText(title);
         SPUtils.getInstance().put(Constant.SP_UPDATE_FREQUENCY_TITLE,title);
-        SPUtils.getInstance().put(Constant.SP_UPDATE_FREQUENCY_VALUE,sec);
+        SPUtils.getInstance().put(Constant.SP_UPDATE_FREQUENCY_VALUE,sec * 1000);
     }
 
     /**

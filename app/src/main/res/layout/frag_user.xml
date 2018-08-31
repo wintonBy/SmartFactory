@@ -9,21 +9,21 @@
     <RelativeLayout
         android:id="@+id/user_layout"
         android:layout_width="match_parent"
-        android:layout_height="170dp">
+        android:layout_height="250dp">
 
-        <com.sf.smartfactory.view.DynamicBackgroundView
+        <FrameLayout
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:ball_number="8"
-            app:view_bg="@color/colorPrimary"
-            app:ball_r_size="20dp" />
+            android:layout_height="150dp"
+             />
 
         <ImageView
             android:id="@+id/iv_head"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:elevation="@dimen/elevation"
+            android:layout_marginTop="110dp"
             android:background="@drawable/shape_head_circle"
             android:padding="2dp"
             android:scaleType="fitXY"
@@ -35,51 +35,41 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/iv_head"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:text="@string/app_name"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorPrimary"
             android:textSize="16dp" />
 
     </RelativeLayout>
-    <View
-        android:layout_marginTop="10dp"
-        style="@style/Setting_Item_Divider"/>
     <TextView
+        android:layout_marginTop="10dp"
         android:drawablePadding="5dp"
         android:drawableLeft="@mipmap/ic_company"
         android:id="@+id/tv_factory"
         style="@style/Setting_Item"
         android:text="@string/factory_info" />
-    <View
-        style="@style/Setting_Item_Divider"/>
 
     <TextView
+        android:layout_marginTop="5dp"
         android:drawablePadding="5dp"
         android:drawableLeft="@mipmap/ic_setting"
         android:id="@+id/tv_system"
         style="@style/Setting_Item"
         android:text="@string/system_setting" />
-    <View
-        style="@style/Setting_Item_Divider"/>
-    <View
-        android:layout_marginTop="10dp"
-        style="@style/Setting_Item_Divider"/>
     <TextView
+        android:layout_marginTop="20dp"
         android:drawablePadding="5dp"
         android:drawableLeft="@mipmap/ic_service"
         android:id="@+id/tv_service"
         style="@style/Setting_Item"
         android:text="@string/service_info" />
-    <View
-        style="@style/Setting_Item_Divider"/>
     <TextView
+        android:layout_marginTop="5dp"
         android:drawablePadding="5dp"
         android:drawableLeft="@mipmap/ic_about"
         android:id="@+id/tv_about"
         style="@style/Setting_Item"
         android:text="@string/about" />
-    <View
-        style="@style/Setting_Item_Divider"/>
 
 
 </LinearLayout>

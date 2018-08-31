@@ -3,19 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <include
+        layout="@layout/layout_actionbar"/>
     <LinearLayout
-        android:paddingTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/colorPrimary"
+        android:layout_height="40dp"
         android:gravity="center"
         >
         <TextView
             android:id="@+id/tv_number"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:layout_marginRight="-0.75px"
-            android:background="@drawable/machine_tab_left"
+            android:elevation="@dimen/elevation"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/shape_tab_center"
             android:gravity="center"
             android:text="加工数量总计"
             android:textColor="@android:color/black" />
@@ -23,9 +24,10 @@
             android:id="@+id/tv_number_daily"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="-0.75px"
-            android:layout_marginRight="-0.75px"
-            android:background="@drawable/machine_tab_center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:elevation="@dimen/elevation"
+            android:background="@drawable/shape_tab_center"
             android:gravity="center"
             android:text="加工数量每日"
             android:textColor="@android:color/black" />
@@ -33,8 +35,9 @@
             android:id="@+id/tv_clock"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="-0.75px"
-            android:background="@drawable/machine_tab_right"
+            android:elevation="@dimen/elevation"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/shape_tab_center"
             android:gravity="center"
             android:text="加工节拍"
             android:textColor="@android:color/black" />
